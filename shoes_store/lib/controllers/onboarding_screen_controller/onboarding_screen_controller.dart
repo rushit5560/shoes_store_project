@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
 import 'package:shoes_store/screens/login_screen/login_screen.dart';
-import 'package:shoes_store/screens/onboarding_screen/onboarding_model.dart';
+import 'package:shoes_store/models/onboarding_screen_model/onboarding_model.dart';
 
 class OnBoardingScreenController extends GetxController{
   var selectedPageIndex = 0.obs;

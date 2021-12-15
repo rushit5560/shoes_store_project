@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/home_screen/home_screen.dart';
-import 'package:shoes_store/screens/index_screen/index_screen_controller.dart';
+import 'package:shoes_store/controllers/index_screen_controller/index_screen_controller.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
 import 'package:shoes_store/screens/order_screen/order_screen.dart';
 import 'package:shoes_store/screens/profile_screen/profile_screen.dart';
@@ -33,6 +33,7 @@ class _IndexScreenState extends State<IndexScreen> {
       bottomNavigationBar: FancyBottomNavigation(
           circleColor: AppColors.colorDarkPink,
           inactiveIconColor: Colors.black,
+
           tabs: [
             TabData(iconData: Icons.notification_important, title: ""),
             TabData(iconData: Icons.settings, title: ""),

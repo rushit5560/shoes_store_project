@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
-import 'package:shoes_store/screens/category_screen/category_screen_controller.dart';
+import 'package:shoes_store/controllers/category_screen_controller/category_screen_controller.dart';
 import 'package:shoes_store/screens/new_category_screen/new_category_screen.dart';
 
 class CategoryScreen extends StatelessWidget {

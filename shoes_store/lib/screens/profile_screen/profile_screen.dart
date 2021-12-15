@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
-import 'package:shoes_store/screens/profile_screen/profile_screen_controller.dart';
+import 'package:shoes_store/controllers/profile_screen_controller/profile_screen_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

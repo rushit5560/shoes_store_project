@@ -6,7 +6,7 @@ import 'package:shoes_store/screens/category_screen/category_screen.dart';
 import 'package:shoes_store/screens/contact_us_screen/contact_us_screen.dart';
 import 'package:shoes_store/screens/login_screen/login_screen.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
-import 'package:shoes_store/screens/settings_screen/setting_screen_controller.dart';
+import 'package:shoes_store/controllers/settings_screen_controller/setting_screen_controller.dart';
 import 'package:shoes_store/screens/settings_screen/settings_screen.dart';
 
 class CustomDrawer extends StatelessWidget {

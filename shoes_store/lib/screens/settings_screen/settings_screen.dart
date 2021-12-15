@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
-import 'package:shoes_store/screens/settings_screen/setting_screen_controller.dart';
+import 'package:shoes_store/controllers/settings_screen_controller/setting_screen_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
    SettingsScreen({Key? key}) : super(key: key);

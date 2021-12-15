@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/category_details_screen/category_detail_screen.dart';
-import 'package:shoes_store/screens/new_category_screen/new_category_screen_controller.dart';
+import 'package:shoes_store/controllers/new_category_screen_controller/new_category_screen_controller.dart';
 
 class NewCategoryScreen extends StatelessWidget {
    NewCategoryScreen({Key? key}) : super(key: key);

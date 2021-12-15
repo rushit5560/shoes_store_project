@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
-import 'package:shoes_store/screens/onboarding_screen/onboarding_screen_controller.dart';
+import 'package:shoes_store/controllers/onboarding_screen_controller/onboarding_screen_controller.dart';
 
 class OnBoardingscreen extends StatelessWidget {
   OnBoardingscreen({Key? key}) : super(key: key);

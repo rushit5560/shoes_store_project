@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/cart_screen/cart_screen.dart';
-import 'package:shoes_store/screens/category_details_screen/category_detail_screen_controller.dart';
+import 'package:shoes_store/controllers/category_details_screen_controller/category_detail_screen_controller.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
   CategoryDetailScreen({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
-import 'package:shoes_store/screens/cart_screen/cart_screen_controller.dart';
+import 'package:shoes_store/controllers/cart_screen_controller/cart_screen_controller.dart';
 import 'package:shoes_store/screens/checkout_screen/checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/custom_drawer/custom_drawer.dart';
 import 'package:shoes_store/common/images.dart';
-import 'package:shoes_store/screens/home_screen/home_screen_controller.dart';
+import 'package:shoes_store/controllers/home_screen_controller/home_screen_controller.dart';
 
 
 class HomeScreen extends StatelessWidget {
