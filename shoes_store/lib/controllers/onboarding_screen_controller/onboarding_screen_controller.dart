@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/images.dart';
-import 'package:shoes_store/screens/index_screen/index_screen.dart';
-import 'package:shoes_store/screens/login_screen/login_screen.dart';
 import 'package:shoes_store/models/onboarding_screen_model/onboarding_model.dart';
+import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
 
 class OnBoardingScreenController extends GetxController{
   var selectedPageIndex = 0.obs;
@@ -20,7 +17,7 @@ class OnBoardingScreenController extends GetxController{
     super.onInit();
   }
 
-  goToLoginScreen() => Get.offAll(()=> LoginScreen());
+  goToLoginScreen() => Get.offAll(()=> SignInScreen());
 
   setOnBoardingValue()async{
     print('Call Set Value Method');

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/images.dart';
 
 class ConfirmScreen extends StatelessWidget {

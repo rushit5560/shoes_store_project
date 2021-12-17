@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoes_store/screens/splash_screen/splash_screen_view.dart';
+import 'package:shoes_store/screens/splash_screen/splash_screen.dart';
 
 void main() {
   runApp(MyApp());

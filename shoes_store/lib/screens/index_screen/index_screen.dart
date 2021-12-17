@@ -1,7 +1,7 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/screens/home_screen/home_screen.dart';
 import 'package:shoes_store/controllers/index_screen_controller/index_screen_controller.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
@@ -15,7 +15,6 @@ class IndexScreen extends StatefulWidget {
   @override
   State<IndexScreen> createState() => _IndexScreenState();
 }
-
 class _IndexScreenState extends State<IndexScreen> {
    IndexScreenController indexScreenController = Get.put(IndexScreenController());
 
@@ -26,14 +25,13 @@ class _IndexScreenState extends State<IndexScreen> {
      OrderScreen(),
      ProfileScreen()
    ];
-  int currentPage = 0;
+  int currentPage = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: FancyBottomNavigation(
           circleColor: AppColors.colorDarkPink,
           inactiveIconColor: Colors.black,
-
           tabs: [
             TabData(iconData: Icons.notification_important, title: ""),
             TabData(iconData: Icons.settings, title: ""),

@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/common/app_colors.dart';
+
 
 class ContactUsScreen extends StatelessWidget {
    ContactUsScreen({Key? key}) : super(key: key);

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/category_screen/category_screen.dart';
+import 'package:shoes_store/screens/collection_screen/collection_screen.dart';
 import 'package:shoes_store/screens/contact_us_screen/contact_us_screen.dart';
-import 'package:shoes_store/screens/login_screen/login_screen.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
-import 'package:shoes_store/controllers/settings_screen_controller/setting_screen_controller.dart';
 import 'package:shoes_store/screens/settings_screen/settings_screen.dart';
+import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -136,7 +136,7 @@ class CustomDrawer extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        //Get.to(() => ProfileScreen());
+        Get.to(() => CollectionScreen());
       },
       leading: Image.asset(Images.ic_home, color: Colors.black),
       title: Text(
@@ -211,7 +211,7 @@ class CustomDrawer extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-        Get.to(() => LoginScreen());
+        Get.to(() => SignInScreen());
       },
       leading: Image.asset(Images.ic_home, color: Colors.black),
       title: Text(

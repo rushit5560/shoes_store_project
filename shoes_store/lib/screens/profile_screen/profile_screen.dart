@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/controllers/profile_screen_controller/profile_screen_controller.dart';
@@ -489,7 +489,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void gallery() async {
-    final image = await imagePicker.getImage(source: ImageSource.gallery);
+    final image = await imagePicker.pickImage(source: ImageSource.gallery);
     if(image != null){
       setState(() {
         file = File(image.path);
@@ -498,7 +498,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void camera() async {
-    final image = await imagePicker.getImage(source: ImageSource.camera);
+    final image = await imagePicker.pickImage(source: ImageSource.camera);
     if(image != null){
       setState(() {
         file = File(image.path);

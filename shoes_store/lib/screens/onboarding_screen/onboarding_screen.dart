@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
 import 'package:shoes_store/controllers/onboarding_screen_controller/onboarding_screen_controller.dart';
 
-class OnBoardingscreen extends StatelessWidget {
-  OnBoardingscreen({Key? key}) : super(key: key);
+class OnBoardingScreen extends StatelessWidget {
+  OnBoardingScreen({Key? key}) : super(key: key);
 
   final onBoardingController = Get.put(OnBoardingScreenController());
 
@@ -90,7 +90,7 @@ class OnBoardingscreen extends StatelessWidget {
     );*/
 
     return Scaffold(
-      backgroundColor: AppColors.colorLightgrey,
+      backgroundColor: AppColors.colorLightGrey,
       body: GestureDetector(
         onTap: () {
           if(onBoardingController.isLastPage){

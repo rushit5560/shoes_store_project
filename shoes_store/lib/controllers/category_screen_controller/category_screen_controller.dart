@@ -1,65 +1,42 @@
+import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/common/api_url.dart';
+import 'package:shoes_store/models/category_screen_model/category_model.dart';
+import 'package:http/http.dart' as http;
 
-class CategoryModel{
-  CategoryModel({
-    required this.image,
-    required this.name,
-    required this.item
-  });
-
-  String image;
-  String name;
-  String item;
-
-}
 
 class CategoryScreenController extends GetxController{
-  List<CategoryModel> category = [];
+  RxBool isLoading = false.obs;
+  RxBool isStatus = false.obs;
+  List<Datum> categoryLists = [];
+
+  getCategoryData() async {
+    isLoading(true);
+    String url = ApiUrl.CategoryApi;
+    print('Url : $url');
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+
+      CategoryData categoryData = CategoryData.fromJson(json.decode(response.body));
+      isStatus = categoryData.success.obs;
+
+      if(isStatus.value){
+        categoryLists = categoryData.data;
+      } else {
+        print('Category False False');
+      }
+    } catch(e) {
+      print('Category Data Error : $e');
+    } finally {
+      isLoading(false);
+    }
+  }
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    getCategoryData();
     super.onInit();
-    getCategoryList();
   }
 
-  getCategoryList(){
-    category.add(
-      CategoryModel(
-        image: Images.ic_shoes1,
-        name: 'Mens Shoes',
-        item: "3676 Items"
-      ),
-    );
-    category.add(
-      CategoryModel(
-        image: Images.ic_shoes2,
-        name: 'Womens Shoes',
-          item: "2076 Items"
-      ),
-    );
-    category.add(
-      CategoryModel(
-        image: Images.ic_shoes3,
-        name: 'Kids Shoes',
-          item: "1000 Items"
-      ),
-    );
-    category.add(
-      CategoryModel(
-        image: Images.ic_shoes4,
-        name: 'New Arrivals',
-          item: "1520 Items"
-      ),
-    );
-
-    category.add(
-      CategoryModel(
-          image: Images.ic_shoes4,
-          name: 'Special Shoes',
-          item: "1520 Items"
-      ),
-    );
-  }
 }
