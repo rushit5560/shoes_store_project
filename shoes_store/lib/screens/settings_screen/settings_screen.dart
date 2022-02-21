@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/controllers/settings_screen_controller/setting_screen_controller.dart';
+import 'package:shoes_store/screens/change_password_sceen/change_password_sceen.dart';
 
 class SettingsScreen extends StatelessWidget {
    SettingsScreen({Key? key}) : super(key: key);
@@ -28,40 +29,40 @@ class SettingsScreen extends StatelessWidget {
                 margin: EdgeInsets.only(left: 15, right: 15),
                 child: Column(
                   children: [
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20),
                     emailNotification(),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
 
                     Divider(color: Colors.grey.shade500,),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
                     smsNotification(),
 
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
                     Divider(color: Colors.grey.shade500,),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
 
-                    profileAvaiability(),
+                    profileAvailability(),
 
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
                     Divider(color: Colors.grey.shade500,),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
 
                     sentRequest(),
 
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
                     Divider(color: Colors.grey.shade500,),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5),
 
                     changePassword(),
 
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),
             ),
           ),
 
-          Container()
+          Container(),
         ],
          
       ),
@@ -136,7 +137,7 @@ class SettingsScreen extends StatelessWidget {
     );
    }
 
-   profileAvaiability(){
+   profileAvailability(){
     return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -208,19 +209,25 @@ class SettingsScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Change Password",
-              style: TextStyle(
-                  color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
-              ),),
-            SizedBox(height: 5,),
-            Text("you must need youe verified email",
-              style: TextStyle(fontSize: 18, color: Colors.black),)
-          ],
+        GestureDetector(
+          onTap: () {
+            Get.to(()=> ChangePasswordScreen());
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Change Password",
+                style: TextStyle(
+                    color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
+                ),),
+              SizedBox(height: 5,),
+              Text("you must need youe verified email",
+                style: TextStyle(fontSize: 18, color: Colors.black),)
+            ],
+          ),
         ),
-        Obx(()=>
+        Container(),
+        /*Obx(()=>
             Switch(
               value: settingScreenController.isPassword.value,
               onChanged: (value) {
@@ -232,7 +239,7 @@ class SettingsScreen extends StatelessWidget {
               activeTrackColor: AppColors.colorDarkPink,
               activeColor: Colors.white,
             ),
-        ),
+        ),*/
 
       ],
     );

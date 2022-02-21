@@ -5,6 +5,7 @@ import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/controllers/home_screen_controller/home_screen_controller.dart';
 import 'package:shoes_store/models/home_screen_model/featured_product_model.dart';
+import 'package:shoes_store/screens/product_details_screen/product_details_screen.dart';
 
 class SearchTextFieldModule extends StatelessWidget {
   SearchTextFieldModule({Key? key}) : super(key: key);
@@ -190,51 +191,58 @@ class NewCollectionListModule extends StatelessWidget {
                 itemBuilder: (context, index) {
                   Datum1 featuredSingleItem= homeScreenController.featuredProductLists[index];
                   final imgUrl = ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          //height: 100,
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.grey.shade200,
-                              //border: Border.all(color: Colors.grey.shade400
-                              //),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.shade400, blurRadius: 5)
-                              ]),
-                          child: Image.network("$imgUrl"),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        "${featuredSingleItem.productname}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Text(
-                            "\$${featuredSingleItem.productcost}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetailsScreen(),
+                        arguments: featuredSingleItem.id,
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            //height: 100,
+                            margin: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.grey.shade200,
+                                //border: Border.all(color: Colors.grey.shade400
+                                //),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade400, blurRadius: 5)
+                                ]),
+                            child: Image.network("$imgUrl"),
                           ),
-                          const SizedBox(width: 10),
-                          Text(
-                            "\$${featuredSingleItem.productcost}",
-                            style: TextStyle(fontSize: 18),
-                          )
-                        ],
-                      )
-                    ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "${featuredSingleItem.productname}",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              "\$${featuredSingleItem.productcost}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "\$${featuredSingleItem.productcost}",
+                              style: TextStyle(fontSize: 18),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   );
                 }),
           )
@@ -265,9 +273,7 @@ class BestSellerListModule extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               ),
               GestureDetector(
-                onTap: () {
-                  //Get.to(()=> CategoryScreen());
-                },
+                onTap: () {},
                 child: Text(
                   "Show All",
                   style: TextStyle(
@@ -289,51 +295,58 @@ class BestSellerListModule extends StatelessWidget {
                 itemBuilder: (context, index) {
                   Datum1 featuredSingleItem= homeScreenController.featuredProductLists[index];
                   final imgUrl = ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          //height: 100,
-                          margin: EdgeInsets.only(left: 10, right: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.grey.shade200,
-                              //border: Border.all(color: Colors.grey.shade400
-                              //),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.shade400, blurRadius: 5)
-                              ]),
-                          child: Image.network("$imgUrl"),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        "${featuredSingleItem.productname}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Text(
-                            "\$${featuredSingleItem.productcost}",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetailsScreen(),
+                        arguments: featuredSingleItem.id,
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            //height: 100,
+                            margin: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.grey.shade200,
+                                //border: Border.all(color: Colors.grey.shade400
+                                //),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade400, blurRadius: 5)
+                                ]),
+                            child: Image.network("$imgUrl"),
                           ),
-                          const SizedBox(width: 10),
-                          Text(
-                            "\$${featuredSingleItem.productcost}",
-                            style: TextStyle(fontSize: 18),
-                          )
-                        ],
-                      )
-                    ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "${featuredSingleItem.productname}",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              "\$${featuredSingleItem.productcost}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "\$${featuredSingleItem.productcost}",
+                              style: TextStyle(fontSize: 18),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   );
                 }),
           )
@@ -350,60 +363,75 @@ class OfferListModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height * 0.25,
+      height: Get.height * 0.20,
       child: ListView.builder(
           itemCount: homeScreenController.bannerLists.length,
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Stack(
-                alignment: Alignment.centerRight,
+            String imgUrl = ApiUrl.ApiMainPath +
+            "${homeScreenController.bannerLists[index].imagePath}";
+            return _offerListTile(imgUrl);
+          }),
+    );
+  }
+
+  Widget _offerListTile(String imgUrl) {
+    print('imgUrl : $imgUrl');
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        child: Stack(
+          alignment: Alignment.centerRight,
+          children: [
+            Container(
+              width: Get.width * 0.95,
+              height: Get.height * 0.20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                // color: Colors.grey,
+              ),
+              child: Image.network("$imgUrl", fit: BoxFit.cover,),
+            ),
+
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                // color: Colors.grey,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey,
+                  Text(
+                    "20% Off on Mens Shoes",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    child: Image.network(ApiUrl.ApiMainPath +
-                        homeScreenController.bannerLists[index].imagePath),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "20% Off on Mens Shoes",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  const SizedBox(height: 10),
+                  Container(
+                    // height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: AppColors.colorDarkPink,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Text(
+                        "Shop Now",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 35,
-                        width: Get.width / 3,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: AppColors.colorDarkPink),
-                        child: Center(
-                            child: Text(
-                          "Shop Now",
-                          style: TextStyle(color: Colors.white, fontSize: 17),
-                        )),
-                      )
-                    ],
-                  )
+                    ),
+                  ),
                 ],
               ),
-            );
-          }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

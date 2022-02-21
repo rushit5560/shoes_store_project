@@ -67,12 +67,4 @@ class HomeScreenController extends GetxController{
     super.onInit();
   }
 
-    List<String> image = [
-      Images.ic_shoes1,
-      Images.ic_shoes2,
-      Images.ic_shoes3,
-      Images.ic_shoes4,
-      Images.ic_shoes5,
-      Images.ic_shoes6
-    ];
 }

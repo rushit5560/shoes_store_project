@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/screens/cart_screen/cart_screen.dart';
 import 'package:shoes_store/screens/category_collection_screen/filter_dialog.dart';
 import 'app_colors.dart';
 
@@ -37,7 +38,7 @@ PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
     actions: [
       index == 1
           ? GestureDetector(
-              onTap: () => print('Clk Scanner'),
+              onTap: () => Get.to(() => CartScreen()),
               child: Image.asset(Images.ic_notification, height: 25, width: 25),
             )
           : index == 2
@@ -57,7 +58,8 @@ PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
                           onTap: () {
                             showAlertDialog(context);
                           },
-                          child: Icon(Icons.edit))
+                          child: Icon(Icons.edit),
+                        )
                       : Container(),
       SizedBox(width: 20)
     ],
@@ -135,17 +137,11 @@ showAlertDialog(BuildContext context) {
       child: Column(
         children: [
           userNameTextField(),
-          SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           addressTextField(),
-          SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           birthDateTextField(),
-          SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
 
           /*Container(
                height: 50,
@@ -202,13 +198,9 @@ showAlertDialog(BuildContext context) {
                   //  });
                 }),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           emailTextField(),
-          SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           aboutTextField()
         ],
       ),

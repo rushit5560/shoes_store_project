@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/controllers/category_collection_screen_controller/category_collection_screen_controller.dart';
 import 'package:shoes_store/models/category_collection_screen_model/category_collection_model.dart';
+import 'package:shoes_store/screens/product_details_screen/product_details_screen.dart';
 
 class CategoryCollectionListModule extends StatelessWidget {
   CategoryCollectionListModule({Key? key}) : super(key: key);
@@ -35,7 +36,11 @@ class CategoryCollectionListModule extends StatelessWidget {
       children: [
         Expanded(
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => ProductDetailsScreen(),
+                arguments: categoryCollectionSingleItem.id,
+              );
+            },
             child: Container(
               //height: 100,
               width: Get.width,

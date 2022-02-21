@@ -9,7 +9,6 @@ import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/controllers/home_screen_controller/home_screen_controller.dart';
 import 'home_screen_widgets.dart';
 
-
 class HomeScreen extends StatelessWidget {
   final homeScreenController = Get.put(HomeScreenController());
 
@@ -33,8 +32,9 @@ class HomeScreen extends StatelessWidget {
                         width: Get.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              topLeft: Radius.circular(20)),
+                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20),
+                          ),
                           color: Colors.white,
                         ),
                         child: Column(
@@ -52,8 +52,8 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             BestSellerListModule(),
                             const SizedBox(height: 25),
-                            BestSellerListModule(),
-                            const SizedBox(height: 10),
+                            OfferListModule(),
+                            const SizedBox(height: 15),
                           ],
                         ),
                       )

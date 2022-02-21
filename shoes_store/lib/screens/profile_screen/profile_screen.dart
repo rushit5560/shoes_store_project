@@ -29,9 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: commonAppBarModule(image: "Profile", index: 4, context: context),
       body: Column(
         children: [
-          Container(
-            height: 50,
-          ),
+          Container(height: 50),
           profileContainer(context)
         ],
       ),
@@ -51,18 +49,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             children: [
               profile(context),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               profileName(),
-              SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                child: tabView(),
-              )
-
-
+              SizedBox(height: 10),
+              Expanded(child: tabView()),
             ],
           ),
         ),
@@ -77,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         file != null ?
         ClipRRect(
           borderRadius: BorderRadius.circular(80.0),
-          child: Image.file(file!, height: 120 ,width: 120, fit: BoxFit.fill ),
+          child: Image.file(file!, height: 120 ,width: 120, fit: BoxFit.fill),
         ):
         Container(
           height: 120,

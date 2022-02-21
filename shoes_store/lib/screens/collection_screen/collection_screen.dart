@@ -6,6 +6,7 @@ import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/custom_widgets.dart';
 import 'package:shoes_store/controllers/collection_screen_controller/collection_screen_controller.dart';
 import 'package:shoes_store/models/collection_screen_model/collection_model.dart';
+import 'package:shoes_store/screens/product_details_screen/product_details_screen.dart';
 
 class CollectionScreen extends StatelessWidget {
   CollectionScreen({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class CollectionScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 30),
-                          Expanded(child: categoryList())
+                          Expanded(child: collectionList())
                         ],
                       ),
                     ),
@@ -44,7 +45,7 @@ class CollectionScreen extends StatelessWidget {
     );
   }
 
-  categoryList() {
+  collectionList() {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10),
       child: GridView.builder(
@@ -54,20 +55,24 @@ class CollectionScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           Datum1 categorySingleItem =
               collectionScreenController.collectionLists[index];
-          return _categoryListTile(categorySingleItem);
+          return _collectionListTile(categorySingleItem);
         },
       ),
     );
   }
 
-  Widget _categoryListTile(Datum1 categorySingleItem) {
+  Widget _collectionListTile(Datum1 categorySingleItem) {
     final imgUrl = ApiUrl.ApiMainPath + "${categorySingleItem.showimg}";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => ProductDetailsScreen(),
+                  arguments: categorySingleItem.id,
+              );
+            },
             child: Container(
               //height: 100,
               width: Get.width,

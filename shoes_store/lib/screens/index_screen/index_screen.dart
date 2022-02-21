@@ -23,7 +23,7 @@ class _IndexScreenState extends State<IndexScreen> {
      SettingsScreen(),
      HomeScreen(),
      OrderScreen(),
-     ProfileScreen()
+     ProfileScreen(),
    ];
   int currentPage = 2;
   @override
@@ -36,7 +36,7 @@ class _IndexScreenState extends State<IndexScreen> {
             TabData(iconData: Icons.notification_important, title: ""),
             TabData(iconData: Icons.settings, title: ""),
             TabData(iconData: Icons.home, title: ""),
-            TabData(iconData: Icons.home, title: ""),
+            TabData(iconData: Icons.favorite, title: ""),
             TabData(iconData: Icons.person, title: "")
           ],
           onTabChangedListener: (int position) {
