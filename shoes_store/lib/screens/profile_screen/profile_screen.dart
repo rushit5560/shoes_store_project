@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shoes_store/common/app_colors.dart';
-import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/controllers/profile_screen_controller/profile_screen_controller.dart';
+import 'package:shoes_store/screens/profile_screen/profile_screen_widgets.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -14,7 +14,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  //ProfileScreen({Key? key}) : super(key: key);
   ProfileScreenController profileScreenController =
       Get.put(ProfileScreenController());
 
@@ -26,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
-      appBar: commonAppBarModule(image: "Profile", index: 4, context: context),
+      appBar: profileScreenAppBarModule(title: 'Profile', context: context),
       body: Column(
         children: [
           Container(height: 50),
@@ -213,39 +212,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   personalInfoModule() {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Birth Date',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black, fontSize: 17
-                    ),
-                  ),
-                  SizedBox(height: 5,),
-                  Text(
-                    '22/5/1998',
-                    style: TextStyle(
-                      color: Colors.black,
-                        fontSize: 17
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: 60,),
-              Expanded(
-                //flex: 5,
-                child: Column(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Gender',
+                      'Birth Date',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black, fontSize: 17
@@ -253,49 +230,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(height: 5,),
                     Text(
-                      'Male',
+                      '22/5/1998',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-
-          SizedBox(height: 20,),
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Email Id',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black, fontSize: 17
-                    ),
-                  ),
-                  SizedBox(height: 5,),
-                  Text(
-                    'john@demo.com',
-                    style: TextStyle(
                         color: Colors.black,
-                        fontSize: 17
+                          fontSize: 17
+                      ),
                     ),
+                  ],
+                ),
+                SizedBox(width: 60,),
+                Expanded(
+                  //flex: 5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gender',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black, fontSize: 17
+                        ),
+                      ),
+                      SizedBox(height: 5,),
+                      Text(
+                        'Male',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(width: 15,),
-              Expanded(
-                //flex: 3,
-                child: Column(
+                )
+              ],
+            ),
+
+            SizedBox(height: 20,),
+            Row(
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Address',
+                      'Email Id',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black, fontSize: 17
@@ -303,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(height: 5,),
                     Text(
-                      '7000, WhiteField, Manchester Highway, London, 401203',
+                      'john@demo.com',
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 17
@@ -311,22 +288,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
-
-          SizedBox(height: 20,),
-          Text(
-            'About Us',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black, fontSize: 17
+                SizedBox(width: 15,),
+                Expanded(
+                  //flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Address',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black, fontSize: 17
+                        ),
+                      ),
+                      SizedBox(height: 5,),
+                      Text(
+                        '7000, WhiteField, Manchester Highway, London, 401203',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
-          ),
-          SizedBox(height: 5,),
-          Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
 
-        ],
+            SizedBox(height: 20,),
+            Text(
+              'About Us',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, fontSize: 17
+              ),
+            ),
+            SizedBox(height: 5,),
+            Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+
+          ],
+        ),
       ),
     );
   }

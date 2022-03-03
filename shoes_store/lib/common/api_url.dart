@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const ApiMainPath = 'https://ecomsport.omdemo.co.in/';
+  static const ApiMainPath = 'http://shoes.omdemo.co.in/';
 
   static const LoginApi = ApiMainPath + "api/login";
   static const RegisterApi = ApiMainPath + 'api/register';

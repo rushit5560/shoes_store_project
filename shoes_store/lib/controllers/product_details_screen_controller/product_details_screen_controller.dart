@@ -7,6 +7,7 @@ import 'package:shoes_store/models/product_detail_screen_model/add_product_revie
 import 'package:shoes_store/models/product_detail_screen_model/addtocart_model.dart';
 import 'package:shoes_store/models/product_detail_screen_model/product_detail_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shoes_store/screens/cart_screen/cart_screen.dart';
 
 
 class ProductDetailsScreenController extends GetxController {
@@ -127,6 +128,7 @@ class ProductDetailsScreenController extends GetxController {
       if (isStatus.value) {
         print('True True');
         Get.snackbar('', 'Product Add in Cart Successfully');
+        Get.to(()=> CartScreen());
       } else {
         print('False False');
       }
