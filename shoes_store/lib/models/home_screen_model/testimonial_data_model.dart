@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-GetAllBannerModel getAllBannerModelFromJson(String str) => GetAllBannerModel.fromJson(json.decode(str));
+GetTestimonialModel getTestimonialModelFromJson(String str) => GetTestimonialModel.fromJson(json.decode(str));
 
-String getAllBannerModelToJson(GetAllBannerModel data) => json.encode(data.toJson());
+String getTestimonialModelToJson(GetTestimonialModel data) => json.encode(data.toJson());
 
-class GetAllBannerModel {
-  GetAllBannerModel({
+class GetTestimonialModel {
+  GetTestimonialModel({
     required this.status,
     required this.message,
     required this.list,
@@ -13,12 +13,12 @@ class GetAllBannerModel {
 
   bool status;
   String message;
-  List<BannerElement> list;
+  List<TestimonialElement> list;
 
-  factory GetAllBannerModel.fromJson(Map<String, dynamic> json) => GetAllBannerModel(
+  factory GetTestimonialModel.fromJson(Map<String, dynamic> json) => GetTestimonialModel(
     status: json["status"] ?? false,
     message: json["message"] ?? "",
-    list: List<BannerElement>.from(json["List"].map((x) => BannerElement.fromJson(x ?? {})) ?? []),
+    list: List<TestimonialElement>.from(json["List"].map((x) => TestimonialElement.fromJson(x ?? {})) ?? []),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,13 +28,12 @@ class GetAllBannerModel {
   };
 }
 
-class BannerElement {
-  BannerElement({
+class TestimonialElement {
+  TestimonialElement({
     required this.id,
-    required this.title,
-    required this.subTitle,
+    required this.name,
     required this.description,
-    required this.bannerImage,
+    required this.testimonialImage,
     required this.isActive,
     // required this.createdAt,
     // required this.updatedAt,
@@ -42,33 +41,30 @@ class BannerElement {
   });
 
   String id;
-  String title;
-  String subTitle;
+  String name;
   String description;
-  String bannerImage;
+  String testimonialImage;
   bool isActive;
-  // String createdAt;
-  // String updatedAt;
+  // DateTime createdAt;
+  // DateTime updatedAt;
   int v;
 
-  factory BannerElement.fromJson(Map<String, dynamic> json) => BannerElement(
+  factory TestimonialElement.fromJson(Map<String, dynamic> json) => TestimonialElement(
     id: json["_id"] ?? "",
-    title: json["Title"] ?? "",
-    subTitle: json["SubTitle"] ?? "",
+    name: json["Name"] ?? "",
     description: json["Description"] ?? "",
-    bannerImage: json["BannerImage"] ?? "",
+    testimonialImage: json["TestimonialImage"] ?? "",
     isActive: json["IsActive"] ?? false,
     // createdAt: DateTime.parse(json["createdAt"]),
     // updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
+    v: json["__v"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "Title": title,
-    "SubTitle": subTitle,
+    "Name": name,
     "Description": description,
-    "BannerImage": bannerImage,
+    "TestimonialImage": testimonialImage,
     "IsActive": isActive,
     // "createdAt": createdAt.toIso8601String(),
     // "updatedAt": updatedAt.toIso8601String(),
