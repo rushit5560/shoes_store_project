@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
@@ -26,6 +27,7 @@ class HomeScreenController extends GetxController{
 
       if(isStatus.value){
         bannerLists = bannerList.data.obs;
+        log('bannerLists: $bannerLists');
       } else {
         print('Banner False False');
       }

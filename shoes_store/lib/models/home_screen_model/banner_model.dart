@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final bannerData = bannerDataFromJson(jsonString);
+
 import 'dart:convert';
 
 BannerData bannerDataFromJson(String str) => BannerData.fromJson(json.decode(str));
@@ -16,9 +20,9 @@ class BannerData {
   String message;
 
   factory BannerData.fromJson(Map<String, dynamic> json) => BannerData(
-    success: json["success"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    message: json["message"],
+    success: json["success"] ?? false,
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)) ?? {}),
+    message: json["message"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -70,45 +74,44 @@ class Datum {
   String modifiedBy;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    bannerId: json["banner_id"],
-    title: json["title"] == null ? "" : json["title"],
-    sortOrder: json["sort_order"] == null ? "" : json["sort_order"],
-    url: json["url"] == null ? "" : json["url"],
-    bannerGroupId: json["banner_group_id"] == null ? "" : json["banner_group_id"],
-    containerName: json["container_name"] == null ? "" : json["container_name"],
-    viewPageCount: json["view_page_count"] == null ? 0 : json["view_page_count"],
-    bannerGroupBannerGroupId: json["banner_group_banner_group_id"] == null ? "" : json["banner_group_banner_group_id"],
-    link: json["link"] == null ? "" : json["link"],
-    image: json["image"] == null ? "" : json["image"],
-    imagePath: json["image_path"] == null ? "" : json["image_path"],
-    content: json["content"] == null ? "" : json["content"],
-    position: json["position"],
-    isActive: json["is_active"] == null ? 1 : json["is_active"],
-    createdDate: DateTime.parse(json["created_date"]),
-    modifiedDate: json["modified_date"] == null ? "" : json["modified_date"],
-    createdBy: json["created_by"] == null ? 1 : json["created_by"],
-    modifiedBy: json["modified_by"] == null ? "" : json["modified_by"],
+    bannerId: json["banner_id"] ?? 0,
+    title: json["title"] ?? "",
+    sortOrder: json["sort_order"] ?? "",
+    url: json["url"] ?? "",
+    bannerGroupId: json["banner_group_id"] ?? "",
+    containerName: json["container_name"] ?? "",
+    viewPageCount: json["view_page_count"] ?? 0,
+    bannerGroupBannerGroupId: json["banner_group_banner_group_id"] ?? "",
+    link: json["link"] ?? "",
+    image: json["image"] ?? "",
+    imagePath: json["image_path"] ?? "",
+    content: json["content"] ?? "",
+    position: json["position"] ?? 0,
+    isActive: json["is_active"] ?? 0,
+    createdDate: DateTime.parse(json["created_date"] ?? DateTime.now()),
+    modifiedDate: json["modified_date"] ?? "",
+    createdBy: json["created_by"] ?? 0,
+    modifiedBy: json["modified_by"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
     "banner_id": bannerId,
-    "title": title.isEmpty ? "" : title,
-    "sort_order": sortOrder.isEmpty ? "" : sortOrder,
-    "url": url.isEmpty ? "" : url,
-    "banner_group_id": bannerGroupId.isEmpty ? "" : bannerGroupId,
-    "container_name": containerName.isEmpty ? "" : containerName,
-    "view_page_count": viewPageCount.toString().isEmpty ? 0 : viewPageCount,
-    "banner_group_banner_group_id": bannerGroupBannerGroupId.isEmpty ? "" : bannerGroupBannerGroupId,
-    "link": link.isEmpty ? "" : link,
-    "image": image.isEmpty ? "" : image,
-    "image_path": imagePath.isEmpty ? "" : imagePath,
-    "content": content.isEmpty? "" : content,
-    "position": position,
-    "is_active": isActive.toString().isEmpty ? 1 : isActive,
+    "title": title,
+    "sort_order": sortOrder,
+    "url": url,
+    "banner_group_id": bannerGroupId,
+    "container_name": containerName,
+    "view_page_count": viewPageCount,
+    "banner_group_banner_group_id": bannerGroupBannerGroupId,
+    "link": link,
+    "image": image,
+    "image_path": imagePath,
+    "content": content,
+    "position": position == null ? null : position,
+    "is_active": isActive,
     "created_date": createdDate.toIso8601String(),
-    "modified_date": modifiedDate.isEmpty ? "" : modifiedDate,
-    "created_by": createdBy.toString().isEmpty ? 1 : createdBy,
-    "modified_by": modifiedBy.isEmpty ? "" : modifiedBy,
+    "modified_date": modifiedDate,
+    "created_by": createdBy,
+    "modified_by": modifiedBy,
   };
 }
-

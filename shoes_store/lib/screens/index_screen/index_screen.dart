@@ -29,36 +29,32 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: FancyBottomNavigation(
-      //     circleColor: AppColors.colorDarkPink,
-      //     inactiveIconColor: Colors.black,
-      //     tabs: [
-      //       TabData(iconData: Icons.notification_important, title: ""),
-      //       TabData(iconData: Icons.settings, title: ""),
-      //       TabData(iconData: Icons.home, title: ""),
-      //       TabData(iconData: Icons.favorite, title: ""),
-      //       TabData(iconData: Icons.person, title: "")
-      //     ],
-      //     onTabChangedListener: (int position) {
-      //       setState(() {
-      //           currentPage = position;
-      //       });
-      //     },
-      // ),
-
-
-      body: Obx(
-            () => Container(
-          child: getMenuByIndex,
-        ),
+      bottomNavigationBar: FancyBottomNavigation(
+          circleColor: AppColors.colorDarkPink,
+          inactiveIconColor: Colors.black,
+          tabs: [
+            TabData(iconData: Icons.notification_important, title: ""),
+            TabData(iconData: Icons.settings, title: ""),
+            TabData(iconData: Icons.home, title: ""),
+            TabData(iconData: Icons.favorite, title: ""),
+            TabData(iconData: Icons.person, title: "")
+          ],
+          onTabChangedListener: (int position) {
+            setState(() {
+                currentPage = position;
+            });
+          },
       ),
 
-      bottomNavigationBar: naviBar(context, changeIndex),
+
+      body: _pageOptions[currentPage],
+
+     // bottomNavigationBar: naviBar(context, changeIndex),
 
     );
   }
 
-   Widget naviBar(BuildContext context, changeIndex) {
+   /*Widget naviBar(BuildContext context, changeIndex) {
      return Container(
        height: Get.height * 0.07,
        alignment: Alignment.center,
@@ -166,9 +162,6 @@ class _IndexScreenState extends State<IndexScreen> {
      } else {
        return ProfileScreen();
      }
-   }
+   }*/
 
-      body: _pageOptions[currentPage],
-    );
-  }
 }
