@@ -182,8 +182,9 @@ class NewCollectionListModule extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
-            height: 10),
+
+          SizedBox(height: 10),
+
           Container(
             height: Get.height * 0.25,
             child: ListView.builder(

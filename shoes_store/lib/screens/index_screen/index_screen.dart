@@ -47,10 +47,15 @@ class _IndexScreenState extends State<IndexScreen> {
       //       });
       //     },
       // ),
-      bottomNavigationBar: Obx(() => naviBar(context, changeIndex)),
 
-      body: _pageOptions[currentPage],
 
+      body: Obx(
+            () => Container(
+          child: getMenuByIndex,
+        ),
+      ),
+
+      bottomNavigationBar: naviBar(context, changeIndex),
 
     );
   }
@@ -108,7 +113,7 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-               child: Icon(Icons.favorite),
+               child: Icon(Icons.home),
              ),
            ),
 
@@ -122,7 +127,7 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-               child: Icon(Icons.home),
+               child: Icon(Icons.favorite),
              ),
            ),
 
