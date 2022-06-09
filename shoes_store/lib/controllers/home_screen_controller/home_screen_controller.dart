@@ -1,23 +1,19 @@
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
+import 'package:shoes_store/common/images.dart';
 import 'package:http/http.dart' as http;
 import 'package:shoes_store/models/home_screen_model/banner_model.dart';
-import 'package:shoes_store/models/home_screen_model/category_model.dart';
 import 'package:shoes_store/models/home_screen_model/featured_product_model.dart';
-import 'package:shoes_store/models/home_screen_model/testimonial_data_model.dart';
-
-
 class HomeScreenController extends GetxController{
   var activeIndex = 0.obs;
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
-  RxList<BannerElement> bannerLists = RxList();
-  RxList<ProductElement> featuredProductLists = RxList();
-  RxList<TestimonialElement> testimonialLists = RxList();
-  RxList<CategoryElement> categoryLists = RxList();
+  RxList<Datum> bannerLists = RxList();
+  RxList<Datum1> featuredProductLists = RxList();
 
-  Future<void> getBannerDataFunction() async {
+  getBannerData() async {
     isLoading(true);
     String url = ApiUrl.BannerApi;
     print('Url : $url');
@@ -25,12 +21,11 @@ class HomeScreenController extends GetxController{
     try{
       http.Response response = await http.get(Uri.parse(url));
 
-      GetAllBannerModel getAllBannerModel = GetAllBannerModel.fromJson(json.decode(response.body));
-      isStatus = getAllBannerModel.status.obs;
+      BannerData bannerList = BannerData.fromJson(json.decode(response.body));
+      isStatus = bannerList.success.obs;
 
       if(isStatus.value){
-        bannerLists.clear();
-        bannerLists = getAllBannerModel.list.obs;
+        bannerLists = bannerList.data.obs;
       } else {
         print('Banner False False');
       }
@@ -38,12 +33,12 @@ class HomeScreenController extends GetxController{
       print('Banner Error : $e');
     } finally {
       // isLoading(false);
-      await getFeaturedProductDataFunction();
+      getFeaturedProductData();
     }
 
   }
 
-  Future<void> getFeaturedProductDataFunction() async {
+  getFeaturedProductData() async {
     isLoading(true);
     String url = ApiUrl.FeaturedProductApi;
     print('Url : $url');
@@ -51,61 +46,11 @@ class HomeScreenController extends GetxController{
     try{
       http.Response response = await http.get(Uri.parse(url));
 
-      AllProductsModel allProductsModel = AllProductsModel.fromJson(json.decode(response.body));
-      isStatus = allProductsModel.status.obs;
+      FeaturedProductData featuredProductData = FeaturedProductData.fromJson(json.decode(response.body));
+      isStatus = featuredProductData.success.obs;
 
       if(isStatus.value) {
-        featuredProductLists = allProductsModel.list.obs;
-      } else {
-        print('FeaturedProduct False False');
-      }
-    } catch(e) {
-      print('FeaturedProduct Error : $e');
-    } finally {
-      // isLoading(false);
-      await getTestimonialDataFunction();
-    }
-  }
-
-  Future<void> getTestimonialDataFunction() async {
-    isLoading(true);
-    String url = ApiUrl.TestimonialApi;
-    print('Url : $url');
-
-    try{
-      http.Response response = await http.get(Uri.parse(url));
-
-      GetTestimonialModel getTestimonialModel = GetTestimonialModel.fromJson(json.decode(response.body));
-      isStatus = getTestimonialModel.status.obs;
-
-      if(isStatus.value) {
-        testimonialLists.clear();
-        testimonialLists = getTestimonialModel.list.obs;
-      } else {
-        print('FeaturedProduct False False');
-      }
-    } catch(e) {
-      print('FeaturedProduct Error : $e');
-    } finally {
-      // isLoading(false);
-      await getCategoryDataFunction();
-    }
-  }
-
-  Future<void> getCategoryDataFunction() async {
-    isLoading(true);
-    String url = ApiUrl.CategoryApi;
-    print('Url : $url');
-
-    try{
-      http.Response response = await http.get(Uri.parse(url));
-
-      GetAllCategoryModel getAllCategoryModel = GetAllCategoryModel.fromJson(json.decode(response.body));
-      isStatus = getAllCategoryModel.status.obs;
-
-      if(isStatus.value) {
-        categoryLists.clear();
-        categoryLists = getAllCategoryModel.list.obs;
+        featuredProductLists = featuredProductData.data.obs;
       } else {
         print('FeaturedProduct False False');
       }
@@ -118,7 +63,7 @@ class HomeScreenController extends GetxController{
 
   @override
   void onInit() {
-    getBannerDataFunction();
+    getBannerData();
     super.onInit();
   }
 

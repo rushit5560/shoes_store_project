@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             NewCollectionListModule(),
                             const SizedBox(height: 20),
-                            TestimonialModule(),
+                            BestSellerListModule(),
                             const SizedBox(height: 25),
                             OfferListModule(),
                             const SizedBox(height: 15),

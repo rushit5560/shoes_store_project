@@ -1,77 +1,114 @@
 import 'dart:convert';
 
-GetAllBannerModel getAllBannerModelFromJson(String str) => GetAllBannerModel.fromJson(json.decode(str));
+BannerData bannerDataFromJson(String str) => BannerData.fromJson(json.decode(str));
 
-String getAllBannerModelToJson(GetAllBannerModel data) => json.encode(data.toJson());
+String bannerDataToJson(BannerData data) => json.encode(data.toJson());
 
-class GetAllBannerModel {
-  GetAllBannerModel({
-    required this.status,
+class BannerData {
+  BannerData({
+    required this.success,
+    required this.data,
     required this.message,
-    required this.list,
   });
 
-  bool status;
+  bool success;
+  List<Datum> data;
   String message;
-  List<BannerElement> list;
 
-  factory GetAllBannerModel.fromJson(Map<String, dynamic> json) => GetAllBannerModel(
-    status: json["status"] ?? false,
-    message: json["message"] ?? "",
-    list: List<BannerElement>.from(json["List"].map((x) => BannerElement.fromJson(x ?? {})) ?? []),
+  factory BannerData.fromJson(Map<String, dynamic> json) => BannerData(
+    success: json["success"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
+    "success": success,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
     "message": message,
-    "List": List<dynamic>.from(list.map((x) => x.toJson())),
   };
 }
 
-class BannerElement {
-  BannerElement({
-    required this.id,
+class Datum {
+  Datum({
+    required this.bannerId,
     required this.title,
-    required this.subTitle,
-    required this.description,
-    required this.bannerImage,
+    required this.sortOrder,
+    required this.url,
+    required this.bannerGroupId,
+    required this.containerName,
+    required this.viewPageCount,
+    required this.bannerGroupBannerGroupId,
+    required this.link,
+    required this.image,
+    required this.imagePath,
+    required this.content,
+    required this.position,
     required this.isActive,
-    // required this.createdAt,
-    // required this.updatedAt,
-    required this.v,
+    required this.createdDate,
+    required this.modifiedDate,
+    required this.createdBy,
+    required this.modifiedBy,
   });
 
-  String id;
+  int bannerId;
   String title;
-  String subTitle;
-  String description;
-  String bannerImage;
-  bool isActive;
-  // String createdAt;
-  // String updatedAt;
-  int v;
+  String sortOrder;
+  String url;
+  String bannerGroupId;
+  String containerName;
+  int viewPageCount;
+  String bannerGroupBannerGroupId;
+  String link;
+  String image;
+  String imagePath;
+  String content;
+  int position;
+  int isActive;
+  DateTime createdDate;
+  String modifiedDate;
+  int createdBy;
+  String modifiedBy;
 
-  factory BannerElement.fromJson(Map<String, dynamic> json) => BannerElement(
-    id: json["_id"] ?? "",
-    title: json["Title"] ?? "",
-    subTitle: json["SubTitle"] ?? "",
-    description: json["Description"] ?? "",
-    bannerImage: json["BannerImage"] ?? "",
-    isActive: json["IsActive"] ?? false,
-    // createdAt: DateTime.parse(json["createdAt"]),
-    // updatedAt: DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    bannerId: json["banner_id"],
+    title: json["title"] == null ? "" : json["title"],
+    sortOrder: json["sort_order"] == null ? "" : json["sort_order"],
+    url: json["url"] == null ? "" : json["url"],
+    bannerGroupId: json["banner_group_id"] == null ? "" : json["banner_group_id"],
+    containerName: json["container_name"] == null ? "" : json["container_name"],
+    viewPageCount: json["view_page_count"] == null ? 0 : json["view_page_count"],
+    bannerGroupBannerGroupId: json["banner_group_banner_group_id"] == null ? "" : json["banner_group_banner_group_id"],
+    link: json["link"] == null ? "" : json["link"],
+    image: json["image"] == null ? "" : json["image"],
+    imagePath: json["image_path"] == null ? "" : json["image_path"],
+    content: json["content"] == null ? "" : json["content"],
+    position: json["position"],
+    isActive: json["is_active"] == null ? 1 : json["is_active"],
+    createdDate: DateTime.parse(json["created_date"]),
+    modifiedDate: json["modified_date"] == null ? "" : json["modified_date"],
+    createdBy: json["created_by"] == null ? 1 : json["created_by"],
+    modifiedBy: json["modified_by"] == null ? "" : json["modified_by"],
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "Title": title,
-    "SubTitle": subTitle,
-    "Description": description,
-    "BannerImage": bannerImage,
-    "IsActive": isActive,
-    // "createdAt": createdAt.toIso8601String(),
-    // "updatedAt": updatedAt.toIso8601String(),
-    "__v": v,
+    "banner_id": bannerId,
+    "title": title.isEmpty ? "" : title,
+    "sort_order": sortOrder.isEmpty ? "" : sortOrder,
+    "url": url.isEmpty ? "" : url,
+    "banner_group_id": bannerGroupId.isEmpty ? "" : bannerGroupId,
+    "container_name": containerName.isEmpty ? "" : containerName,
+    "view_page_count": viewPageCount.toString().isEmpty ? 0 : viewPageCount,
+    "banner_group_banner_group_id": bannerGroupBannerGroupId.isEmpty ? "" : bannerGroupBannerGroupId,
+    "link": link.isEmpty ? "" : link,
+    "image": image.isEmpty ? "" : image,
+    "image_path": imagePath.isEmpty ? "" : imagePath,
+    "content": content.isEmpty? "" : content,
+    "position": position,
+    "is_active": isActive.toString().isEmpty ? 1 : isActive,
+    "created_date": createdDate.toIso8601String(),
+    "modified_date": modifiedDate.isEmpty ? "" : modifiedDate,
+    "created_by": createdBy.toString().isEmpty ? 1 : createdBy,
+    "modified_by": modifiedBy.isEmpty ? "" : modifiedBy,
   };
 }
+

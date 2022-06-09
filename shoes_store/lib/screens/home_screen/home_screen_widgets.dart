@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/controllers/home_screen_controller/home_screen_controller.dart';
-import 'package:shoes_store/models/home_screen_model/banner_model.dart';
 import 'package:shoes_store/models/home_screen_model/featured_product_model.dart';
-import 'package:shoes_store/common/extension_methods/extension_methods.dart';
+import 'package:shoes_store/screens/product_details_screen/product_details_screen.dart';
+
 class SearchTextFieldModule extends StatelessWidget {
   SearchTextFieldModule({Key? key}) : super(key: key);
 
@@ -58,10 +58,9 @@ class ImageBannerModule extends StatelessWidget {
     return CarouselSlider.builder(
       itemCount: homeScreenController.bannerLists.length,
       itemBuilder: (context, index, realIndex) {
-        // final imgUrl = ApiUrl.ApiMainPath +
-        //     "${homeScreenController.bannerLists[index].bannerImage}";
-        BannerElement singleItem = homeScreenController.bannerLists[index];
-        return _imageModule(singleItem);
+        final imgUrl = ApiUrl.ApiMainPath +
+            "${homeScreenController.bannerLists[index].imagePath}";
+        return _imageModule(imgUrl);
       },
       options: CarouselOptions(
           height: 150,
@@ -73,8 +72,7 @@ class ImageBannerModule extends StatelessWidget {
     );
   }
 
-  Widget _imageModule(BannerElement singleItem) {
-    final imgUrl = ApiUrl.ApiMainPath + "${singleItem.bannerImage}";
+  Widget _imageModule(String imgUrl) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Stack(
@@ -97,7 +95,7 @@ class ImageBannerModule extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    singleItem.title,
+                    'Running Mens Shoes',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -192,45 +190,46 @@ class NewCollectionListModule extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  ProductElement singleItem= homeScreenController.featuredProductLists[index];
-                  final imgUrl = ApiUrl.ApiMainPath + "${singleItem.image}";
+                  Datum1 featuredSingleItem= homeScreenController.featuredProductLists[index];
+                  final imgUrl = ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
                   return GestureDetector(
                     onTap: () {
-                      // Get.to(() => ProductDetailsScreen(),
-                      //   arguments: singleItem.id,
-                      // );
+                      Get.to(() => ProductDetailsScreen(),
+                        arguments: featuredSingleItem.id,
+                      );
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Container(
-
-                            width: Get.width * 0.35,
+                            //height: 100,
                             margin: EdgeInsets.only(left: 10, right: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
                                 color: Colors.grey.shade200,
+                                //border: Border.all(color: Colors.grey.shade400
+                                //),
                                 boxShadow: [
                                   BoxShadow(
                                       color: Colors.grey.shade400, blurRadius: 5)
                                 ]),
-                            child: Image.network("$imgUrl", fit: BoxFit.fill),
+                            child: Image.network("$imgUrl"),
                           ),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          "${singleItem.name}",
+                          "${featuredSingleItem.productname}",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 5),
                         Row(
                           children: [
                             Text(
-                              "\$${singleItem.price}",
+                              "\$${featuredSingleItem.productcost}",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -238,13 +237,13 @@ class NewCollectionListModule extends StatelessWidget {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "\$${singleItem.price}",
+                              "\$${featuredSingleItem.productcost}",
                               style: TextStyle(fontSize: 18),
                             )
                           ],
                         )
                       ],
-                    ).commonSymmetricPadding(horizontal: 10),
+                    ),
                   );
                 }),
           )
@@ -254,7 +253,7 @@ class NewCollectionListModule extends StatelessWidget {
   }
 }
 
-/*class BestSellerListModule extends StatelessWidget {
+class BestSellerListModule extends StatelessWidget {
   BestSellerListModule({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
 
@@ -356,7 +355,7 @@ class NewCollectionListModule extends StatelessWidget {
       ),
     );
   }
-}*/
+}
 
 class OfferListModule extends StatelessWidget {
   OfferListModule({Key? key}) : super(key: key);
@@ -372,7 +371,7 @@ class OfferListModule extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             String imgUrl = ApiUrl.ApiMainPath +
-            "${homeScreenController.bannerLists[index].bannerImage}";
+            "${homeScreenController.bannerLists[index].imagePath}";
             return _offerListTile(imgUrl);
           }),
     );
@@ -437,67 +436,3 @@ class OfferListModule extends StatelessWidget {
     );
   }
 }
-
-
-class TestimonialModule extends StatelessWidget {
-  TestimonialModule({Key? key}) : super(key: key);
-  final homeScreenController = Get.find<HomeScreenController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: homeScreenController.testimonialLists.length,
-      itemBuilder: (context, index, realIndex){
-        String imgUrl = ApiUrl.ApiMainPath + "${homeScreenController.testimonialLists[index].testimonialImage}";
-        return Container(
-          child: Column(
-            children: [
-              Container(
-                width: 65,
-                height: 65,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage(imgUrl),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                homeScreenController.testimonialLists[index].name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              Expanded(
-                child: Text(
-                  homeScreenController.testimonialLists[index].description,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-      options: CarouselOptions(
-          height: 160,
-          autoPlay: true,
-          viewportFraction: 1,
-          onPageChanged: (index, reason) {
-            // bannerController.activeIndex.value = index;
-          }),
-    ).commonSymmetricPadding(horizontal: 10);
-  }
-}
-
-

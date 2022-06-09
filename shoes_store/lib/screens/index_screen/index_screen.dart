@@ -1,15 +1,13 @@
-import 'dart:developer';
-
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/screens/home_screen/home_screen.dart';
 import 'package:shoes_store/controllers/index_screen_controller/index_screen_controller.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
 import 'package:shoes_store/screens/order_screen/order_screen.dart';
 import 'package:shoes_store/screens/profile_screen/profile_screen.dart';
 import 'package:shoes_store/screens/settings_screen/settings_screen.dart';
-
-
 
 class IndexScreen extends StatefulWidget {
    IndexScreen({Key? key}) : super(key: key);
@@ -170,4 +168,7 @@ class _IndexScreenState extends State<IndexScreen> {
      }
    }
 
+      body: _pageOptions[currentPage],
+    );
+  }
 }
