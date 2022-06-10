@@ -12,7 +12,6 @@ class OnBoardingScreenController extends GetxController{
 
   @override
   void onInit() {
-    print('-----------Controller Init Method Called.-----------');
     //forwardAction();
     super.onInit();
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
@@ -20,6 +19,7 @@ class SignInScreen extends StatelessWidget {
         elevation: 0,
         title: Text("Login"),
         centerTitle: true,
+        leading: Container(),
       ),
       body: Obx(
         () => signInScreenController.isLoading.value

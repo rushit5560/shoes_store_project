@@ -16,9 +16,9 @@ class ProductDetailsData {
   String message;
 
   factory ProductDetailsData.fromJson(Map<String, dynamic> json) => ProductDetailsData(
-    success: json["success"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    message: json["message"],
+    success: json["success"] ?? false,
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x ?? {})) ?? []),
+    message: json["message"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -108,7 +108,7 @@ class Datum {
   String modifiedDate;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    id: json["id"],
+    id: json["id"] ?? 0,
     productname: json["productname"] == null ? "" : json["productname"],
     sku: json["sku"] == null ? "" : json["sku"],
     productslug: json["productslug"] == null ? "" : json["productslug"],

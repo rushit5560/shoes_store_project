@@ -23,4 +23,6 @@ class ApiUrl {
   static const CountryApi = ApiMainPath + 'api/country';
   static const StateApi = ApiMainPath + 'api/states';
   static const CityApi = ApiMainPath + 'api/city';
+
+  static const BlogsApi = ApiMainPath + 'api/blog';
 }
