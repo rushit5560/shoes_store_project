@@ -67,6 +67,7 @@ class WishlistScreenController extends GetxController {
       if(isSuccessStatus.value){
         print('Delete Wishlist True');
         deleteMsg = deleteWishlistData.message.obs;
+        Get.snackbar("Success", "$deleteMsg");
 
         userWishLists.clear();
         print('User Wish list Delete Length: ${userWishLists.length}');

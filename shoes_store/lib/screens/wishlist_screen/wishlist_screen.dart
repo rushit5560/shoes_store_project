@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 
 import '../../common/api_url.dart';
@@ -16,7 +17,9 @@ class WishlistScreen extends StatelessWidget {
       body: Obx(
         ()=> wishlistScreenController.isLoading.value
         ? Center(child: CircularProgressIndicator())
-        : ListView.builder(
+        : wishlistScreenController.userWishLists.isEmpty
+        ? Center(child: Text("No Data Available!"))
+            : ListView.builder(
           itemCount: wishlistScreenController.userWishLists.length,
           itemBuilder: (context, index){
             return Padding(
@@ -144,7 +147,7 @@ class WishlistScreen extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              // color: CustomColor.kOrangeColor,
+                              color: AppColors.colorDarkPink,
                             ),
                           ),
                         ),
