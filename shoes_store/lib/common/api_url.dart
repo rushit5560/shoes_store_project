@@ -25,4 +25,5 @@ class ApiUrl {
   static const CityApi = ApiMainPath + 'api/city';
 
   static const BlogsApi = ApiMainPath + 'api/blog';
+  static const BlogDetailApi = ApiMainPath + 'api/blogdetails';
 }

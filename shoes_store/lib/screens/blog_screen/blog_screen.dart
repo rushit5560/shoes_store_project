@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../common/api_url.dart';
 import '../../common/custom_appbar.dart';
 import '../../controllers/blog_screen_controller/blog_screen_controller.dart';
+import '../blog_detail_screen/blog_detail_screen.dart';
 
 class BlogScreen extends StatelessWidget {
   BlogScreen({Key? key}) : super(key: key);
@@ -33,9 +34,9 @@ class BlogScreen extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             print('id : ${blogScreenController.blogDataLists[index].id}');
-                            // Get.to(() => BlogDetailScreen(),
-                            //   arguments: blogScreenController.blogDataLists[index].id,
-                            // );
+                            Get.to(() => BlogDetailScreen(),
+                              arguments: blogScreenController.blogDataLists[index].id,
+                            );
                           },
                           child: Image(
                             height: Get.height * 0.23,
