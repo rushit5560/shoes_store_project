@@ -22,8 +22,7 @@ class CartScreenController extends GetxController{
     try {
       Map data = {"user_id": "$userId"};
       http.Response response = await http.post(Uri.parse(url), body: data);
-      UserCartData userCartData =
-      UserCartData.fromJson(json.decode(response.body));
+      UserCartData userCartData = UserCartData.fromJson(json.decode(response.body));
       isStatus = userCartData.success.obs;
 
       if (isStatus.value) {

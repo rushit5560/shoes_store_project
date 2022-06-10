@@ -16,9 +16,9 @@ class UserCartData {
   Data data;
 
   factory UserCartData.fromJson(Map<String, dynamic> json) => UserCartData(
-    success: json["success"],
-    message: json["message"],
-    data: Data.fromJson(json["data"]),
+    success: json["success"] ?? false,
+    message: json["message"] ?? "",
+    data: Data.fromJson(json["data"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -38,8 +38,8 @@ class Data {
   List<Cartditeil> cartditeil;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    cart: Cart.fromJson(json["cart"]),
-    cartditeil: List<Cartditeil>.from(json["cartditeil"].map((x) => Cartditeil.fromJson(x))),
+    cart: Cart.fromJson(json["cart"] ?? {}),
+    cartditeil: List<Cartditeil>.from(json["cartditeil"].map((x) => Cartditeil.fromJson(x ?? {})) ?? []),
   );
 
   Map<String, dynamic> toJson() => {
@@ -68,7 +68,7 @@ class Cart {
   String coupontype;
   String couponvalue;
   String userId;
-  DateTime createdDate;
+  String createdDate;
   String updatedDate;
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
@@ -79,7 +79,7 @@ class Cart {
     coupontype: json["coupontype"] == null ? "" : json["coupontype"],
     couponvalue: json["couponvalue"] == null ? "" : json["couponvalue"],
     userId: json["userId"],
-    createdDate: DateTime.parse(json["created_date"]),
+    createdDate: json["created_date"],
     updatedDate: json["updated_date"] == null ? "" : json["updated_date"],
   );
 
@@ -91,7 +91,7 @@ class Cart {
     "coupontype": coupontype.isEmpty ? "" : coupontype,
     "couponvalue": couponvalue.isEmpty ? "" : couponvalue,
     "userId": userId.isEmpty ? "" : userId,
-    "created_date": createdDate.toIso8601String(),
+    "created_date": createdDate,
     "updated_date": updatedDate.isEmpty ? "" : updatedDate,
   };
 }
@@ -155,7 +155,7 @@ class Cartditeil {
   String variyantid;
   int productKg;
   int quantity;
-  DateTime createdDate;
+  String createdDate;
   String updatedDate;
   int id;
   String name;
@@ -206,7 +206,7 @@ class Cartditeil {
     variyantid: json["variyantid"] == null ? "" : json["variyantid"],
     productKg: json["product_kg"] == null ? 0 : json["product_kg"],
     quantity: json["quantity"] == null ? 1 : json["quantity"],
-    createdDate: DateTime.parse(json["created_date"]),
+    createdDate: json["created_date"],
     updatedDate: json["updated_date"] == null ? "" : json["updated_date"],
     id: json["id"],
     name: json["name"] == null ? "" : json["name"],
@@ -258,7 +258,7 @@ class Cartditeil {
     "variyantid": variyantid.isEmpty ? "" : variyantid,
     "product_kg": productKg.toString().isEmpty ? 0 : productKg,
     "quantity": quantity.toString().isEmpty ? 1 : quantity,
-    "created_date": createdDate.toIso8601String(),
+    "created_date": createdDate,
     "updated_date": updatedDate.isEmpty ? "" : updatedDate,
     "id": id,
     "name": name.isEmpty ? "" : name,
