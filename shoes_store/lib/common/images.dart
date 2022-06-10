@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Images{
+class Images {
   static const root = 'assets/images/';
   static const ic_service1 = '$root' + 'service1.png';
   static const ic_service2 = '$root' + 'service2.png';
@@ -26,5 +26,10 @@ class Images{
   static const ic_right = '$root' + 'right.png';
   static const ic_user = '$root' + 'user.png';
   static const ic_heart = '$root' + 'heart.png';
+
+  static const cod = root + 'cod.png';
+  static const mastercard = root + 'mastercard.png';
+  static const paypal = root + 'paypal.png';
+  static const visa = root + 'visa.png';
 }
 

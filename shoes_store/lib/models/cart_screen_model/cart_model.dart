@@ -50,26 +50,26 @@ class Data {
 
 class Cart {
   Cart({
-    required this.cartId,
-    required this.totalprice,
-    required this.totalqty,
-    required this.couponid,
-    required this.coupontype,
-    required this.couponvalue,
-    required this.userId,
-    required this.createdDate,
-    required this.updatedDate,
+    this.cartId,
+    this.totalprice,
+    this.totalqty,
+    this.couponid,
+    this.coupontype,
+    this.couponvalue,
+    this.userId,
+    this.createdDate,
+    this.updatedDate,
   });
 
-  int cartId;
-  int totalprice;
-  int totalqty;
-  String couponid;
-  String coupontype;
-  String couponvalue;
-  String userId;
-  String createdDate;
-  String updatedDate;
+  int? cartId;
+  int? totalprice;
+  int? totalqty;
+  String? couponid;
+  String? coupontype;
+  String? couponvalue;
+  String? userId;
+  String? createdDate;
+  String? updatedDate;
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
     cartId: json["cartId"],
@@ -87,12 +87,12 @@ class Cart {
     "cartId": cartId,
     "totalprice": totalprice.toString().isEmpty ? 0 : totalprice,
     "totalqty": totalqty.toString().isEmpty ? 0 : totalqty,
-    "couponid": couponid.isEmpty ? "" : couponid,
-    "coupontype": coupontype.isEmpty ? "" : coupontype,
-    "couponvalue": couponvalue.isEmpty ? "" : couponvalue,
-    "userId": userId.isEmpty ? "" : userId,
+    "couponid": couponid!.isEmpty ? "" : couponid,
+    "coupontype": coupontype!.isEmpty ? "" : coupontype,
+    "couponvalue": couponvalue!.isEmpty ? "" : couponvalue,
+    "userId": userId!.isEmpty ? "" : userId,
     "created_date": createdDate,
-    "updated_date": updatedDate.isEmpty ? "" : updatedDate,
+    "updated_date": updatedDate!.isEmpty ? "" : updatedDate,
   };
 }
 

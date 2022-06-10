@@ -236,27 +236,29 @@ class ProductDetailsModule extends StatelessWidget {
             style: TextStyle(fontSize: 19, color: Colors.black),
           ),
           const SizedBox(height: 10),
-          GestureDetector(
-            onTap: () {
-              productDetailsScreenController.productAddToCart();
-            },
-            child: Container(
-              height: 40,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: AppColors.colorDarkPink),
-              child: Center(
-                child: Text(
-                  "Add To Cart",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
+          productDetailsScreenController.productDetailLists[0].outofStockStatus == "instock"
+              ? GestureDetector(
+                  onTap: () async {
+                    await productDetailsScreenController.productAddToCart(qty: 1);
+                  },
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: AppColors.colorDarkPink),
+                    child: Center(
+                      child: Text(
+                        "Add To Cart",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          )
+                )
+              : Container(),
         ],
       ),
     );

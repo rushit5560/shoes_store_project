@@ -17,6 +17,7 @@ class ProductDetailsScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
   RxInt activeIndex = 0.obs;
+  int productQty = 1;
   RxList<Datum> productDetailLists = RxList();
   // RxList<Datum1> productReviewList = RxList();
   var userId;
@@ -111,7 +112,7 @@ class ProductDetailsScreenController extends GetxController {
     }
   }
 
-  productAddToCart() async {
+  Future<void> productAddToCart({required int qty}) async {
     isLoading(true);
     String url = ApiUrl.AddToCartApi;
     print('Url : $url');
@@ -121,7 +122,7 @@ class ProductDetailsScreenController extends GetxController {
       Map data = {
         "product_id": "$productId",
         "user_id": "$userId",
-        "quantity": "1"
+        "quantity": "$qty"
       };
       print('data123 : $data');
       http.Response response = await http.post(Uri.parse(url), body: data);

@@ -31,7 +31,106 @@ class CartScreen extends StatelessWidget {
                     Expanded(
                         child: cartScreenController.userCartProductLists.isEmpty
                         ? Center(child: Text("No items available in cart"))
-                        : CartItemListModule(),
+                        : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              CartItemListModule(),
+                              SizedBox(height: 20),
+
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Subtotal",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        ),
+                                        Text(
+                                          "\$${cartScreenController.cartData.totalprice}",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Discount",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        ),
+                                        Text(
+                                          "\$50",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Shipping",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        ),
+                                        Text(
+                                          "\$50",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Estimated Tax",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        ),
+                                        Text(
+                                          "\$50",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+
+                                    Divider(color: Colors.grey),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Total",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          "\$${cartScreenController.cartData.totalprice}",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+
+                                    SizedBox(height: 10),
+                                    Divider(color: Colors.grey),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                     ),
                     cartScreenController.userCartProductLists.isEmpty
                     ? Container()
