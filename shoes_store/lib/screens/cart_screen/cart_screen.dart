@@ -33,7 +33,9 @@ class CartScreen extends StatelessWidget {
                         ? Center(child: Text("No items available in cart"))
                         : CartItemListModule(),
                     ),
-                    CheckOutButtonModule(),
+                    cartScreenController.userCartProductLists.isEmpty
+                    ? Container()
+                    : CheckOutButtonModule(),
                     const SizedBox(height: 10),
                   ],
                 ),

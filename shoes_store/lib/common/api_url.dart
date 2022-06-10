@@ -29,4 +29,5 @@ class ApiUrl {
   static const AddProductWishlistApi = ApiMainPath + 'api/addwishlist';
   static const UserWishListApi = ApiMainPath + 'api/userwishlist';
   static const DeleteWishListApi = ApiMainPath + 'api/deletewishlist';
+  static const TestimonialApi = ApiMainPath + 'api/testimonials';
 }

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
@@ -436,3 +437,59 @@ class OfferListModule extends StatelessWidget {
     );
   }
 }
+
+
+class TestimonialModule extends StatelessWidget {
+  TestimonialModule({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: homeScreenController.testimonialLists.length,
+      itemBuilder: (context, index, realIndex){
+        return Container(
+          child: Column(
+            children: [
+              Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        '${ApiUrl.ApiMainPath}${homeScreenController.testimonialLists[index].showimg}'
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+              Text(
+                homeScreenController.testimonialLists[index].name,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              Expanded(
+                child: Html(
+                  data: homeScreenController.testimonialLists[index].description,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      options: CarouselOptions(
+          height: 150,
+          autoPlay: true,
+          viewportFraction: 1,
+          onPageChanged: (index, reason) {
+            // bannerController.activeIndex.value = index;
+          }),
+    );
+  }
+}
+
+
