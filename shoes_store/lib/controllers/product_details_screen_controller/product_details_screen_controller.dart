@@ -9,6 +9,8 @@ import 'package:shoes_store/models/product_detail_screen_model/product_detail_mo
 import 'package:http/http.dart' as http;
 import 'package:shoes_store/screens/cart_screen/cart_screen.dart';
 
+import '../../models/product_detail_screen_model/addproduct_wishlist_model.dart';
+
 
 class ProductDetailsScreenController extends GetxController {
   int productId = Get.arguments;
@@ -18,6 +20,8 @@ class ProductDetailsScreenController extends GetxController {
   RxList<Datum> productDetailLists = RxList();
   // RxList<Datum1> productReviewList = RxList();
   var userId;
+
+  RxString? wishListData;
 
   getProductDetailData() async {
     isLoading(true);
@@ -137,6 +141,50 @@ class ProductDetailsScreenController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  addProductWishlistFunction(int productId) async {
+    isLoading(true);
+    String url = ApiUrl.AddProductWishlistApi;
+    print('Url : $url');
+
+    try{
+      Map data = {
+        "id" : "$userId",
+        "product_id" : "$productId"
+      };
+
+      print('wishlist data : $data');
+      http.Response response = await http.post(Uri.parse(url),body: data);
+      print('AddWishlist Response1 : ${response.statusCode}');
+      print('AddWishlist Response2 : ${response.body}');
+
+      AddProductWishlistData addProductWishlistData = AddProductWishlistData.fromJson(json.decode(response.body));
+      isStatus = addProductWishlistData.success.obs;
+      print('Response Bool : ${addProductWishlistData.success}');
+      print('isStatus : $isStatus');
+
+      if(isStatus.value){
+        print('AddWishlist True True');
+        wishListData = addProductWishlistData.data.obs;
+        Get.snackbar('title', "${wishListData.toString()}");
+
+        if(addProductWishlistData.data.contains('already added in wishlist')){
+          Get.snackbar('', 'Product Already Added in Wishlist.');
+        } else {
+          Get.snackbar('', 'Product Added in Wishlist.');
+        }
+
+        // Get.to(() => WishListPage());
+      } else {
+        print('AddWishlist False False');
+      }
+
+    } catch(e) {
+      print('Add WishList Error : $e');
+    }
+
+    isLoading(false);
   }
 
   @override

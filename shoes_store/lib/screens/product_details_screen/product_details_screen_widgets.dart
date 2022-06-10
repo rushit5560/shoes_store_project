@@ -106,7 +106,14 @@ class ProductDetailsModule extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Image.asset(Images.ic_heart, scale: 15),
+              GestureDetector(
+                onTap: () async {
+                  await productDetailsScreenController.addProductWishlistFunction(
+                      productDetailsScreenController.productDetailLists[0].id
+                  );
+                },
+                  child: Image.asset(Images.ic_heart, scale: 15),
+              ),
             ],
           ),
           RatingBar.builder(
