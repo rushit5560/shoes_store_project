@@ -34,7 +34,12 @@ class CategoryCollectionScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 30),
-                          Expanded(child: CategoryCollectionListModule())
+                          Expanded(
+                            child: categoryCollectionScreenController
+                                    .categoryCollectionLists.isEmpty
+                                ? Center(child: Text("No Data Available!"))
+                                : CategoryCollectionListModule(),
+                          ),
                         ],
                       ),
                     ),

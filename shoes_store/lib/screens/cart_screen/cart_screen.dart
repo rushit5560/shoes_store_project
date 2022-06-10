@@ -28,7 +28,11 @@ class CartScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Expanded(child: CartItemListModule()),
+                    Expanded(
+                        child: cartScreenController.userCartProductLists.isEmpty
+                        ? Center(child: Text("No items available in cart"))
+                        : CartItemListModule(),
+                    ),
                     CheckOutButtonModule(),
                     const SizedBox(height: 10),
                   ],

@@ -17,7 +17,7 @@ class CollectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
-      appBar: commonAppBarModule(image: "New Category", index: 2),
+      appBar: commonAppBarModule(image: "New Collection", index: 2),
       body: Obx(
         () => collectionScreenController.isLoading.value
             ? CustomCircularProgressIndicator()
@@ -90,27 +90,37 @@ class CollectionScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Text(
-          "${categorySingleItem.productname}",
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "${categorySingleItem.productname}",
+            style: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
         ),
         const SizedBox(height: 5),
-        Row(
-          children: [
-            Text(
-              "\$${categorySingleItem.productcost}",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(width: 10),
-            Text(
-              "\$${categorySingleItem.productcost}",
-              style: TextStyle(fontSize: 18),
-            )
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              Text(
+                "\$${categorySingleItem.productcost}",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "\$${categorySingleItem.productcost}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 18),
+                ),
+              )
+            ],
+          ),
         ),
         const SizedBox(height: 10),
       ],

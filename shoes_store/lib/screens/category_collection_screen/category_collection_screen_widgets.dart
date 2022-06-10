@@ -20,7 +20,7 @@ class CategoryCollectionListModule extends StatelessWidget {
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
-          Datum categoryCollectionSingleItem =
+          CategoryCollectionDetail categoryCollectionSingleItem =
               categoryCollectionScreenController.categoryCollectionLists[index];
           return _categoryListTile(categoryCollectionSingleItem);
         },
@@ -28,7 +28,7 @@ class CategoryCollectionListModule extends StatelessWidget {
     );
   }
 
-  Widget _categoryListTile(Datum categoryCollectionSingleItem) {
+  Widget _categoryListTile(CategoryCollectionDetail categoryCollectionSingleItem) {
     final imgUrl =
         ApiUrl.ApiMainPath + "${categoryCollectionSingleItem.showimg}";
     return Column(

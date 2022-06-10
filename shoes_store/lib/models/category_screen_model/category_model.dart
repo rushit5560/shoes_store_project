@@ -16,9 +16,9 @@ class CategoryData {
   String message;
 
   factory CategoryData.fromJson(Map<String, dynamic> json) => CategoryData(
-    success: json["success"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    message: json["message"],
+    success: json["success"] ?? false,
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x ?? {})) ?? []),
+    message: json["message"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -55,8 +55,8 @@ class Datum {
   String parent;
   String sortOrder;
   int isActive;
-  DateTime createdDate;
-  DateTime updatedDate;
+  String createdDate;
+  String updatedDate;
   int createdBy;
   int modifiedBy;
   String showimg;
@@ -71,8 +71,8 @@ class Datum {
     parent: json["parent"] == null ? "" : json["parent"],
     sortOrder: json["sort_order"] == null ? "" : json["sort_order"],
     isActive: json["is_active"] == null ? 1 : json["is_active"],
-    createdDate: DateTime.parse(json["created_date"]),
-    updatedDate: DateTime.parse(json["updated_date"]),
+    createdDate: json["created_date"] ?? "",
+    updatedDate: json["updated_date"] ?? "",
     createdBy: json["created_by"] == null ? 1 : json["created_by"],
     modifiedBy: json["modified_by"] == null ? 1 : json["modified_by"],
     showimg: json["showimg"] == null ? "" : json["showimg"],
@@ -88,8 +88,8 @@ class Datum {
     "parent": parent.isEmpty ? "" : parent,
     "sort_order": sortOrder.isEmpty ? "" : sortOrder,
     "is_active": isActive.toString().isEmpty ? 1 : isActive,
-    "created_date": createdDate.toIso8601String(),
-    "updated_date": updatedDate.toIso8601String(),
+    "created_date": createdDate,
+    "updated_date": updatedDate,
     "created_by": createdBy.toString().isEmpty ? 1 : createdBy,
     "modified_by": modifiedBy.toString().isEmpty ? 1 : modifiedBy,
     "showimg": showimg.isEmpty ? "" : showimg,

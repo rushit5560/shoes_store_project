@@ -14,7 +14,7 @@ class CartScreenController extends GetxController{
   RxList<Cartditeil> userCartProductLists = RxList();
   // RxInt userCartTotalAmount = 0.obs;
 
-  getUserCartData(userId) async {
+  Future<void> getUserCartData(userId) async {
     isLoading(true);
     String url = ApiUrl.UserCartApi;
     print('Url : $url');
@@ -39,7 +39,7 @@ class CartScreenController extends GetxController{
     }
   }
 
-  getAddProductCartQty(quantity, cartDetailId) async {
+  Future<void> getAddProductCartQty(quantity, cartDetailId) async {
     isLoading(true);
     String url = ApiUrl.AddCartQtyApi;
     print('Url : $url');
@@ -67,7 +67,7 @@ class CartScreenController extends GetxController{
     }
   }
 
-  getDeleteProductCart(cartDetailId) async {
+  Future<void> getDeleteProductCart(cartDetailId) async {
     isLoading(true);
     String url = ApiUrl.DeleteCartProductApi;
     print('Url : $url');
@@ -100,7 +100,7 @@ class CartScreenController extends GetxController{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId1 = prefs.getInt('id');
     print('UserId Add to Cart : $userId1');
-    getUserCartData(userId1);
+    await getUserCartData(userId1);
   }
 
 }

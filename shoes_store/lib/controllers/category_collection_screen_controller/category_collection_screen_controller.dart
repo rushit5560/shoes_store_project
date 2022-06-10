@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
@@ -11,9 +12,10 @@ class CategoryCollectionScreenController extends GetxController{
   String categoryName = Get.arguments[1];
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
-  RxList<Datum> categoryCollectionLists = RxList();
+  RxList<CategoryCollectionDetail> categoryCollectionLists = RxList();
 
   getCategoryCollectionData() async {
+    log("categoryId : $categoryId");
     isLoading(true);
     String url = ApiUrl.CategoryCollectionApi;
     print('url : $url');
@@ -23,12 +25,13 @@ class CategoryCollectionScreenController extends GetxController{
 
       http.Response response = await http.post(Uri.parse(url), body: data);
 
-      CategoryCollectionData categoryCollectionData =
-      CategoryCollectionData.fromJson(json.decode(response.body));
-      isStatus = categoryCollectionData.success.obs;
+      CategoryCollectionModel categoryCollectionModel =
+      CategoryCollectionModel.fromJson(json.decode(response.body));
+      isStatus = categoryCollectionModel.success.obs;
 
       if (isStatus.value) {
-        categoryCollectionLists = categoryCollectionData.data.obs;
+        categoryCollectionLists = categoryCollectionModel.data.obs;
+        log("categoryCollectionLists : ${categoryCollectionLists.length}");
       } else {
         print('CategoryCollection False False');
       }

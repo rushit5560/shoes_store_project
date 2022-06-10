@@ -98,11 +98,11 @@ class CartItemListModule extends StatelessWidget {
                                   Row(
                                       children: [
                                         GestureDetector(
-                                          onTap: () {
+                                          onTap: () async {
                                             if (cartSingleItem.cquantity > 1) {
                                               var cartItemDec =
                                                   cartSingleItem.cquantity - 1;
-                                              cartScreenController.getAddProductCartQty(
+                                              await cartScreenController.getAddProductCartQty(
                                                 cartItemDec,
                                                 cartSingleItem.cartDetailId,
                                               );
@@ -130,9 +130,9 @@ class CartItemListModule extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 5),
                                         GestureDetector(
-                                          onTap: () {
+                                          onTap: () async {
                                             var cartItemInc = cartSingleItem.cquantity + 1;
-                                            cartScreenController.getAddProductCartQty(
+                                            await cartScreenController.getAddProductCartQty(
                                               cartItemInc,
                                               cartSingleItem.cartDetailId,
                                             );
