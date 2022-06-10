@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import '../../common/custom_appbar.dart';
@@ -53,8 +54,8 @@ class BlogDetailScreen extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-                blogDetailController.blogContent!.value
+            child: Html(
+                data: blogDetailController.blogContent!.value
             ),
           ),
           SizedBox(height: 10),
