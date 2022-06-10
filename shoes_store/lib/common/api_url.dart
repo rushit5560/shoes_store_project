@@ -27,4 +27,6 @@ class ApiUrl {
   static const BlogsApi = ApiMainPath + 'api/blog';
   static const BlogDetailApi = ApiMainPath + 'api/blogdetails';
   static const AddProductWishlistApi = ApiMainPath + 'api/addwishlist';
+  static const UserWishListApi = ApiMainPath + 'api/userwishlist';
+  static const DeleteWishListApi = ApiMainPath + 'api/deletewishlist';
 }

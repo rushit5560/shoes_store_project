@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:shoes_store/screens/home_screen/home_screen.dart';
 import 'package:shoes_store/controllers/index_screen_controller/index_screen_controller.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
-import 'package:shoes_store/screens/order_screen/order_screen.dart';
 import 'package:shoes_store/screens/profile_screen/profile_screen.dart';
 import 'package:shoes_store/screens/settings_screen/settings_screen.dart';
-
 import '../../common/app_colors.dart';
-
+import '../wishlist_screen/wishlist_screen.dart';
 
 
 class IndexScreen extends StatefulWidget {
@@ -194,7 +192,7 @@ class _IndexScreenState extends State<IndexScreen> {
      } else if (indexScreenController.menuIndex.value == 2) {
        return HomeScreen();
      } else if(indexScreenController.menuIndex.value == 3) {
-       return OrderScreen();
+       return WishlistScreen();
      } else {
        return ProfileScreen();
      }
