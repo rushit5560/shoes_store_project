@@ -38,14 +38,14 @@ PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
     actions: [
       index == 1
           ? GestureDetector(
-              onTap: () => Get.to(() => CartScreen()),
-              child: Image.asset(Images.ic_notification, height: 25, width: 25),
+        onTap: () => Get.to(() => CartScreen()),
+              // child: Image.asset(Images.ic_notification, height: 25, width: 25),
+              child: Icon(Icons.shopping_cart_rounded),
             )
           : index == 2
               ? GestureDetector(
                   onTap: () => print('Clk Scanner'),
-                  child: Image.asset(Images.ic_notification,
-                      height: 25, width: 25),
+                  child: Icon(Icons.shopping_cart_rounded),
                 )
               : index == 3
                   ? GestureDetector(

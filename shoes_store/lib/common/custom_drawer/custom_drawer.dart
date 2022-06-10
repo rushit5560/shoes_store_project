@@ -37,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 ),
               ),
-              logout()
+              logout(),
             ],
           ),
         ),
@@ -104,11 +104,11 @@ class CustomDrawer extends StatelessWidget {
       margin: EdgeInsets.only(left: 5),
       child: Column(
         children: [
-          homeButton(),
+          // homeButton(),
           newCollection(),
           categories(),
           notification(),
-          setting(),
+          // setting(),
           contactUs(),
         ],
       ),
@@ -123,6 +123,7 @@ class CustomDrawer extends StatelessWidget {
       leading: Image.asset(
         Images.ic_home,
         color: Colors.black,
+          scale: 0.75,
       ),
       title: Text(
         'Home',
@@ -138,7 +139,7 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => CollectionScreen());
       },
-      leading: Image.asset(Images.ic_home, color: Colors.black),
+      leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'New Collection',
         textScaleFactor: 1.4,
@@ -153,7 +154,7 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
          Get.to(() => CategoryScreen());
       },
-      leading: Image.asset(Images.ic_home, color: Colors.black),
+      leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Categories',
         textScaleFactor: 1.4,
@@ -168,7 +169,7 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => NotificationScreen());
       },
-      leading: Image.asset(Images.ic_notification, color: Colors.black),
+      leading: Image.asset(Images.ic_notification, color: Colors.black, scale: 0.75),
       title: Text(
         'Notification',
         textScaleFactor: 1.4,
@@ -183,7 +184,7 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => SettingsScreen());
       },
-      leading: Image.asset(Images.ic_setting, color: Colors.black),
+      leading: Image.asset(Images.ic_setting, color: Colors.black, scale: 0.75),
       title: Text(
         'Setings',
         textScaleFactor: 1.4,
@@ -198,7 +199,7 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => ContactUsScreen());
       },
-      leading: Image.asset(Images.ic_home, color: Colors.black),
+      leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Contact Us',
         textScaleFactor: 1.4,
@@ -213,7 +214,8 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => SignInScreen());
       },
-      leading: Image.asset(Images.ic_home, color: Colors.black),
+      // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
+      leading: Icon(Icons.logout, color: Colors.black),
       title: Text(
         'Logout',
         textScaleFactor: 1.4,

@@ -1,13 +1,16 @@
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/screens/home_screen/home_screen.dart';
 import 'package:shoes_store/controllers/index_screen_controller/index_screen_controller.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
 import 'package:shoes_store/screens/order_screen/order_screen.dart';
 import 'package:shoes_store/screens/profile_screen/profile_screen.dart';
 import 'package:shoes_store/screens/settings_screen/settings_screen.dart';
+
+import '../../common/app_colors.dart';
+
+
 
 class IndexScreen extends StatefulWidget {
    IndexScreen({Key? key}) : super(key: key);
@@ -18,43 +21,51 @@ class IndexScreen extends StatefulWidget {
 class _IndexScreenState extends State<IndexScreen> {
    IndexScreenController indexScreenController = Get.put(IndexScreenController());
 
-   final _pageOptions = [
-     NotificationScreen(),
-     SettingsScreen(),
-     HomeScreen(),
-     OrderScreen(),
-     ProfileScreen(),
-   ];
-  int currentPage = 2;
+   // final _pageOptions = [
+   //   NotificationScreen(),
+   //   SettingsScreen(),
+   //   HomeScreen(),
+   //   OrderScreen(),
+   //   ProfileScreen(),
+   // ];
+  // int currentPage = 2;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: FancyBottomNavigation(
-          circleColor: AppColors.colorDarkPink,
-          inactiveIconColor: Colors.black,
-          tabs: [
-            TabData(iconData: Icons.notification_important, title: ""),
-            TabData(iconData: Icons.settings, title: ""),
-            TabData(iconData: Icons.home, title: ""),
-            TabData(iconData: Icons.favorite, title: ""),
-            TabData(iconData: Icons.person, title: "")
-          ],
-          onTabChangedListener: (int position) {
-            setState(() {
-                currentPage = position;
-            });
-          },
+
+      // bottomNavigationBar: FancyBottomNavigation(
+      //     circleColor: AppColors.colorDarkPink,
+      //     inactiveIconColor: Colors.black,
+      //     tabs: [
+      //       TabData(iconData: Icons.notification_important, title: ""),
+      //       TabData(iconData: Icons.settings, title: ""),
+      //       TabData(iconData: Icons.home, title: ""),
+      //       TabData(iconData: Icons.favorite, title: ""),
+      //       TabData(iconData: Icons.person, title: "")
+      //     ],
+      //     onTabChangedListener: (int position) {
+      //       setState(() {
+      //           currentPage = position;
+      //       });
+      //     },
+      // ),
+
+
+      // body: _pageOptions[currentPage],
+
+      body: Obx(
+            () => Container(
+          child: getMenuByIndex,
+        ),
       ),
 
-
-      body: _pageOptions[currentPage],
-
-     // bottomNavigationBar: naviBar(context, changeIndex),
+     bottomNavigationBar: Obx(()=> naviBar(context, changeIndex)),
 
     );
   }
 
-   /*Widget naviBar(BuildContext context, changeIndex) {
+   Widget naviBar(BuildContext context, changeIndex) {
      return Container(
        height: Get.height * 0.07,
        alignment: Alignment.center,
@@ -79,7 +90,12 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-              child: Icon(Icons.notification_important),
+              child: Icon(
+                  Icons.notification_important,
+                color: indexScreenController.menuIndex.value == 0
+                ? AppColors.colorDarkPink
+                : Colors.grey,
+              ),
              ),
            ),
 
@@ -93,7 +109,12 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-               child: Icon(Icons.settings),
+               child: Icon(
+                   Icons.settings,
+                 color: indexScreenController.menuIndex.value == 1
+                     ? AppColors.colorDarkPink
+                     : Colors.grey,
+               ),
              ),
            ),
 
@@ -107,7 +128,12 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-               child: Icon(Icons.home),
+               child: Icon(
+                   Icons.home,
+                 color: indexScreenController.menuIndex.value == 2
+                     ? AppColors.colorDarkPink
+                     : Colors.grey,
+               ),
              ),
            ),
 
@@ -121,7 +147,12 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-               child: Icon(Icons.favorite),
+               child: Icon(
+                   Icons.favorite,
+                 color: indexScreenController.menuIndex.value == 3
+                     ? AppColors.colorDarkPink
+                     : Colors.grey,
+               ),
              ),
            ),
 
@@ -135,7 +166,12 @@ class _IndexScreenState extends State<IndexScreen> {
              child: SizedBox(
                height: 30,
                width: 30,
-               child: Icon(Icons.person),
+               child: Icon(
+                   Icons.person,
+                 color: indexScreenController.menuIndex.value == 4
+                     ? AppColors.colorDarkPink
+                     : Colors.grey,
+               ),
              ),
            ),
 
@@ -162,6 +198,6 @@ class _IndexScreenState extends State<IndexScreen> {
      } else {
        return ProfileScreen();
      }
-   }*/
+   }
 
 }
