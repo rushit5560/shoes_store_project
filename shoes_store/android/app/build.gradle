@@ -32,6 +32,7 @@ android {
         applicationId "com.example.shoes_store"
         minSdkVersion 20
         targetSdkVersion 31
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -49,4 +50,8 @@ android {
 
 flutter {
     source '../..'
+}
+
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
 }
