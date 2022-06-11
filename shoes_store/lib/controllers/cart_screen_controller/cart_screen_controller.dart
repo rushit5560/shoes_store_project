@@ -13,6 +13,7 @@ class CartScreenController extends GetxController{
   RxBool isStatus = false.obs;
   RxList<Cartditeil> userCartProductLists = RxList();
   Cart cartData = Cart();
+  RxInt userCartId = 0.obs;
   // RxInt userCartTotalAmount = 0.obs;
 
   Future<void> getUserCartData(userId) async {
@@ -30,6 +31,7 @@ class CartScreenController extends GetxController{
         userCartProductLists.clear();
         cartData = userCartData.data.cart;
         userCartProductLists = userCartData.data.cartditeil.obs;
+        userCartId = userCartData.data.cart.cartId!.obs;
         // userCartTotalAmount = userCartData.data.cart.totalprice.obs;
       } else {
         print('User Cart False');

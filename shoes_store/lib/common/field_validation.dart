@@ -1,23 +1,68 @@
 
 class FieldValidator {
+
+  String? validateFirstName(String value) {
+    if (value.isEmpty) {
+      return 'First name is required';
+    }
+    return null;
+  }
+
+  String? validateLastName(String value) {
+    if (value.isEmpty) {
+      return 'Last name is required';
+    }
+    return null;
+  }
+
+  String? validateCompanyName(String value) {
+    if (value.isEmpty) {
+      return 'Company name is required';
+    }
+    return null;
+  }
+
+  String? validateAddress(String value) {
+    if (value.isEmpty) {
+      return 'Address is required';
+    }
+    return null;
+  }
+
+  String? validateCity(String value) {
+    if (value.isEmpty) {
+      return 'City is required';
+    }
+    return null;
+  }
+
+  String? validateState(String value) {
+    if (value.isEmpty) {
+      return 'State is required';
+    }
+    return null;
+  }
+
+
+
   String? validateFullName(String value) {
     if (value.isEmpty) {
-      return 'Full name is Required';
+      return 'Full name is required';
     }
 
     if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'invalid first name';
+      return 'Invalid first name';
     }
     return null;
   }
 
   String? validateEmail(String value) {
     if (value.isEmpty) {
-      return "Email is Required";
+      return "Email is required";
     } else if (!isNumeric(value) &&
         !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
             .hasMatch(value)) {
-      return "Invalid Email";
+      return "Invalid email";
     } else {
       return null;
     }
@@ -25,7 +70,7 @@ class FieldValidator {
 
   String? validatePassword(String value) {
     if (value.isEmpty) {
-      return "password is Required";
+      return "password is required";
     } else if (value.length < 6) {
       return "Length should be 6 character";
     } else {
@@ -36,9 +81,9 @@ class FieldValidator {
   String? validateMobile(String value) {
 // Indian Mobile number are of 10 digit only
     if (value.isEmpty) {
-      return "Mobile number is Required";
+      return "Mobile number is required";
     } else if (value.length != 10) {
-      return 'Mobile Number must be of 10 digit';
+      return 'Mobile number must be of 10 digit';
     } else {
       return null;
     }
@@ -53,22 +98,22 @@ class FieldValidator {
 
   String? validateSubject(String value) {
     if (value.isEmpty) {
-      return 'Subject is Required';
+      return 'Subject is required';
     }
 
     if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'invalid first name';
+      return 'Invalid first name';
     }
     return null;
   }
 
   String? validateComment(String value) {
     if (value.isEmpty) {
-      return 'Comment is Required';
+      return 'Comment is required';
     }
 
     if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'invalid first name';
+      return 'Invalid first name';
     }
     return null;
   }

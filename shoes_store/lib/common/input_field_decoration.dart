@@ -8,19 +8,19 @@ InputDecoration formInputDecoration({String? hintText, double? radius}) {
     fillColor: Colors.white,
     enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 30)),
-        borderSide: BorderSide(color: Colors.white)
+        borderSide: BorderSide(color: Colors.grey)
     ),
     focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 30)),
-        borderSide: BorderSide(color: Colors.white)
+        borderSide: BorderSide(color: Colors.grey)
     ),
     errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 30)),
-        borderSide: BorderSide(color: Colors.white)
+        borderSide: BorderSide(color: Colors.grey)
     ),
     focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 30)),
-        borderSide: BorderSide(color: Colors.white)
+        borderSide: BorderSide(color: Colors.grey)
     ),
   );
 }

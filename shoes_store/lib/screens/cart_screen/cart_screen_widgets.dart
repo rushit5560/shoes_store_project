@@ -199,13 +199,15 @@ class CartItemListModule extends StatelessWidget {
 
 
 class CheckOutButtonModule extends StatelessWidget {
-  const CheckOutButtonModule({Key? key}) : super(key: key);
+  CheckOutButtonModule({Key? key}) : super(key: key);
+  final cartScreenController = Get.find<CartScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => CheckOutScreen());
+        Get.to(() => CheckOutScreen(),
+        arguments: cartScreenController.userCartId.value);
       },
       child: Container(
         height: 40,
