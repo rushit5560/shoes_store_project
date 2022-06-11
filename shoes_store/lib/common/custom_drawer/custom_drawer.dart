@@ -12,6 +12,7 @@ import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
 
 import '../../controllers/custom_drawer_controller/custom_drawer_controller.dart';
 import '../../screens/blog_screen/blog_screen.dart';
+import '../../screens/order_screen/order_screen.dart';
 import '../common_functions.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -124,6 +125,7 @@ class CustomDrawer extends StatelessWidget {
           // setting(),
           contactUs(),
           addressManager(),
+          allOrders(),
           blogs(),
         ],
       ),
@@ -232,6 +234,21 @@ class CustomDrawer extends StatelessWidget {
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Addresses',
+        textScaleFactor: 1.4,
+        style: TextStyle(color: Colors.black),
+      ),
+    );
+  }
+
+  Widget allOrders() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => OrderScreen());
+      },
+      leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
+      title: Text(
+        'Orders',
         textScaleFactor: 1.4,
         style: TextStyle(color: Colors.black),
       ),
