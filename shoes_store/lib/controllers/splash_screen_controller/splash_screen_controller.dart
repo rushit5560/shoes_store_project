@@ -11,7 +11,7 @@ class SplashScreenController extends GetxController{
 
   getOnBoardingValue() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    onBoardingValue = prefs.getBool("onboarding");
+    onBoardingValue = prefs.getBool("onboarding") ?? false;
     UserDetails.isUserLoggedIn = prefs.getBool('userLoggedInStatus') ?? false;
     UserDetails.userId = prefs.getInt('id') ?? 0;
     UserDetails.token = prefs.getString('token') ?? "";

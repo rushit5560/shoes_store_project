@@ -4,8 +4,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
+import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/controllers/product_details_screen_controller/product_details_screen_controller.dart';
+import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
 
 
 class ProductImageSliderModule extends StatelessWidget {
@@ -108,9 +110,13 @@ class ProductDetailsModule extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () async {
-                  await productDetailsScreenController.addProductWishlistFunction(
-                      productDetailsScreenController.productDetailLists[0].id
-                  );
+                  if(UserDetails.isUserLoggedIn == true) {
+                    await productDetailsScreenController.addProductWishlistFunction(
+                        productDetailsScreenController.productDetailLists[0].id
+                    );
+                  } else {
+                    Get.to(()=> SignInScreen(), transition: Transition.zoom);
+                  }
                 },
                   child: Image.asset(Images.ic_heart, scale: 15),
               ),
@@ -239,7 +245,11 @@ class ProductDetailsModule extends StatelessWidget {
           productDetailsScreenController.productDetailLists[0].outofStockStatus == "instock"
               ? GestureDetector(
                   onTap: () async {
-                    await productDetailsScreenController.productAddToCart(qty: 1);
+                    if(UserDetails.isUserLoggedIn == true) {
+                      await productDetailsScreenController.productAddToCart(qty: 1);
+                    } else {
+                      Get.to(()=> SignInScreen(), transition: Transition.zoom);
+                    }
                   },
                   child: Container(
                     height: 40,

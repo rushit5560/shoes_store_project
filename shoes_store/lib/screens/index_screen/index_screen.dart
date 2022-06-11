@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/screens/home_screen/home_screen.dart';
 import 'package:shoes_store/controllers/index_screen_controller/index_screen_controller.dart';
 import 'package:shoes_store/screens/notification_screen/notification_screen.dart';
 import 'package:shoes_store/screens/profile_screen/profile_screen.dart';
 import 'package:shoes_store/screens/settings_screen/settings_screen.dart';
+import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
 import '../../common/app_colors.dart';
 import '../wishlist_screen/wishlist_screen.dart';
 
@@ -137,10 +139,14 @@ class _IndexScreenState extends State<IndexScreen> {
 
            InkWell(
              onTap: () {
-               changeIndex.call(3);
-               log("${indexScreenController.menuIndex.value}");
+               if(UserDetails.isUserLoggedIn == true) {
+                 changeIndex.call(3);
+                 log("${indexScreenController.menuIndex.value}");
 
-               indexScreenController.menuIndex.value = 3;
+                 indexScreenController.menuIndex.value = 3;
+               } else {
+                 Get.to(()=> SignInScreen(), transition: Transition.zoom);
+               }
              },
              child: SizedBox(
                height: 30,

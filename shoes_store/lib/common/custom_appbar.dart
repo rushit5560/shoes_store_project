@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/cart_screen/cart_screen.dart';
 import 'package:shoes_store/screens/category_collection_screen/filter_dialog.dart';
+import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
 import 'app_colors.dart';
+import 'contants/user_details.dart';
 
 PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
   return AppBar(
@@ -38,7 +40,11 @@ PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
     actions: [
       index == 1
           ? GestureDetector(
-        onTap: () => Get.to(() => CartScreen()),
+        onTap: () {
+          UserDetails.isUserLoggedIn == true
+          ? Get.to(() => CartScreen())
+          : Get.to(()=> SignInScreen());
+        },
               // child: Image.asset(Images.ic_notification, height: 25, width: 25),
               child: Icon(Icons.shopping_cart_rounded),
             )

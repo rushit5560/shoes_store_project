@@ -13,7 +13,7 @@ class OrderDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: commonAppBarModule(image: "Details"),
+      appBar: commonAppBarModule(image: "Order Details"),
       body: Obx(() => orderDetailController.isLoading.value
           ? Center(
               child: CircularProgressIndicator(

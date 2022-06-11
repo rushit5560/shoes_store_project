@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/address_manager_screen/address_manager_screen.dart';
 import 'package:shoes_store/screens/category_screen/category_screen.dart';
@@ -124,8 +125,8 @@ class CustomDrawer extends StatelessWidget {
           notification(),
           // setting(),
           contactUs(),
-          addressManager(),
-          allOrders(),
+          UserDetails.isUserLoggedIn == true ? addressManager() : Container(),
+          UserDetails.isUserLoggedIn == true ? allOrders() : Container(),
           blogs(),
         ],
       ),

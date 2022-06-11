@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
 import 'package:shoes_store/controllers/onboarding_screen_controller/onboarding_screen_controller.dart';
@@ -157,7 +158,9 @@ class OnBoardingScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: (){
+                        onTap: () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setBool('onboarding', true);
                           Get.off(() => IndexScreen());
                           //Get.off(page);
                         },
