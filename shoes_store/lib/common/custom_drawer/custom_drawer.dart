@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/screens/address_manager_screen/address_manager_screen.dart';
 import 'package:shoes_store/screens/category_screen/category_screen.dart';
 import 'package:shoes_store/screens/collection_screen/collection_screen.dart';
 import 'package:shoes_store/screens/contact_us_screen/contact_us_screen.dart';
@@ -122,6 +123,7 @@ class CustomDrawer extends StatelessWidget {
           notification(),
           // setting(),
           contactUs(),
+          addressManager(),
           blogs(),
         ],
       ),
@@ -199,7 +201,7 @@ class CustomDrawer extends StatelessWidget {
       },
       leading: Image.asset(Images.ic_setting, color: Colors.black, scale: 0.75),
       title: Text(
-        'Setings',
+        'Settings',
         textScaleFactor: 1.4,
         style: TextStyle(color: Colors.black),
       ),
@@ -215,6 +217,21 @@ class CustomDrawer extends StatelessWidget {
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Contact Us',
+        textScaleFactor: 1.4,
+        style: TextStyle(color: Colors.black),
+      ),
+    );
+  }
+
+  Widget addressManager() {
+    return ListTile(
+      onTap: () {
+        Get.back();
+        Get.to(() => AddressManagerScreen());
+      },
+      leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
+      title: Text(
+        'Addresses',
         textScaleFactor: 1.4,
         style: TextStyle(color: Colors.black),
       ),

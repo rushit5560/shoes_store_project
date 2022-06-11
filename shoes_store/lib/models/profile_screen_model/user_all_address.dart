@@ -20,9 +20,9 @@ class UserAllAddressData {
   Data data;
 
   factory UserAllAddressData.fromJson(Map<String, dynamic> json) => UserAllAddressData(
-    success: json["success"],
-    message: json["message"],
-    data: Data.fromJson(json["data"]),
+    success: json["success"] ?? false,
+    message: json["message"] ?? "",
+    data: Data.fromJson(json["data"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -42,8 +42,8 @@ class Data {
   Inginfo billinginfo;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    shippinginfo: Inginfo.fromJson(json["shippinginfo"]),
-    billinginfo: Inginfo.fromJson(json["billinginfo"]),
+    shippinginfo: Inginfo.fromJson(json["shippinginfo"] ?? {}),
+    billinginfo: Inginfo.fromJson(json["billinginfo"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -78,8 +78,8 @@ class Inginfo {
   String modifiedByAdmin;
 
   factory Inginfo.fromJson(Map<String, dynamic> json) => Inginfo(
-    id: json["id"],
-    userId: json["user_id"],
+    id: json["id"] ?? 0,
+    userId: json["user_id"] ?? 0,
     isShipping: json["is_shipping"] == null ? 1 : json["is_shipping"],
     isBilling: json["is_billing"] == null ? 1 : json["is_billing"],
     address: json["address"] == null ? "" : json["address"],

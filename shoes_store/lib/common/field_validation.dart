@@ -117,4 +117,20 @@ class FieldValidator {
     }
     return null;
   }
+
+  String? validateShippingAddress(String value) {
+    if(value.isEmpty){
+          return "Shipping Address should not be Empty";
+        }
+    return null;
+  }
+
+  String? validateBillingAddress(String value) {
+    if(value.isEmpty){
+      return "Billing Address should not be Empty";
+    }
+    return null;
+  }
+
+
 }

@@ -31,4 +31,7 @@ class ApiUrl {
   static const DeleteWishListApi = ApiMainPath + 'api/deletewishlist';
   static const TestimonialApi = ApiMainPath + 'api/testimonials';
   static const AddOrderApi = ApiMainPath + 'api/orderadd';
+  static const AddUserBillingAddressApi = ApiMainPath + 'api/usersbilling';
+  static const AddUserShippingAddressApi = ApiMainPath + 'api/usersshipping';
+  static const UserAllAddressApi = ApiMainPath + 'api/usersaddress';
 }
