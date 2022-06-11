@@ -20,4 +20,9 @@ class CustomDrawerController extends GetxController {
     super.onInit();
   }
 
+  loadUI() {
+    isLoading(true);
+    isLoading(false);
+  }
+
 }

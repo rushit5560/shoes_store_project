@@ -276,7 +276,9 @@ class CustomDrawer extends StatelessWidget {
       onTap: () async {
         Get.back();
         await commonFunctions.clearUserDetailsFromPrefs();
-        Get.offAll(() => SignInScreen());
+        // Get.offAll(() => SignInScreen());
+        Get.back();
+        customDrawerController.loadUI();
       },
       // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       leading: Icon(Icons.logout, color: Colors.black),
