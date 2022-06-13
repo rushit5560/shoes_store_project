@@ -82,10 +82,15 @@ class _IndexScreenState extends State<IndexScreen> {
 
            InkWell(
              onTap: () {
-               changeIndex.call(0);
-               log("${indexScreenController.menuIndex.value}");
+               if(UserDetails.isUserLoggedIn == true) {
+                 changeIndex.call(0);
+                 log("${indexScreenController.menuIndex.value}");
 
-               indexScreenController.menuIndex.value = 0;
+                 indexScreenController.menuIndex.value = 0;
+               } else {
+                 Get.to(()=> SignInScreen(), transition: Transition.zoom);
+               }
+
              },
              child: SizedBox(
                height: 30,
@@ -101,10 +106,16 @@ class _IndexScreenState extends State<IndexScreen> {
 
            InkWell(
              onTap: () {
-               changeIndex.call(1);
-               log("${indexScreenController.menuIndex.value}");
 
-               indexScreenController.menuIndex.value = 1;
+               if(UserDetails.isUserLoggedIn == true) {
+                 changeIndex.call(1);
+                 log("${indexScreenController.menuIndex.value}");
+
+                 indexScreenController.menuIndex.value = 1;
+               } else {
+                 Get.to(()=> SignInScreen(), transition: Transition.zoom);
+               }
+
              },
              child: SizedBox(
                height: 30,
@@ -162,10 +173,14 @@ class _IndexScreenState extends State<IndexScreen> {
 
            InkWell(
              onTap: () {
-               changeIndex.call(4);
-               log("${indexScreenController.menuIndex.value}");
+               if(UserDetails.isUserLoggedIn == true) {
+                 changeIndex.call(4);
+                 log("${indexScreenController.menuIndex.value}");
 
-               indexScreenController.menuIndex.value = 4;
+                 indexScreenController.menuIndex.value = 4;
+               } else {
+                 Get.to(()=> SignInScreen(), transition: Transition.zoom);
+               }
              },
              child: SizedBox(
                height: 30,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,9 @@ import 'package:shoes_store/models/profile_screen_model/city_model.dart';
 import 'package:shoes_store/models/profile_screen_model/country_model.dart';
 import 'package:shoes_store/models/profile_screen_model/state_model.dart';
 import 'package:shoes_store/models/profile_screen_model/update_profile_model.dart';
+
+import '../../models/profile_screen_model/user_all_address.dart';
+import '../../models/profile_screen_model/user_profile_model.dart';
 
 
 class ProfileScreenController extends GetxController {
@@ -22,6 +26,8 @@ class ProfileScreenController extends GetxController {
   Datum? countryDropDownValue;
   DatumState? stateDropDownValue;
   DatumCity? cityDropDownValue;
+  UserData userData = UserData();
+  String userAddress = "";
 
   RxList<Datum> countryLists = [Datum(id: 0, name: 'Select Country', sortname: '')].obs;
   RxList<DatumState> stateLists = [DatumState(id: 0, name: 'Select State', countryId: 0)].obs;
@@ -152,9 +158,69 @@ class ProfileScreenController extends GetxController {
     }
   }
 
+  Future<void> getUserProfileFunction({required String userId}) async {
+    isLoading(true);
+    String url = ApiUrl.GetProfileApi + "$userId";
+    log("getUserProfileFunction Api Url : $url");
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+      log("User Profile Api Response : ${response.body}");
+
+      UserProfileModel userProfileModel = UserProfileModel.fromJson(json.decode(response.body));
+      isStatus = userProfileModel.success.obs;
+
+      if(isStatus.value) {
+        userData = userProfileModel.data;
+        log("userData : ${userData.name}");
+      } else {
+        log("getUserProfileFunction Else Else");
+      }
+
+    } catch(e) {
+      log("getUserProfileFunction Error ::: $e");
+    } finally {
+      // isLoading(false);
+      await getUserAllAddress(userId.toString());
+    }
+
+  }
+
+  Future<void> getUserAllAddress(String userId) async {
+    // isLoading(true);
+    String url = ApiUrl.UserAllAddressApi;
+    print('Url : $url');
+
+    try{
+      Map data = {
+        "user_id": "$userId"
+      };
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url), body: data);
+      print('Response1 : ${response.statusCode}');
+      print('Response1 : ${response.body}');
+
+      UserAllAddressData userAllAddressData = UserAllAddressData.fromJson(json.decode(response.body));
+      isStatus = userAllAddressData.success.obs;
+      print('Response Bool : ${userAllAddressData.success}');
+      print('isStatus : $isStatus');
+
+      if(isStatus.value){
+        userAddress = userAllAddressData.data.shippinginfo.address;
+      } else {
+        print('User All Address False False');
+      }
+    } catch(e) {
+      print('User All Address Error : $e');
+    }
+    // isLoading(false);
+    await getAllCountryData();
+  }
+
   @override
   void onInit() {
-    getAllCountryData();
+    // getAllCountryData();
     getUserDetailsFromPrefs();
     countryDropDownValue = countryLists[0];
     stateDropDownValue = stateLists[0];
@@ -166,6 +232,7 @@ class ProfileScreenController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userId = prefs.getInt('id');
     print('UserId : $userId');
+    await getUserProfileFunction(userId: "$userId");
   }
 
   loading(){

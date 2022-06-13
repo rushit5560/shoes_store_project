@@ -36,6 +36,7 @@ class ApiUrl {
   static const UserAllAddressApi = ApiMainPath + 'api/usersaddress';
   static const UserTotalOrderApi = ApiMainPath + 'api/usertotalorder';
   static const OrderDetailsApi = ApiMainPath + 'api/orderdetails';
+  static const GetProfileApi = ApiMainPath + "api/profile/";
 
   static const InvoicePdfPrefix = "https://ecomsport.omdemo.co.in/public/";
   static const InvoicePdfSuffix = ".pdf";

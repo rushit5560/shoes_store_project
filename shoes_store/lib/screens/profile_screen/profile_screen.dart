@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shoes_store/common/app_colors.dart';
+import 'package:shoes_store/common/custom_widgets.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/controllers/profile_screen_controller/profile_screen_controller.dart';
 import 'package:shoes_store/screens/profile_screen/profile_screen_widgets.dart';
@@ -14,8 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  ProfileScreenController profileScreenController =
-      Get.put(ProfileScreenController());
+  final profileScreenController = Get.put(ProfileScreenController());
 
   final ImagePicker imagePicker = ImagePicker();
 
@@ -26,11 +25,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
       appBar: profileScreenAppBarModule(title: 'Profile', context: context),
-      body: Column(
-        children: [
-          Container(height: 50),
-          profileContainer(context)
-        ],
+      body: Obx(
+        () => profileScreenController.isLoading.value
+            ? CustomCircularProgressIndicator()
+            : Column(
+                children: [Container(height: 50), profileContainer(context),],
+              ),
       ),
     );
   }
@@ -111,43 +111,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Container(
           child: Text(
-            "John Doe",
+            "${profileScreenController.userData.name}",
             style: TextStyle(
                 color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold),
           ),
         ),
-        Container(
-          child: Text("UAE"),
-        )
+        // Container(
+        //   child: Text("UAE"),
+        // ),
       ],
     );
   }
 
   tabView() {
-    return Obx(
-      () => Column(
+    return Column(
         children: [
-          mainTabsModule(),
-          Divider(
-            color: Colors.black,
-            height: 2,
-          ),
-          SizedBox(height: 5,),
+          // mainTabsModule(),
+          Divider(color: Colors.black, height: 2),
+          SizedBox(height: 5),
           Expanded(
             child: Container(
-              child: profileScreenController.isPersonalInfoSelected.value
-                  ? personalInfoModule()
-                  : myOrderModule(),
+              child: personalInfoModule(),
+              // child: profileScreenController.isPersonalInfoSelected.value
+              //     ? personalInfoModule()
+              //     : myOrderModule(),
             ),
-          )
+          ),
         ],
-      ),
     );
   }
 
   mainTabsModule() {
     return Obx(
-      () => Row(
+          () => Row(
         children: [
           Expanded(
             child: Padding(
@@ -159,41 +155,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
                   child: Center(
                     child: Text(
                       'Personal Info',
                       textScaleFactor: 1.1,
                       style: TextStyle(
                         color:
-                            profileScreenController.isPersonalInfoSelected.value
-                                ? AppColors.colorDarkPink
-                                : Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20, left: 10),
-              child: GestureDetector(
-                onTap: () {
-                  profileScreenController.isPersonalInfoSelected.value = false;
-                  profileScreenController.isOrderSelected.value = true;
-                },
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
-                  child: Center(
-                    child: Text(
-                      'My Order',
-                      textScaleFactor: 1.1,
-                      style: TextStyle(
-                        color: profileScreenController.isOrderSelected.value
+                        profileScreenController.isPersonalInfoSelected.value
                             ? AppColors.colorDarkPink
                             : Colors.black,
                         fontWeight: FontWeight.bold,
@@ -204,9 +173,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
+          // Expanded(
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(right: 20, left: 10),
+          //     child: GestureDetector(
+          //       onTap: () {
+          //         profileScreenController.isPersonalInfoSelected.value = false;
+          //         profileScreenController.isOrderSelected.value = true;
+          //       },
+          //       child: Padding(
+          //         padding:
+          //         const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+          //         child: Center(
+          //           child: Text(
+          //             'My Order',
+          //             textScaleFactor: 1.1,
+          //             style: TextStyle(
+          //               color: profileScreenController.isOrderSelected.value
+          //                   ? AppColors.colorDarkPink
+          //                   : Colors.black,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
+    // return Obx(
+    //   () => Row(
+    //     children: [
+    //       Expanded(
+    //         child: Padding(
+    //           padding: const EdgeInsets.only(left: 20, right: 10),
+    //           child: GestureDetector(
+    //             onTap: () {
+    //               profileScreenController.isPersonalInfoSelected.value = true;
+    //               profileScreenController.isOrderSelected.value = false;
+    //             },
+    //             child: Padding(
+    //               padding:
+    //                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+    //               child: Center(
+    //                 child: Text(
+    //                   'Personal Info',
+    //                   textScaleFactor: 1.1,
+    //                   style: TextStyle(
+    //                     color:
+    //                         profileScreenController.isPersonalInfoSelected.value
+    //                             ? AppColors.colorDarkPink
+    //                             : Colors.black,
+    //                     fontWeight: FontWeight.bold,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Expanded(
+    //         child: Padding(
+    //           padding: const EdgeInsets.only(right: 20, left: 10),
+    //           child: GestureDetector(
+    //             onTap: () {
+    //               profileScreenController.isPersonalInfoSelected.value = false;
+    //               profileScreenController.isOrderSelected.value = true;
+    //             },
+    //             child: Padding(
+    //               padding:
+    //                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+    //               child: Center(
+    //                 child: Text(
+    //                   'My Order',
+    //                   textScaleFactor: 1.1,
+    //                   style: TextStyle(
+    //                     color: profileScreenController.isOrderSelected.value
+    //                         ? AppColors.colorDarkPink
+    //                         : Colors.black,
+    //                     fontWeight: FontWeight.bold,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 
   personalInfoModule() {
@@ -218,27 +275,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Row(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Birth Date',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black, fontSize: 17
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Birth Date',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black, fontSize: 17
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5,),
-                    Text(
-                      '22/5/1998',
-                      style: TextStyle(
-                        color: Colors.black,
-                          fontSize: 17
+                      SizedBox(height: 5),
+                      Text(
+                        '22/5/1998',
+                        style: TextStyle(
+                          color: Colors.black,
+                            fontSize: 17
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                SizedBox(width: 60,),
+                SizedBox(width: 60),
                 Expanded(
                   //flex: 5,
                   child: Column(
@@ -251,7 +310,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.black, fontSize: 17
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5),
                       Text(
                         'Male',
                         style: TextStyle(
@@ -265,66 +324,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
 
-            SizedBox(height: 20,),
-            Row(
+            SizedBox(height: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email Id',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black, fontSize: 17
-                      ),
-                    ),
-                    SizedBox(height: 5,),
-                    Text(
-                      'john@demo.com',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(width: 15,),
-                Expanded(
-                  //flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Address',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black, fontSize: 17
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        '7000, WhiteField, Manchester Highway, London, 401203',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17
-                        ),
-                      ),
-                    ],
+                Text(
+                  'Email Id',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, fontSize: 17
                   ),
-                )
+                ),
+                SizedBox(height: 5),
+                Text(
+                  '${profileScreenController.userData.email}',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17
+                  ),
+                ),
               ],
             ),
 
-            SizedBox(height: 20,),
-            Text(
-              'About Us',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black, fontSize: 17
-              ),
+            SizedBox(height: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Address',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, fontSize: 17
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  '${profileScreenController.userAddress}',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 5,),
-            Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+
+            // SizedBox(height: 20),
+            // Text(
+            //   'About Us',
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       color: Colors.black, fontSize: 17
+            //   ),
+            // ),
+            // SizedBox(height: 5,),
+            // Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
 
           ],
         ),
@@ -496,4 +549,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     } else{}
   }
+
 }

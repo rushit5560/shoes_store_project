@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/screens/address_manager_screen/address_manager_screen.dart';
@@ -298,9 +297,9 @@ class CustomDrawer extends StatelessWidget {
         Get.to(() => SignInScreen());
       },
       // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
-      leading: Icon(Icons.logout, color: Colors.black),
+      leading: Icon(Icons.login, color: Colors.black),
       title: Text(
-        'LogIn',
+        'Login',
         textScaleFactor: 1.4,
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),

@@ -165,8 +165,10 @@ class OnBoardingScreen extends StatelessWidget {
                           //Get.off(page);
                         },
                         child: Container(
-                          child: Text("Skip",
-                            style: TextStyle(color: Colors.white),),
+                          child: Obx(
+                            ()=> Text(onBoardingController.isLastPage ? "Done" : "Skip",
+                              style: TextStyle(color: Colors.white),),
+                          ),
                         ),
                       ),
 

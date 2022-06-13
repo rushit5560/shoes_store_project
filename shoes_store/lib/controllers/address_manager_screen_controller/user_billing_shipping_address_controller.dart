@@ -107,7 +107,7 @@ class AddressManagerScreenController extends GetxController {
   }
 
   /// GetAll Addresses
-  getUserAllAddress() async{
+  getUserAllAddress() async {
     isLoading(true);
     String url = ApiUrl.UserAllAddressApi;
     print('Url : $url');
