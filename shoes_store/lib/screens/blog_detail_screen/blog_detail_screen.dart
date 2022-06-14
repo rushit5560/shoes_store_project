@@ -39,6 +39,21 @@ class BlogDetailScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                    blogDetailController.date!.value,
+                  style: TextStyle(
+                    fontSize: 13
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),

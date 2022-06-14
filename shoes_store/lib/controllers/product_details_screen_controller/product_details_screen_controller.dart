@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,8 +32,10 @@ class ProductDetailsScreenController extends GetxController {
 
     try {
       Map data = {"id": "$productId"};
+      log("data : $data");
 
       http.Response response = await http.post(Uri.parse(url), body: data);
+      log("response : ${response.body}");
 
       ProductDetailsData productDetailsData =
           ProductDetailsData.fromJson(json.decode(response.body));
@@ -40,6 +43,7 @@ class ProductDetailsScreenController extends GetxController {
 
       if (isStatus.value) {
         productDetailLists = productDetailsData.data.obs;
+        log("productDetailsScreenController.productDetailLists[0].outofStockStatus : ${productDetailLists[0].outofStockStatus}");
       } else {
         print('Product Details False False');
       }
@@ -132,7 +136,7 @@ class ProductDetailsScreenController extends GetxController {
 
       if (isStatus.value) {
         print('True True');
-        Get.snackbar('', 'Product Add in Cart Successfully');
+        Get.snackbar('${addToCartData.message}', '');
         Get.to(()=> CartScreen());
       } else {
         print('False False');
@@ -168,12 +172,12 @@ class ProductDetailsScreenController extends GetxController {
       if(isStatus.value){
         print('AddWishlist True True');
         wishListData = addProductWishlistData.data.obs;
-        Get.snackbar('title', "${wishListData.toString()}");
+        // Get.snackbar('title', "${wishListData.toString()}");
 
         if(addProductWishlistData.data.contains('already added in wishlist')){
-          Get.snackbar('', 'Product Already Added in Wishlist.');
+          Get.snackbar('Product Already Added in Wishlist.', '');
         } else {
-          Get.snackbar('', 'Product Added in Wishlist.');
+          Get.snackbar('Product Added in Wishlist.', '');
         }
 
         // Get.to(() => WishListPage());

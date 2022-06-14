@@ -19,51 +19,77 @@ class BlogScreen extends StatelessWidget {
       body: Obx(
           ()=> blogScreenController.isLoading.value
               ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
+              : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
             itemCount: blogScreenController.blogDataLists.length,
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: GestureDetector(
-                          onTap: () {
-                            print('id : ${blogScreenController.blogDataLists[index].id}');
-                            Get.to(() => BlogDetailScreen(),
-                              arguments: blogScreenController.blogDataLists[index].id,
-                            );
-                          },
-                          child: Image(
-                            height: Get.height * 0.23,
-                            width: Get.width,
-                            image: NetworkImage(
-                                '${ApiUrl.ApiMainPath}${blogScreenController.blogDataLists[index].showimg}'),
-                            fit: BoxFit.fill,
+                String date = "${blogScreenController.blogDataLists[index].createdDate.day}/"
+                "${blogScreenController.blogDataLists[index].createdDate.month}/" +
+                "${blogScreenController.blogDataLists[index].createdDate.year}";
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: GestureDetector(
+                              onTap: () {
+                                print('id : ${blogScreenController.blogDataLists[index].id}');
+                                Get.to(() => BlogDetailScreen(),
+                                  arguments: blogScreenController.blogDataLists[index].id,
+                                );
+                              },
+                              child: Image(
+                                height: Get.height * 0.23,
+                                width: Get.width,
+                                image: NetworkImage(
+                                    '${ApiUrl.ApiMainPath}${blogScreenController.blogDataLists[index].showimg}'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                      date,
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              blogScreenController.blogDataLists[index].title,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          // Html(
+                          //   data: blogScreenController.blogDataLists[index].content,
+                          // ),
+                        ],
                       ),
-                      SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          blogScreenController.blogDataLists[index].title,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Html(
-                        data: blogScreenController.blogDataLists[index].content,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              );
+                );
             },
           ),
+              ),
       ),
     );
   }

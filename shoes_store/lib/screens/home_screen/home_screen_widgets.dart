@@ -230,7 +230,7 @@ class NewCollectionListModule extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "\$${featuredSingleItem.productcost}",
+                              "\$${featuredSingleItem.totalcost}",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -238,7 +238,7 @@ class NewCollectionListModule extends StatelessWidget {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "\$${featuredSingleItem.productcost}",
+                              "\$${featuredSingleItem.totalcost}",
                               style: TextStyle(fontSize: 18),
                             )
                           ],
@@ -334,7 +334,7 @@ class BestSellerListModule extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "\$${featuredSingleItem.productcost}",
+                              "\$${featuredSingleItem.totalcost}",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 18,
@@ -342,7 +342,7 @@ class BestSellerListModule extends StatelessWidget {
                             ),
                             const SizedBox(width: 10),
                             Text(
-                              "\$${featuredSingleItem.productcost}",
+                              "\$${featuredSingleItem.totalcost}",
                               style: TextStyle(fontSize: 18),
                             )
                           ],

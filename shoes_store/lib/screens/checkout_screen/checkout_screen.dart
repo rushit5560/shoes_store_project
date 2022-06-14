@@ -3,9 +3,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
-import 'package:shoes_store/screens/confirm_screen/confirm_screen.dart';
 import '../../controllers/checkout_screen_controller/checkout_screen_controller.dart';
 import 'checkout_screen_widgets.dart';
+
+
 
 class CheckOutScreen extends StatelessWidget {
   CheckOutScreen({Key? key}) : super(key: key);

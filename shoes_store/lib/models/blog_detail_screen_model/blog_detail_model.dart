@@ -167,8 +167,8 @@ class Data {
   String metaKeywords;
   int createdBy;
   int modifiedBy;
-  String createdDate;
-  String updatedDate;
+  DateTime createdDate;
+  DateTime updatedDate;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
@@ -183,8 +183,8 @@ class Data {
     metaKeywords: json["meta_keywords"] == null ? "" : json["meta_keywords"],
     createdBy: json["created_by"].toString().isEmpty ? 1 : json["created_by"],
     modifiedBy: json["modified_by"].toString().isEmpty ? 1 : json["modified_by"],
-    createdDate: json["created_date"] ?? "",
-    updatedDate: json["updated_date"] ?? "",
+    createdDate: DateTime.parse(json["created_date"] ?? DateTime.now()),
+    updatedDate: DateTime.parse(json["updated_date"] ?? DateTime.now()),
   );
 
   Map<String, dynamic> toJson() => {
@@ -200,7 +200,7 @@ class Data {
     "meta_keywords": metaKeywords.isEmpty ? "" : metaKeywords,
     "created_by": createdBy,
     "modified_by": modifiedBy,
-    "created_date": createdDate,
-    "updated_date": updatedDate,
+    "created_date": createdDate.toIso8601String(),
+    "updated_date": updatedDate.toIso8601String(),
   };
 }

@@ -82,16 +82,16 @@ class CartItemListModule extends StatelessWidget {
                                     // color: Colors.black,
                                     fontSize: 18),
                               ),
-                              const SizedBox(height: 2),
-                              Text(
-                                '${cartSingleItem.fullText}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  // color: Colors.black,
-                                ),
-                              ),
+                              // const SizedBox(height: 2),
+                              // Text(
+                              //   '${cartSingleItem.fullText}',
+                              //   maxLines: 1,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   style: TextStyle(
+                              //     fontWeight: FontWeight.bold,
+                              //     // color: Colors.black,
+                              //   ),
+                              // ),
                               const SizedBox(height: 5),
                               Row(
                                 children: [
@@ -100,8 +100,7 @@ class CartItemListModule extends StatelessWidget {
                                         GestureDetector(
                                           onTap: () async {
                                             if (cartSingleItem.cquantity > 1) {
-                                              var cartItemDec =
-                                                  cartSingleItem.cquantity - 1;
+                                              var cartItemDec = cartSingleItem.cquantity - 1;
                                               await cartScreenController.getAddProductCartQty(
                                                 cartItemDec,
                                                 cartSingleItem.cartDetailId,

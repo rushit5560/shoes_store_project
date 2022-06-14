@@ -14,6 +14,7 @@ class BlogDetailController extends GetxController {
   RxString? blogImage;
   RxString? blogTitle;
   RxString? blogContent;
+  RxString? date;
 
 
   getBlogDetailData() async{
@@ -39,6 +40,7 @@ class BlogDetailController extends GetxController {
         blogImage = blogDetailsData.data.image.obs;
         blogTitle = blogDetailsData.data.title.obs;
         blogContent = blogDetailsData.data.content.obs;
+        date = "${blogDetailsData.data.createdDate.day}/${blogDetailsData.data.createdDate.month}/${blogDetailsData.data.createdDate.year}".obs;
       } else {
         print('Blog False False');
       }

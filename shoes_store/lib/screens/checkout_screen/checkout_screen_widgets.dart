@@ -18,7 +18,7 @@ class BillingDetailsModule extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Payment Method',
+            'Personal Information',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -194,13 +194,13 @@ class OrderNoteTextField extends StatelessWidget {
       controller: signInScreenController.orderNoteFieldController,
       keyboardType: TextInputType.text,
       decoration: formInputDecoration(hintText: 'Order Note', radius: 30),
-      // validator: (value) => FieldValidator().validateEmail(value!),
+      validator: (value) => FieldValidator().validateOrderNote(value!),
     );
   }
 }
 
 class CountryDropDownModule extends StatelessWidget {
-  final signInScreenController = Get.find<CheckOutScreenController>();
+  final checkOutScreenController = Get.find<CheckOutScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +214,7 @@ class CountryDropDownModule extends StatelessWidget {
           border: Border.all(color: Colors.grey),
         ),
         child: DropdownButton<Datum>(
-          value: signInScreenController.countryDropDownValue,
+          value: checkOutScreenController.countryDropDownValue,
           icon: Icon(Icons.keyboard_arrow_down_rounded, color: Colors.grey),
           style: TextStyle(color: Colors.grey),
           isExpanded: true,
@@ -223,14 +223,10 @@ class CountryDropDownModule extends StatelessWidget {
             color: Colors.white,
           ),
           onChanged: (newValue) {
-            signInScreenController.countryDropDownValue!.name = newValue!.name;
-            signInScreenController.countryDropDownValue!.id = newValue.id;
-            print(
-                "countryDropDownValue : ${signInScreenController.countryDropDownValue!.name}");
-            print("countryDropDownValue ID : ${newValue.id}");
-            // signInScreenController.getStateData(newValue.id);
+            checkOutScreenController.countryDropDownValue = newValue!;
+            checkOutScreenController.loadUI();
           },
-          items: signInScreenController.countryLists
+          items: checkOutScreenController.countryLists
               .map<DropdownMenuItem<Datum>>((Datum value) {
             return DropdownMenuItem<Datum>(
               value: value,

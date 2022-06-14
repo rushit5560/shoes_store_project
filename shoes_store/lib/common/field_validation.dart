@@ -22,6 +22,13 @@ class FieldValidator {
     return null;
   }
 
+  String? validateOrderNote(String value) {
+    if (value.isEmpty) {
+      return 'Order note is required';
+    }
+    return null;
+  }
+
   String? validateAddress(String value) {
     if (value.isEmpty) {
       return 'Address is required';

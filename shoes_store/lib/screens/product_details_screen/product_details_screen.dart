@@ -16,7 +16,7 @@ class ProductDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
       appBar:
-          commonAppBarModule(image: "Product detail", index: 3, context: context),
+          commonAppBarModule(image: "Product detail", context: context),
       body: Obx(
         () => productDetailsScreenController.isLoading.value
             ? CustomCircularProgressIndicator()

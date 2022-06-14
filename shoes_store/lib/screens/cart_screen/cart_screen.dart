@@ -41,6 +41,22 @@ class CartScreen extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: Column(
                                   children: [
+
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Total Quantity",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        ),
+                                        Text(
+                                          "${cartScreenController.cartData.totalqty}",
+                                          style: TextStyle(fontSize: 19, color: Colors.black),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 20),
+
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -56,50 +72,52 @@ class CartScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20),
 
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Discount",
-                                          style: TextStyle(fontSize: 19, color: Colors.black),
-                                        ),
-                                        Text(
-                                          "\$50",
-                                          style: TextStyle(fontSize: 19, color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 20),
 
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Shipping",
-                                          style: TextStyle(fontSize: 19, color: Colors.black),
-                                        ),
-                                        Text(
-                                          "\$50",
-                                          style: TextStyle(fontSize: 19, color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 20),
 
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Estimated Tax",
-                                          style: TextStyle(fontSize: 19, color: Colors.black),
-                                        ),
-                                        Text(
-                                          "\$50",
-                                          style: TextStyle(fontSize: 19, color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Text(
+                                    //       "Discount",
+                                    //       style: TextStyle(fontSize: 19, color: Colors.black),
+                                    //     ),
+                                    //     Text(
+                                    //       "\$50",
+                                    //       style: TextStyle(fontSize: 19, color: Colors.black),
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    // SizedBox(height: 20),
+
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Text(
+                                    //       "Shipping",
+                                    //       style: TextStyle(fontSize: 19, color: Colors.black),
+                                    //     ),
+                                    //     Text(
+                                    //       "\$50",
+                                    //       style: TextStyle(fontSize: 19, color: Colors.black),
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    // SizedBox(height: 20),
+
+                                    // Row(
+                                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Text(
+                                    //       "Estimated Tax",
+                                    //       style: TextStyle(fontSize: 19, color: Colors.black),
+                                    //     ),
+                                    //     Text(
+                                    //       "\$50",
+                                    //       style: TextStyle(fontSize: 19, color: Colors.black),
+                                    //     )
+                                    //   ],
+                                    // ),
+                                    // SizedBox(height: 10),
 
                                     Divider(color: Colors.grey),
                                     SizedBox(height: 10),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,8 @@ import '../../common/api_url.dart';
 import '../../common/images.dart';
 import '../../models/checkout_screen_model/order_add_model.dart';
 import '../../models/profile_screen_model/country_model.dart';
+import '../../models/profile_screen_model/user_all_address.dart';
+import '../../models/profile_screen_model/user_profile_model.dart';
 import '../../screens/confirm_screen/confirm_screen.dart';
 import '../../screens/index_screen/index_screen.dart';
 
@@ -19,6 +22,8 @@ class CheckOutScreenController extends GetxController {
   RxBool isSuccessStatus = false.obs;
   RxInt isSelectedIndex = 0.obs;
   RxInt userId = 0.obs;
+
+  UserData userData = UserData();
 
   GlobalKey<FormState> checkoutFormKey = GlobalKey();
   TextEditingController firstNameFieldController = TextEditingController();
@@ -107,9 +112,80 @@ class CheckOutScreenController extends GetxController {
     } catch(e) {
       print('Country Error : $e');
     } finally {
-      isLoading(false);
+      // isLoading(false);
+      await getUserAllAddress();
     }
   }
+
+  /// GetAll Addresses
+  getUserAllAddress() async {
+    isLoading(true);
+    String url = ApiUrl.UserAllAddressApi;
+    print('Url : $url');
+
+    try{
+      Map data = {
+        "user_id": "$userId"
+      };
+      print('data : $data');
+
+      http.Response response = await http.post(Uri.parse(url),body: data);
+      print('Response1 : ${response.statusCode}');
+      print('Response1 : ${response.body}');
+
+      UserAllAddressData userAllAddressData = UserAllAddressData.fromJson(json.decode(response.body));
+      isSuccessStatus = userAllAddressData.success.obs;
+      print('Response Bool : ${userAllAddressData.success}');
+      print('isStatus : $isSuccessStatus');
+
+      if(isSuccessStatus.value){
+
+        streetAddressFieldController.text = userAllAddressData.data.shippinginfo.address;
+        phoneNoFieldController.text = userAllAddressData.data.shippinginfo.mobile;
+        emailIdFieldController.text = userAllAddressData.data.shippinginfo.email;
+        print('User All Address True True');
+      } else {
+        print('User All Address False False');
+      }
+    } catch(e) {
+      print('User All Address Error : $e');
+    }
+    isLoading(false);
+  }
+
+  /// User Profile
+  // Future<void> getUserProfileFunction() async {
+  //   isLoading(true);
+  //   String url = ApiUrl.GetProfileApi + "$userId";
+  //   log("getUserProfileFunction Api Url : $url");
+  //
+  //   try {
+  //     http.Response response = await http.get(Uri.parse(url));
+  //     log("User Profile Api Response : ${response.body}");
+  //
+  //     UserProfileModel userProfileModel = UserProfileModel.fromJson(json.decode(response.body));
+  //     isSuccessStatus = userProfileModel.success.obs;
+  //
+  //     if(isSuccessStatus.value) {
+  //       userData = userProfileModel.data;
+  //       firstNameFieldController.text = userData.name!;
+  //       emailIdFieldController.text = userData.email!;
+  //
+  //
+  //
+  //       log("userData : ${userData.name}");
+  //     } else {
+  //       log("getUserProfileFunction Else Else");
+  //     }
+  //
+  //   } catch(e) {
+  //     log("getUserProfileFunction Error ::: $e");
+  //   } finally {
+  //     isLoading(false);
+  //     // await getUserAllAddress(userId.toString());
+  //   }
+  //
+  // }
 
   List<CheckOutPaymentModel> paymentMethodList = [
     CheckOutPaymentModel(
@@ -155,6 +231,11 @@ class CheckOutScreenController extends GetxController {
     } else {
       return "";
     }
+  }
+
+  loadUI() {
+    isLoading(true);
+    isLoading(false);
   }
 
 }
