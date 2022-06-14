@@ -24,49 +24,56 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Obx(
-        ()=> customDrawerController.isLoading.value
-          ? const Center(child: CircularProgressIndicator())
-        : Stack(
-            alignment: Alignment.topRight,
-            children: [
-          Container(
-            padding: EdgeInsets.only(top: 70),
-            color: Colors.white,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    //margin: EdgeInsets.only(left: 15),
+        () => customDrawerController.isLoading.value
+            ? const Center(child: CircularProgressIndicator())
+            : Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(top: 70),
+                    color: Colors.white,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 5),
-                        profilePicAndName(),
-                        SizedBox(height: 20),
-                        drawerList(),
+                        Expanded(
+                          child: Container(
+                            //margin: EdgeInsets.only(left: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 5),
+                                UserDetails.isUserLoggedIn == true
+                                    ? profilePicAndName()
+                                    : Container(),
+                                SizedBox(height: 20),
+                                drawerList(),
+                              ],
+                            ),
+                          ),
+                        ),
+                        UserDetails.isUserLoggedIn == true
+                            ? logout()
+                            : login(),
                       ],
                     ),
                   ),
-                ),
-                customDrawerController.isLoggedIn.value
-                    ? logout()
-                : login(),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: (){
-              Get.back();
-            },
-            child: Container(
-                height: 25,
-                width: 25,
-                margin: EdgeInsets.only(top: 65, right: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15), color: Colors.black),
-                child: Icon(Icons.close, color: Colors.white,)),
-          ),
-        ]),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                        height: 25,
+                        width: 25,
+                        margin: EdgeInsets.only(top: 65, right: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.black),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -140,7 +147,7 @@ class CustomDrawer extends StatelessWidget {
       leading: Image.asset(
         Images.ic_home,
         color: Colors.black,
-          scale: 0.75,
+        scale: 0.75,
       ),
       title: Text(
         'Home',
@@ -169,7 +176,7 @@ class CustomDrawer extends StatelessWidget {
     return ListTile(
       onTap: () {
         Get.back();
-         Get.to(() => CategoryScreen());
+        Get.to(() => CategoryScreen());
       },
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
@@ -186,7 +193,8 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => NotificationScreen());
       },
-      leading: Image.asset(Images.ic_notification, color: Colors.black, scale: 0.75),
+      leading:
+          Image.asset(Images.ic_notification, color: Colors.black, scale: 0.75),
       title: Text(
         'Notification',
         textScaleFactor: 1.4,
@@ -233,7 +241,7 @@ class CustomDrawer extends StatelessWidget {
       },
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
-        'Addresses',
+        'Address',
         textScaleFactor: 1.4,
         style: TextStyle(color: Colors.black),
       ),
@@ -273,11 +281,13 @@ class CustomDrawer extends StatelessWidget {
   Widget logout() {
     return ListTile(
       onTap: () async {
-        Get.back();
+        customDrawerController.isLoading(true);
+
         await commonFunctions.clearUserDetailsFromPrefs();
-        // Get.offAll(() => SignInScreen());
+        // customDrawerController.loadUI();
+        customDrawerController.isLoading(false);
         Get.back();
-        customDrawerController.loadUI();
+        Get.snackbar("User logout successfully!", "");
       },
       // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       leading: Icon(Icons.logout, color: Colors.black),
@@ -305,5 +315,4 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
   }
-
 }

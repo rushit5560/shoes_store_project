@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
@@ -6,9 +8,21 @@ import 'package:shoes_store/common/custom_appbar.dart';
 import '../../common/api_url.dart';
 import '../../controllers/wishlist_screen_controller/wishlist_screen_controller.dart';
 
-class WishlistScreen extends StatelessWidget {
+class WishlistScreen extends StatefulWidget {
   WishlistScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WishlistScreen> createState() => _WishlistScreenState();
+}
+
+class _WishlistScreenState extends State<WishlistScreen> {
   final wishlistScreenController = Get.put(WishlistScreenController());
+
+  @override
+  void initState() {
+    wishlistScreenController.getUserDetails();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,27 +122,97 @@ class WishlistScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          /*Padding(
+
+                          Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () async {
+                                            print(
+                                                'wishlistid : ${wishlistScreenController.userWishLists[index].wishlistid}');
+                                            await wishlistScreenController
+                                                .getDeleteWishlistFunction(
+                                                    wishlistScreenController
+                                                        .userWishLists[index]
+                                                        .wishlistid);
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(right: 5),
+                                            child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(3),
+                                                child: Icon(
+                                                  Icons.close_rounded,
+                                                  size: 20,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.colorDarkPink,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                        const SizedBox(height: 8),
+
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 5),
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              var productId = wishlistScreenController.userWishLists[index].productId;
+                                              var wishlistId = wishlistScreenController.userWishLists[index].wishlistid;
+
+                                              await wishlistScreenController.getDeleteWishlistFunctionNew(wishlistId);
+
+                                              await wishlistScreenController.productAddToCart(
+                                                qty: 1,
+                                                productId: productId,
+                                              );
+                                            },
+                                            child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(4),
+                                                child: Icon(
+                                                  Icons.shopping_cart_rounded,
+                                                  size: 18,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.colorDarkPink,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+
+                                      ],
+                                    ),
+                                    /*Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Container(
-                                  height: 35, width: 35,
+                                  height: 30, width: 30,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: CustomColor.kOrangeColor,
+                                    color: AppColors.colorDarkPink,
                                   ),
-                                  child: IconButton(
-                                    icon: Icon(Icons.shopping_cart_rounded),
-                                    color: Colors.white,
-                                    iconSize: 20,
-                                    onPressed: () {
-                                      print(wishListController.userWishLists[index].productname);
-                                    },
+                                  child: Center(
+                                    child: IconButton(
+                                      icon: Icon(Icons.shopping_cart_rounded),
+                                      color: Colors.white,
+                                      iconSize: 15,
+                                      onPressed: () {
+                                        // print(wishListController.userWishLists[index].productname);
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),*/
                         ],
                       ),
-                      Positioned(
+                      /*Positioned(
                         right: 15,
                         top: -7,
                         child: GestureDetector(
@@ -152,6 +236,28 @@ class WishlistScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
+                      Positioned(
+                        right: 15,
+                        bottom: -7,
+                        child: Container(
+                          height: 30, width: 30,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.colorDarkPink,
+                          ),
+                          child: Center(
+                            child: IconButton(
+                              icon: Icon(Icons.shopping_cart_rounded),
+                              color: Colors.white,
+                              iconSize: 15,
+                              onPressed: () {
+                                // print(wishListController.userWishLists[index].productname);
+                              },
+                            ),
+                          ),
+                        ),
+                      ),*/
                     ],
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/custom_widgets.dart';
 import 'package:shoes_store/controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 import 'contact_us_screen_widgets.dart';
@@ -13,24 +14,33 @@ class ContactUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Stack(
-          children: [
-            GoogleMapModule(),
-            Column(
-              children: [
-                ContactUsAppBarModule(),
-                SizedBox(height: Get.height / 6),
-                Expanded(
-                  child: Obx(() => contactUsScreenController.isLoading.value
-                      ? CustomCircularProgressIndicator()
-                      : ContactUsForm()),
-                ),
-              ],
-            )
-          ],
-        ),
+
+      appBar: commonAppBarModule(image: "Contact Us"),
+
+      body: Obx(
+        () => contactUsScreenController.isLoading.value
+            ? CustomCircularProgressIndicator()
+            : ContactUsForm(),
       ),
+
+      // body: Container(
+      //   child: Stack(
+      //     children: [
+      //       // GoogleMapModule(),
+      //       Column(
+      //         children: [
+      //           ContactUsAppBarModule(),
+      //           SizedBox(height: Get.height / 6),
+      //           Expanded(
+      //             child: Obx(() => contactUsScreenController.isLoading.value
+      //                 ? CustomCircularProgressIndicator()
+      //                 : ContactUsForm()),
+      //           ),
+      //         ],
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 

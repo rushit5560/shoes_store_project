@@ -1,14 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/field_validation.dart';
 import 'package:shoes_store/common/input_field_decoration.dart';
 import 'package:shoes_store/controllers/contact_us_screen_controller/contact_us_screen_controller.dart';
 
-class GoogleMapModule extends StatelessWidget {
+/*class GoogleMapModule extends StatelessWidget {
   GoogleMapModule({Key? key}) : super(key: key);
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -29,7 +26,7 @@ class GoogleMapModule extends StatelessWidget {
       },
     );
   }
-}
+}*/
 
 class ContactUsAppBarModule extends StatelessWidget {
   const ContactUsAppBarModule({Key? key}) : super(key: key);
@@ -114,8 +111,8 @@ class UsernameTextFieldModule extends StatelessWidget {
       child: TextFormField(
         controller: contactUsScreenController.fullNameController,
         keyboardType: TextInputType.text,
-        decoration: formInputDecoration(hintText: 'UserName', radius: 30),
-        validator: (value) => FieldValidator().validateFullName(value!),
+        decoration: formInputDecoration(hintText: 'User Name', radius: 30),
+        validator: (value) => FieldValidator().validateUserName(value!),
       ),
     );
   }
@@ -158,7 +155,7 @@ class PhoneNoTextFieldModule extends StatelessWidget {
       child: TextFormField(
         controller: contactUsScreenController.phoneNoController,
         keyboardType: TextInputType.phone,
-        decoration: formInputDecoration(hintText: 'Phone No', radius: 30),
+        decoration: formInputDecoration(hintText: 'Mobile No', radius: 30),
         validator: (value) => FieldValidator().validateMobile(value!),
       ),
     );

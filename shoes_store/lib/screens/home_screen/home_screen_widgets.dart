@@ -8,6 +8,8 @@ import 'package:shoes_store/controllers/home_screen_controller/home_screen_contr
 import 'package:shoes_store/models/home_screen_model/featured_product_model.dart';
 import 'package:shoes_store/screens/product_details_screen/product_details_screen.dart';
 
+import '../collection_screen/collection_screen.dart';
+
 class SearchTextFieldModule extends StatelessWidget {
   SearchTextFieldModule({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class SearchTextFieldModule extends StatelessWidget {
       child: TextFormField(
           keyboardType: TextInputType.emailAddress,
           //controller: signInPasswordFieldController,
-          obscureText: true,
+          // obscureText: true,
           decoration: InputDecoration(
             hintText: "Search",
             suffixIcon: Icon(Icons.search_outlined),
@@ -168,7 +170,7 @@ class NewCollectionListModule extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  //Get.to(()=> CategoryScreen());
+                  Get.to(()=> CollectionScreen());
                 },
                 child: Text(
                   "Show All",
@@ -275,7 +277,9 @@ class BestSellerListModule extends StatelessWidget {
                     fontWeight: FontWeight.w500),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(()=> CollectionScreen());
+                },
                 child: Text(
                   "Show All",
                   style: TextStyle(

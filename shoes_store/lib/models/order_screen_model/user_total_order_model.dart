@@ -67,7 +67,7 @@ class OrderData {
   String userFname;
   String userLname;
   String userCompanyname;
-  String userCountryId;
+  int userCountryId;
   String userStreetAddress;
   String userCity;
   String usersState;
@@ -94,7 +94,7 @@ class OrderData {
     userFname: json["userFname"] ?? "",
     userLname: json["userLname"] ?? "",
     userCompanyname: json["userCompanyname"] ?? "",
-    userCountryId: json["userCountry_id"] ?? "",
+    userCountryId: json["userCountry_id"] ?? 0,
     userStreetAddress: json["userStreet_address"] ?? "",
     userCity: json["userCity"] ?? "",
     usersState: json["usersState"] ?? "",

@@ -66,6 +66,7 @@ class PasswordTextField extends StatelessWidget {
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
         controller: signUpScreenController.passwordFieldController,
+        obscureText: true,
         decoration: formInputDecoration(hintText: 'Password'),
         validator: (value) => FieldValidator().validatePassword(value!),
       ),

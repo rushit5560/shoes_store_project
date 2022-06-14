@@ -54,7 +54,7 @@ class AddressManagerScreenController extends GetxController {
         print('User Billing Address True True');
         // Get.back();
         Get.snackbar(billingAddressData.message, '');
-        await getUserAllAddress();
+
       } else {
         print('User Billing Address False False');
       }
@@ -62,8 +62,8 @@ class AddressManagerScreenController extends GetxController {
     } catch(e) {
       print('User Billing Address Error : $e');
     }
-
-    isLoading(false);
+    // isLoading(false);
+    await getUserDetailsFromPrefs();
   }
 
   /// Save Shipping Address
@@ -94,7 +94,7 @@ class AddressManagerScreenController extends GetxController {
         print('User Shipping Address True True');
         // Get.back();
         Get.snackbar(shippingAddressData.message, '');
-        await getUserAllAddress();
+
       } else {
         print('User Shipping Address False False');
       }
@@ -102,15 +102,15 @@ class AddressManagerScreenController extends GetxController {
     } catch(e) {
       print('User Shipping Address Error : $e');
     }
-
-    isLoading(false);
+    // isLoading(false);
+    await getUserDetailsFromPrefs();
   }
 
   /// GetAll Addresses
-  getUserAllAddress() async {
+  getUserAllAddress(userId) async {
     isLoading(true);
     String url = ApiUrl.UserAllAddressApi;
-    print('Url : $url');
+    print('User Address Url : $url');
 
     try{
       Map data = {
@@ -148,8 +148,8 @@ class AddressManagerScreenController extends GetxController {
   getUserDetailsFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userId = prefs.getInt('id');
-    print('UserId Add to Cart : $userId');
-    await getUserAllAddress();
+    print('UserId : $userId');
+    await getUserAllAddress(userId);
   }
 
 

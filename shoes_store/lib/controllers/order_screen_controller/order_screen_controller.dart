@@ -37,8 +37,9 @@ class OrderScreenController extends GetxController {
       }
     } catch(e){
       print('User Total Orders Error :$e');
+    } finally {
+      isLoading(false);
     }
-    isLoading(false);
   }
 
   getUserDetailsFromPrefs() async{

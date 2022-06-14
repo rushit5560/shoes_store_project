@@ -8,6 +8,13 @@ class FieldValidator {
     return null;
   }
 
+  String? validateUserName(String value) {
+    if (value.isEmpty) {
+      return 'User name is required';
+    }
+    return null;
+  }
+
   String? validateLastName(String value) {
     if (value.isEmpty) {
       return 'Last name is required';

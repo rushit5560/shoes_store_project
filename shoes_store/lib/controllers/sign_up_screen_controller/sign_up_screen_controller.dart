@@ -34,7 +34,7 @@ class SignUpScreenController extends GetxController {
       // When User SignUp Failed
       if (response.body.contains('The email has already been taken')) {
         print('Email Already Registered');
-        Get.snackbar('Error!', 'Email Already Registered');
+        Get.snackbar('Error!', 'Email already registered');
       }
 
       SignUpData signUpData = SignUpData.fromJson(json.decode(response.body));
@@ -46,7 +46,7 @@ class SignUpScreenController extends GetxController {
         // Save id And token in SharedPreference
         CommonFunctions().setUserDetailsInPrefs(id, token);
         Get.offAll(() => IndexScreen());
-        Get.snackbar('User Registered Successfully.', '');
+        Get.snackbar('User registered successfully.', '');
       } else {
         print('Register False');
       }

@@ -90,7 +90,6 @@ class AddressManagerScreen extends StatelessWidget {
               onTap: () async {
                 if(addressManagerScreenController.shippingKey.currentState!.validate()){
                   await addressManagerScreenController.getUserShippingAddress();
-                  addressManagerScreenController.clearAllFields();
                 }
               },
               child: Container(
@@ -184,7 +183,6 @@ class AddressManagerScreen extends StatelessWidget {
               onTap: () async {
                 if(addressManagerScreenController.billingKey.currentState!.validate()){
                   await addressManagerScreenController.getUserBillingAddress();
-                  addressManagerScreenController.clearAllFields();
                 }
               },
               child: Container(
