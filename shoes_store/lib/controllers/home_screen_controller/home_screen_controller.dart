@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:shoes_store/models/home_screen_model/banner_model.dart';
+import 'package:shoes_store/models/home_screen_model/brand_banner_model.dart';
 import 'package:shoes_store/models/home_screen_model/featured_product_model.dart';
 import '../../models/home_screen_model/testimonial_model.dart';
 
@@ -16,6 +17,8 @@ class HomeScreenController extends GetxController{
   RxList<Datum> bannerLists = RxList();
   RxList<Datum1> featuredProductLists = RxList();
   RxList<TestimonialDetails> testimonialLists = RxList();
+
+  List<BrandBanner> brandBannerList = [];
 
   Future<void> getBannerData() async {
     isLoading(true);
@@ -92,8 +95,35 @@ class HomeScreenController extends GetxController{
     } catch(e) {
       print('Testimonial Error : $e');
     } finally {
-      isLoading(false);
+      //isLoading(false);
+      getBrandBannerData();
     }
+  }
+
+  Future<void> getBrandBannerData() async {
+    isLoading(true);
+    String url = ApiUrl.GetBrandBannerApi;
+    print('Url : $url');
+
+    try{
+      http.Response response = await http.get(Uri.parse(url));
+
+      GetBrandBannerModel getBrandBannerModel = GetBrandBannerModel.fromJson(json.decode(response.body));
+      isStatus = getBrandBannerModel.success.obs;
+
+      if(isStatus.value){
+        brandBannerList = getBrandBannerModel.data.obs;
+        log('brandBannerList: $brandBannerList');
+      } else {
+        print('Brand Banner False False');
+      }
+    } catch(e) {
+      print('Brand Banner Error : $e');
+    } finally {
+       isLoading(false);
+      //getFeaturedProductData();
+    }
+
   }
 
   @override

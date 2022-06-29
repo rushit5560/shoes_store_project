@@ -52,9 +52,9 @@ class UserData {
   String? password;
   String? rememberToken;
   String? image;
-  String? country;
-  String? state;
-  String? city;
+  int? country;
+  int? state;
+  int? city;
   String? forgotpasswordToken;
   // DateTime createdAt;
   // DateTime updatedAt;
@@ -67,9 +67,9 @@ class UserData {
     password: json["password"] ?? "",
     rememberToken: json["remember_token"] ?? "",
     image: json["image"] ?? "",
-    country: json["country"] ?? "",
-    state: json["state"] ?? "",
-    city: json["city"] ?? "",
+    country: json["country"] ?? 0,
+    state: json["state"] ?? 0,
+    city: json["city"] ?? 0,
     forgotpasswordToken: json["forgotpassword_token"] ?? "",
     // createdAt: DateTime.parse(json["created_at"]),
     // updatedAt: DateTime.parse(json["updated_at"]),

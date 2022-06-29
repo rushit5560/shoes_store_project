@@ -63,7 +63,7 @@ class ImageBannerModule extends StatelessWidget {
       itemBuilder: (context, index, realIndex) {
         final imgUrl = ApiUrl.ApiMainPath +
             "${homeScreenController.bannerLists[index].imagePath}";
-        return _imageModule(imgUrl);
+        return _imageModule(imgUrl, index);
       },
       options: CarouselOptions(
           height: 150,
@@ -75,7 +75,7 @@ class ImageBannerModule extends StatelessWidget {
     );
   }
 
-  Widget _imageModule(String imgUrl) {
+  Widget _imageModule(String imgUrl, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Stack(
@@ -98,7 +98,7 @@ class ImageBannerModule extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    'Running Mens Shoes',
+                    homeScreenController.bannerLists[index].title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -119,6 +119,75 @@ class ImageBannerModule extends StatelessWidget {
     );
   }
 }
+
+class BrandBannerModule extends StatelessWidget {
+  BrandBannerModule({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: homeScreenController.brandBannerList.length,
+      itemBuilder: (context, index, realIndex) {
+        final imgUrl = ApiUrl.ApiMainPath +
+            "${homeScreenController.brandBannerList[index].brandImage}";
+        return _imageModule(imgUrl, index);
+      },
+      options: CarouselOptions(
+          height: 150,
+          autoPlay: true,
+          viewportFraction: 1,
+          onPageChanged: (index, reason) {
+            homeScreenController.activeIndex.value = index;
+          }),
+    );
+  }
+
+  Widget _imageModule(String imgUrl, int index) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey,
+              image: DecorationImage(
+                image: NetworkImage("$imgUrl"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            alignment: Alignment.centerLeft,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    homeScreenController.brandBannerList[index].brandName,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 class ImageBannerIndicator extends StatelessWidget {
   ImageBannerIndicator({Key? key}) : super(key: key);
@@ -486,7 +555,7 @@ class TestimonialModule extends StatelessWidget {
         );
       },
       options: CarouselOptions(
-          height: 150,
+          height: 160,
           autoPlay: true,
           viewportFraction: 1,
           onPageChanged: (index, reason) {

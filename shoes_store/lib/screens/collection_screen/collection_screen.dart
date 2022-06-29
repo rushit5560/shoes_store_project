@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
+import 'package:shoes_store/common/common_functions.dart';
 import 'package:shoes_store/common/custom_appbar.dart';
 import 'package:shoes_store/common/custom_widgets.dart';
 import 'package:shoes_store/controllers/collection_screen_controller/collection_screen_controller.dart';
@@ -23,6 +26,9 @@ class CollectionScreen extends StatelessWidget {
             ? CustomCircularProgressIndicator()
             : Column(
                 children: [
+                  const SizedBox(height: 10),
+                  searchTextFieldModule(),
+                  const SizedBox(height: 15),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -33,14 +39,67 @@ class CollectionScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 30),
-                          Expanded(child: collectionList())
+                          Expanded(
+                              child: /*collectionScreenController.searchCollectionLists.isNotEmpty
+                                  ? searchCollectionListModule():*/
+                              collectionList())
                         ],
                       ),
                     ),
                   ),
-                  Container()
+                  //Container()
                 ],
               ),
+      ),
+    );
+  }
+
+  Widget searchTextFieldModule(){
+    return Container(
+      height: 40,
+      margin: EdgeInsets.only(left: 15, right: 15),
+      child: TextFormField(
+          keyboardType: TextInputType.text,
+          controller: collectionScreenController.categorySearchFieldController,
+          // obscureText: true,
+          decoration: InputDecoration(
+            hintText: "Search",
+            suffixIcon: GestureDetector(
+              onTap: (){
+                log('Collection Name : ${collectionScreenController.categorySearchFieldController.text}');
+                if(collectionScreenController.categorySearchFieldController.text.trim().isEmpty) {
+                  collectionScreenController.isLoading(true);
+                  collectionScreenController.searchCollectionLists.clear();
+                  collectionScreenController.isLoading(false);
+                  // screenController.loadUI();
+                } else {
+                  collectionScreenController.searchCollectionListFunction();
+                }
+                CommonFunctions().hideKeyBoard();
+              },
+                child: Icon(Icons.search_outlined)),
+            //prefixIcon: Icon(icon, color: Colors.black),
+            // isDense: true,
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            // border: InputBorder.none,
+            filled: true,
+            fillColor: Colors.white,
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.white)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.white)),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.white)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.white)),
+          )
+
+        //validator: (value) => FieldValidator().validatePassword(value!),
+
       ),
     );
   }
@@ -71,6 +130,88 @@ class CollectionScreen extends StatelessWidget {
             onTap: () {
               Get.to(() => ProductDetailsScreen(),
                   arguments: categorySingleItem.id,
+              );
+            },
+            child: Container(
+              //height: 100,
+              width: Get.width,
+              margin: EdgeInsets.only(left: 10, right: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.grey.shade200,
+                  //border: Border.all(color: Colors.grey.shade400
+                  //),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.shade400, blurRadius: 5)
+                  ]),
+              child: Image.network("$imgUrl"),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "${categorySingleItem.productname}",
+            style: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
+        const SizedBox(height: 5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              Text(
+                "\$${categorySingleItem.productcost}",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  "\$${categorySingleItem.productcost}",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 18),
+                ),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+
+  searchCollectionListModule(){
+    return Container(
+      margin: EdgeInsets.only(left: 10, right: 10),
+      child: GridView.builder(
+        itemCount: collectionScreenController.searchCollectionLists.length,
+        gridDelegate:
+        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (BuildContext context, int index) {
+          Datum1 categorySingleItem =
+          collectionScreenController.searchCollectionLists[index];
+          return _searchCollectionListTile(categorySingleItem);
+        },
+      ),
+    );
+  }
+
+  Widget _searchCollectionListTile(Datum1 categorySingleItem) {
+    final imgUrl = ApiUrl.ApiMainPath + "${categorySingleItem.showimg}";
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(() => ProductDetailsScreen(),
+                arguments: categorySingleItem.id,
               );
             },
             child: Container(
