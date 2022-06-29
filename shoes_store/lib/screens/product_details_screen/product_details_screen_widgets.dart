@@ -8,7 +8,10 @@ import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/controllers/product_details_screen_controller/product_details_screen_controller.dart';
+import 'package:shoes_store/models/product_detail_screen_model/related_products_model.dart';
 import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
+
+import 'product_details_screen.dart';
 
 class ProductImageSliderModule extends StatelessWidget {
   ProductImageSliderModule({Key? key}) : super(key: key);
@@ -301,16 +304,125 @@ class ProductDetailsModule extends StatelessWidget {
           Html(
             data: productDetailsScreenController.productDetailLists[0].fullText,
           ),
-          // Text(
-          //   "${productDetailsScreenController.productDetailLists[0].fullText}",
-          //   style: TextStyle(fontSize: 19, color: Colors.black),
-          // ),
+
+          const SizedBox(height: 10),
+
+          productDetailsScreenController.relatedProductLists.isEmpty
+          ? Container()
+              : RelatedProductListModule(),
         ],
       ),
     );
   }
 }
 
+class RelatedProductListModule extends StatelessWidget {
+  RelatedProductListModule({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<ProductDetailsScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Related Products",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
+              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.to(()=> CollectionScreen());
+              //   },
+              //   child: Text(
+              //     "Show All",
+              //     style: TextStyle(
+              //         color: Colors.black,
+              //         fontWeight: FontWeight.w500,
+              //         fontSize: 20,
+              //         decoration: TextDecoration.underline),
+              //   ),
+              // ),
+            ],
+          ),
+
+          SizedBox(height: 10),
+
+          Container(
+            height: Get.height * 0.25,
+            child: ListView.builder(
+                itemCount: homeScreenController.relatedProductLists.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  RelatedProductDatum singleItem= homeScreenController.relatedProductLists[index];
+                  final imgUrl = ApiUrl.ApiMainPath + "${singleItem.showimg}";
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => ProductDetailsScreen(),
+                        arguments: singleItem.id,
+                      );
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            //height: 100,
+                            margin: EdgeInsets.only(left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.grey.shade200,
+                                //border: Border.all(color: Colors.grey.shade400
+                                //),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade400, blurRadius: 5)
+                                ]),
+                            child: Image.network("$imgUrl"),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "${singleItem.productname}",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              "\$${singleItem.totalcost}",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "\$${singleItem.totalcost}",
+                              style: TextStyle(fontSize: 18),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+                }),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 // class ProductReviewListModule extends StatelessWidget {
 //   ProductReviewListModule({Key? key}) : super(key: key);

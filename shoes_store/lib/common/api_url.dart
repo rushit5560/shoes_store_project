@@ -38,6 +38,10 @@ class ApiUrl {
   static const OrderDetailsApi = ApiMainPath + 'api/orderdetails';
   static const GetProfileApi = ApiMainPath + "api/profile/";
 
+
+  static const GetRelatedProductsApi = ApiMainPath + "api/related/";
+  static const GetBrandBannerApi = ApiMainPath + "api/brandbanner";
+
   static const InvoicePdfPrefix = "${ApiMainPath}public/";
   static const InvoicePdfSuffix = ".pdf";
 }

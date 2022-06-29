@@ -8,6 +8,7 @@ import 'package:shoes_store/models/product_detail_screen_model/add_product_revie
 import 'package:shoes_store/models/product_detail_screen_model/addtocart_model.dart';
 import 'package:shoes_store/models/product_detail_screen_model/product_detail_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shoes_store/models/product_detail_screen_model/related_products_model.dart';
 import 'package:shoes_store/screens/cart_screen/cart_screen.dart';
 
 import '../../models/product_detail_screen_model/addproduct_wishlist_model.dart';
@@ -20,6 +21,7 @@ class ProductDetailsScreenController extends GetxController {
   RxInt activeIndex = 0.obs;
   int productQty = 1;
   RxList<Datum> productDetailLists = RxList();
+  List<RelatedProductDatum> relatedProductLists = [];
   // RxList<Datum1> productReviewList = RxList();
   var userId;
 
@@ -50,7 +52,8 @@ class ProductDetailsScreenController extends GetxController {
     } catch (e) {
       print('Product Details Error : $e');
     } finally {
-      isLoading(false);
+      // isLoading(false);
+      await getRelatedProductFunction();
       // getProductReview();
     }
   }
@@ -190,6 +193,34 @@ class ProductDetailsScreenController extends GetxController {
     }
 
     isLoading(false);
+  }
+
+
+  Future<void> getRelatedProductFunction() async {
+    isLoading(true);
+    String url = ApiUrl.GetRelatedProductsApi + "$productId";
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+
+      RelatedProductsModel relatedProductsModel = RelatedProductsModel.fromJson(json.decode(response.body));
+      isStatus = relatedProductsModel.success.obs;
+
+      if(isStatus.value) {
+        relatedProductLists.clear();
+        relatedProductLists.addAll(relatedProductsModel.data);
+        log("relatedProductLists : ${relatedProductLists.length}");
+
+      } else {
+        log("getRelatedProductFunction Else Else");
+      }
+
+    } catch(e) {
+      log("getRelatedProductFunction Error ::: $e");
+    } finally {
+      isLoading(false);
+    }
+
   }
 
   @override

@@ -65,7 +65,7 @@ class CollectionScreen extends StatelessWidget {
           decoration: InputDecoration(
             hintText: "Search",
             suffixIcon: GestureDetector(
-              onTap: (){
+              onTap: () {
                 log('Collection Name : ${collectionScreenController.categorySearchFieldController.text}');
                 if(collectionScreenController.categorySearchFieldController.text.trim().isEmpty) {
                   collectionScreenController.isLoading(true);
