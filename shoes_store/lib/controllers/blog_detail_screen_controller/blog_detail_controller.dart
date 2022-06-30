@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +16,9 @@ class BlogDetailController extends GetxController {
   RxString? blogTitle;
   RxString? blogContent;
   RxString? date;
+
+  GlobalKey<FormState> formKey = GlobalKey();
+  TextEditingController commentController = TextEditingController();
 
 
   getBlogDetailData() async{

@@ -16,11 +16,15 @@ class BlogDetailScreen extends StatelessWidget {
 
       appBar: commonAppBarModule(image: "Blog Details"),
 
-      body: Column(
-        children: [
-          BlogDetailsViewModule(),
-          BlogCommentModule(),
-        ],
+      body: Obx(
+        ()=> blogDetailController.isLoading.value
+            ? Center(child: CircularProgressIndicator())
+            : Column(
+          children: [
+            BlogDetailsViewModule(),
+            BlogCommentModule(),
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
+import 'package:shoes_store/common/contants/user_details.dart';
+import 'package:shoes_store/common/field_validation.dart';
+import 'package:shoes_store/common/input_field_decoration.dart';
 import 'package:shoes_store/controllers/blog_detail_screen_controller/blog_detail_controller.dart';
 
 class BlogDetailsViewModule extends StatelessWidget {
@@ -10,10 +13,7 @@ class BlogDetailsViewModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-          ()=> screenController.isLoading.value
-          ? Center(child: CircularProgressIndicator())
-          : Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
@@ -65,20 +65,39 @@ class BlogDetailsViewModule extends StatelessWidget {
           ),
           SizedBox(height: 10),
         ],
-      ),
-    );
+      );
   }
 }
 
 
 class BlogCommentModule extends StatelessWidget {
-  const BlogCommentModule({Key? key}) : super(key: key);
+  BlogCommentModule({Key? key}) : super(key: key);
+  final screenController = Get.find<BlogDetailController>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          /*UserDetails.isUserLoggedIn == true ? */blogFields()/* : Container()*/,
+        ],
+      ),
     );
   }
+
+  Widget blogFields() {
+    return Form(
+      key: screenController.formKey,
+      child: TextFormField(
+        controller: screenController.commentController,
+        keyboardType: TextInputType.emailAddress,
+        decoration: formInputDecoration(hintText: 'Type Comment', radius: 30),
+        validator: (value) => FieldValidator().validateComment(value!),
+      ),
+    );
+  }
+
+
 }
 
