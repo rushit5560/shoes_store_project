@@ -6,12 +6,13 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/models/collection_screen_model/collection_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shoes_store/models/search_collection_model/search_collection_model.dart';
 
 class CollectionScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
   List<Datum1> collectionLists = [];
-  List<Datum1> searchCollectionLists = [];
+  List<Datum> searchCollectionLists = [];
 
   TextEditingController categorySearchFieldController = TextEditingController();
 
@@ -27,6 +28,7 @@ class CollectionScreenController extends GetxController {
 
       if(isStatus.value) {
         collectionLists = productData.data;
+        log('collectionLists: ${collectionLists.length}');
       } else {
         print('Collection False False');
       }
@@ -39,19 +41,19 @@ class CollectionScreenController extends GetxController {
 
   searchCollectionListFunction() async {
     isLoading(true);
-    //String url = ApiUrl.SearchRestaurantApi;
-    //log("Search Restaurant API URL : $url");
+    String url = ApiUrl.SearchProductsApi;
+    log("Search Product API URL : $url");
 
     try {
       Map<String, dynamic> data = {
-        "searchdata" : "${categorySearchFieldController.text.trim().toString()}",
+        "data" : "${categorySearchFieldController.text.trim().toString()}",
       };
       log("data : $data");
 
-      //http.Response response = await http.post(Uri.parse(url), body: data);
+      http.Response response = await http.post(Uri.parse(url), body: data);
 
-     // SearchRestaurantModel searchRestaurantModel = SearchRestaurantModel.fromJson(json.decode(response.body));
-     // isStatus = searchRestaurantModel.status.obs;
+      SearchProductModel searchProductModel = SearchProductModel.fromJson(json.decode(response.body));
+      isStatus = searchProductModel.success.obs;
       log("isStatus : $isStatus");
 
       if(isStatus.value) {
@@ -63,9 +65,13 @@ class CollectionScreenController extends GetxController {
         //     searchCollectionLists.add(searchRestaurantModel.store[i]);
         //   }
         // }
-        log("searchCollectionLists Length : ${searchCollectionLists.length}");
+        for(int i = 0; i < searchProductModel.data.length ; i++){
+          searchCollectionLists.add(searchProductModel.data[i]);
+          log("searchCollectionLists Length : ${searchCollectionLists.length}");
+        }
+
         if(searchCollectionLists.length == 0) {
-          Fluttertoast.showToast(msg: "Search Food Not Available!");
+          Fluttertoast.showToast(msg: "Search Product Not Available!");
         }
       } else {
         log("searchRestaurantListFunction Else Else");

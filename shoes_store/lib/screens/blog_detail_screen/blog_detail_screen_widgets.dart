@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
+import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/common/field_validation.dart';
 import 'package:shoes_store/common/input_field_decoration.dart';
@@ -80,7 +81,23 @@ class BlogCommentModule extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          /*UserDetails.isUserLoggedIn == true ? */blogFields()/* : Container()*/,
+          /*UserDetails.isUserLoggedIn == true ? */
+          Column(
+            children: [
+              blogFields(),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(),
+                  submitButton(),
+                ],
+              ),
+              SizedBox(height: 10),
+
+              getBlogCommentList()
+            ],
+          )/* : Container()*/,
         ],
       ),
     );
@@ -98,6 +115,52 @@ class BlogCommentModule extends StatelessWidget {
     );
   }
 
+  Widget submitButton(){
+    return GestureDetector(
+      onTap: () {
+        if (screenController.formKey.currentState!.validate()) {
+          screenController.addBlogCommentFunction();
+        }
+      },
+      child: Container(
+        height: 40,
+        width: 100,
+        //alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: AppColors.colorDarkPink),
+        child: Center(
+          child: Text(
+            "Submit",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
 
+  Widget getBlogCommentList(){
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: screenController.getBlogCommentList.length,
+      itemBuilder: (context, index){
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(screenController.getBlogCommentList[index].comment),
+            ),
+          ),
+        );
+
+      },
+    );
+  }
 }
 

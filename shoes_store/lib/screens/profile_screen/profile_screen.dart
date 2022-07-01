@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final ImagePicker imagePicker = ImagePicker();
 
-   File ? file;
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,24 +63,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        file != null ?
+        profileScreenController.file != null ?
         ClipRRect(
           borderRadius: BorderRadius.circular(80.0),
-          child: Image.file(file!, height: 120 ,width: 120, fit: BoxFit.fill),
+          child: Image.file(profileScreenController.file!, height: 120 ,width: 120, fit: BoxFit.fill),
         ):
-        Container(
-          height: 120,
-          width: 120,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(60),
-              color: Colors.white,
-              border: Border.all(color: Colors.grey)),
-          child: Center(
-            child: Image.asset(
-              Images.ic_user,
-              fit: BoxFit.fill,
-            ),
-          ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(80.0),
+          child: Image.network(profileScreenController.userProfile!, height: 120 ,width: 120, fit: BoxFit.fill),
         ),
         GestureDetector(
           onTap: (){
@@ -273,7 +263,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            /*Row(
               children: [
                 Expanded(
                   child: Column(
@@ -324,7 +314,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: 20),*/
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -347,7 +337,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
 
             SizedBox(height: 20),
-            Column(
+            /*Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -359,14 +349,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  '${profileScreenController.userAddress}',
+                  '${profileScreenController.countryDropDownValue!.name}',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 17
                   ),
                 ),
               ],
-            ),
+            ),*/
 
             // SizedBox(height: 20),
             // Text(
@@ -536,7 +526,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final image = await imagePicker.pickImage(source: ImageSource.gallery);
     if(image != null){
       setState(() {
-        file = File(image.path);
+        profileScreenController.file = File(image.path);
       });
     } else{}
   }
@@ -545,7 +535,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final image = await imagePicker.pickImage(source: ImageSource.camera);
     if(image != null){
       setState(() {
-        file = File(image.path);
+        profileScreenController.file = File(image.path);
       });
     } else{}
   }

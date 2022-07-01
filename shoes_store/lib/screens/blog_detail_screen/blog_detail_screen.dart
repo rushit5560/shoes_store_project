@@ -19,12 +19,14 @@ class BlogDetailScreen extends StatelessWidget {
       body: Obx(
         ()=> blogDetailController.isLoading.value
             ? Center(child: CircularProgressIndicator())
-            : Column(
+            : SingleChildScrollView(
+              child: Column(
           children: [
-            BlogDetailsViewModule(),
-            BlogCommentModule(),
+              BlogDetailsViewModule(),
+              BlogCommentModule(),
           ],
         ),
+            ),
       ),
     );
   }

@@ -146,9 +146,7 @@ class BrandBannerModule extends StatelessWidget {
   Widget _imageModule(String imgUrl, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Stack(
-        children: [
-          Container(
+      child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey,
@@ -158,32 +156,8 @@ class BrandBannerModule extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            alignment: Alignment.centerLeft,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    homeScreenController.brandBannerList[index].brandName,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+
+
     );
   }
 }

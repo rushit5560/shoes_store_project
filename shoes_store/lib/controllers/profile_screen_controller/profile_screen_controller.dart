@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/api_url.dart';
@@ -28,6 +30,9 @@ class ProfileScreenController extends GetxController {
   DatumCity? cityDropDownValue;
   UserData userData = UserData();
   String userAddress = "";
+
+  File ? file;
+  String ? userProfile;
 
   RxList<Datum> countryLists = [Datum(id: 0, name: 'Select Country', sortname: '')].obs;
   RxList<DatumState> stateLists = [DatumState(id: 0, name: 'Select State', countryId: 0)].obs;
@@ -127,34 +132,111 @@ class ProfileScreenController extends GetxController {
     print('Url : $url');
 
     try{
-      Map data = {
-        "userid": "$userId",
-        "name": "$userName",
-        "country": "${countryDropDownValue!.id}",
-        "state": "${stateDropDownValue!.id}",
-        "city": "${cityDropDownValue!.id}"
-      };
-      print('data : $data');
+      if(file != null){
+        var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      http.Response response = await http.post(Uri.parse(url), body: data);
-      UpdateProfileData updateProfileData = UpdateProfileData.fromJson(json.decode(response.body));
-      isStatus = updateProfileData.success.obs;
+        var stream = http.ByteStream(file!.openRead());
 
-      if(isStatus.value){
-        countryDropDownValue = countryLists[0];
-        stateDropDownValue = stateLists[0];
-        cityDropDownValue = cityLists[0];
-        Get.back();
-        Get.snackbar('Success', '${updateProfileData.message}');
-        fullNameController.clear();
-        loading();
-      } else {
-        Get.snackbar('Failed', '${updateProfileData.message}');
+        stream.cast();
+
+        var length = await file!.length();
+
+        request.files.add(await http.MultipartFile.fromPath("Image", file!.path));
+
+       // request.headers.addAll(apiHeader.headers);
+
+        request.fields['userid'] = "$userId";
+        request.fields['name'] = "$userName";
+        request.fields['country'] = "${countryDropDownValue!.id}";
+        request.fields['state'] = "${stateDropDownValue!.id}";
+        request.fields['city'] = "${cityDropDownValue!.id}";
+
+
+        log('request.fields: ${request.fields}');
+        log('request.files: ${request.files}');
+
+        var multiPart = http.MultipartFile(
+          'Image',
+          stream,
+          length,
+        );
+
+        request.files.add(multiPart);
+
+        //var multiPart = http.MultipartFile('file', stream, length);
+        // request.files.add(multiPart);
+        var response = await request.send();
+        log('response: ${response.request}');
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateProfileData response1 = UpdateProfileData.fromJson(json.decode(value));
+          log('response1 ::::::${response1.message}');
+          isStatus = response1.success.obs;
+          log('status : $isStatus');
+
+          if(isStatus.value){
+            Fluttertoast.showToast(msg: response1.message);
+            getUserProfileFunction(userId: "$userId");
+          } else {
+            log('status code false: ${response1.success}');
+            log('response1.errorMessage: ${response1.message}');
+            //if(response1.errorMessage.contains("Token don't match")){
+            //Fluttertoast.showToast(msg: response1.errorMessage);
+            Fluttertoast.showToast(msg: response1.message);
+            // }
+
+            log('False False');
+          }
+        });
       }
-    } catch(e){
-      print('Update Profile Error : $e');
-    } finally {
+      else {
+        var request = http.MultipartRequest('POST', Uri.parse(url));
+
+        //request.headers.addAll(apiHeader.headers);
+
+        request.fields['userid'] = "$userId";
+        request.fields['name'] = "$userName";
+        request.fields['country'] = "${countryDropDownValue!.id}";
+        request.fields['state'] = "${stateDropDownValue!.id}";
+        request.fields['city'] = "${cityDropDownValue!.id}";
+
+
+        log('request.fields: ${request.fields}');
+        log('request.files: ${request.files}');
+
+        var response = await request.send();
+        log('response: ${response.request}');
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          UpdateProfileData response1 = UpdateProfileData.fromJson(json.decode(value));
+          log('response1 ::::::${response1.message}');
+          isStatus = response1.success.obs;
+          log('status : $isStatus');
+
+          if(isStatus.value){
+            Fluttertoast.showToast(msg: response1.message);
+            getUserProfileFunction(userId: "$userId");
+          } else {
+            log('status code false: ${response1.success}');
+            log('response1.errorMessage: ${response1.message}');
+            //if(response1.errorMessage.contains("Token don't match")){
+            //Fluttertoast.showToast(msg: response1.errorMessage);
+            Fluttertoast.showToast(msg: response1.message);
+            // }
+
+            log('False False');
+          }
+        });
+      }
+
+
+
+
+    }catch(e){
+      log('Error: $e');
+    } finally{
       isLoading(false);
+      //addStarPointAPI();
     }
   }
 
@@ -172,6 +254,8 @@ class ProfileScreenController extends GetxController {
 
       if(isStatus.value) {
         userData = userProfileModel.data;
+        userProfile = ApiUrl.ApiMainPath  + userData.image!;
+        log('userProfile: $userProfile');
         log("userData : ${userData.name}");
       } else {
         log("getUserProfileFunction Else Else");

@@ -1,11 +1,15 @@
+// To parse this JSON data, do
+//
+//     final searchProductModel = searchProductModelFromJson(jsonString);
+
 import 'dart:convert';
 
-RelatedProductsModel relatedProductsModelFromJson(String str) => RelatedProductsModel.fromJson(json.decode(str));
+SearchProductModel searchProductModelFromJson(String str) => SearchProductModel.fromJson(json.decode(str));
 
-String relatedProductsModelToJson(RelatedProductsModel data) => json.encode(data.toJson());
+String searchProductModelToJson(SearchProductModel data) => json.encode(data.toJson());
 
-class RelatedProductsModel {
-  RelatedProductsModel({
+class SearchProductModel {
+  SearchProductModel({
     required this.success,
     required this.message,
     required this.data,
@@ -13,12 +17,12 @@ class RelatedProductsModel {
 
   bool success;
   String message;
-  List<RelatedProductDatum> data;
+  List<Datum> data;
 
-  factory RelatedProductsModel.fromJson(Map<String, dynamic> json) => RelatedProductsModel(
-    success: json["success"] ?? false,
-    message: json["message"] ?? "",
-    data: List<RelatedProductDatum>.from(json["data"].map((x) => RelatedProductDatum.fromJson(x ?? {}))),
+  factory SearchProductModel.fromJson(Map<String, dynamic> json) => SearchProductModel(
+    success: json["success"],
+    message: json["message"],
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,8 +32,8 @@ class RelatedProductsModel {
   };
 }
 
-class RelatedProductDatum {
-  RelatedProductDatum({
+class Datum {
+  Datum({
     required this.id,
     required this.productname,
     required this.sku,
@@ -107,14 +111,14 @@ class RelatedProductDatum {
   String createdDate;
   String modifiedDate;
 
-  factory RelatedProductDatum.fromJson(Map<String, dynamic> json) => RelatedProductDatum(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"] ?? 0,
     productname: json["productname"] ?? "",
     sku: json["sku"] ?? "",
     productslug: json["productslug"] ?? "",
     fullText: json["full_text"] ?? "",
     category: json["category"] ?? "",
-    upc: json["upc"] ?? "",
+    upc: json["upc"] ??"",
     quantity: json["quantity"] ?? 0,
     outofStockStatus: json["OutofStockStatus"] ?? "",
     dateavailable: json["dateavailable"] ?? "",
@@ -128,7 +132,7 @@ class RelatedProductDatum {
     productcost: json["productcost"] ?? "",
     tax: json["tax"] ?? "",
     taxvalue: json["taxvalue"] ?? "",
-    totalcost: json["totalcost"] ?? "",
+    totalcost: json["totalcost"] ??"",
     requiredshipping: json["requiredshipping"] ?? "",
     width: json["Width"] ?? "",
     height: json["Height"] ?? "",
@@ -154,36 +158,36 @@ class RelatedProductDatum {
     "productslug": productslug,
     "full_text": fullText,
     "category": category,
-    "upc": upc,
-    "quantity": quantity,
-    "OutofStockStatus": outofStockStatus,
+    "upc": upc == null ? null : upc,
+    "quantity": quantity == null ? null : quantity,
+    "OutofStockStatus": outofStockStatus == null ? null : outofStockStatus,
     "dateavailable": dateavailable,
-    "sortorder": sortorder,
+    "sortorder": sortorder == null ? null : sortorder,
     "brand_id": brandId,
     "variants_values": variantsValues,
-    "meta_tag_Keyword": metaTagKeyword,
-    "meta_tag_description": metaTagDescription,
-    "showimg": showimg,
-    "meta_tag_title": metaTagTitle,
+    "meta_tag_Keyword": metaTagKeyword == null ? null : metaTagKeyword,
+    "meta_tag_description": metaTagDescription == null ? null : metaTagDescription,
+    "showimg": showimg == null ? null : showimg,
+    "meta_tag_title": metaTagTitle == null ? null : metaTagTitle,
     "productcost": productcost,
     "tax": tax,
-    "taxvalue": taxvalue,
+    "taxvalue": taxvalue == null ? null : taxvalue,
     "totalcost": totalcost,
     "requiredshipping": requiredshipping,
-    "Width": width,
-    "Height": height,
-    "Length": length,
-    "Weight": weight,
-    "minimumkg": minimumkg,
+    "Width": width == null ? null : width,
+    "Height": height == null ? null : height,
+    "Length": length == null ? null : length,
+    "Weight": weight == null ? null : weight,
+    "minimumkg": minimumkg == null ? null : minimumkg,
     "is_active": isActive,
-    "images": images,
+    "images": images == null ? null : images,
     "feature": feature,
-    "todaydeals": todaydeals,
+    "todaydeals": todaydeals == null ? null : todaydeals,
     "related_products": relatedProducts,
     "top_product": topProduct,
     "created_by": createdBy,
     "modified_by": modifiedBy,
-    "created_date": createdDate,
+    "created_date": createdDate == null ? null : createdDate,
     "modified_date": modifiedDate,
   };
 }

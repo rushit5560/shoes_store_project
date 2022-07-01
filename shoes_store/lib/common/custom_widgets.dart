@@ -31,63 +31,7 @@ class OrTextModule extends StatelessWidget {
   }
 }
 
-class LoginWithFacebookModule extends StatelessWidget {
-  const LoginWithFacebookModule({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: AppColors.colorDarkBlue),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(Images.ic_facebook),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Login WIth Facebook",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class LoginWithGoogleModule extends StatelessWidget {
-  const LoginWithGoogleModule({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: AppColors.colorDarkRed),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(Images.ic_google),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Login WIth Google",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class CustomCircularProgressIndicator extends StatelessWidget {
   @override

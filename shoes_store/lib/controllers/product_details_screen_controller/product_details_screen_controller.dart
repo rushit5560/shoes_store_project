@@ -199,7 +199,7 @@ class ProductDetailsScreenController extends GetxController {
   Future<void> getRelatedProductFunction() async {
     isLoading(true);
     String url = ApiUrl.GetRelatedProductsApi + "$productId";
-
+    log('Related product list url : $url');
     try {
       http.Response response = await http.get(Uri.parse(url));
 

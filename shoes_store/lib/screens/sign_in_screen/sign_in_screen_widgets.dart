@@ -4,6 +4,7 @@ import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/field_validation.dart';
 import 'package:shoes_store/common/input_field_decoration.dart';
 import 'package:shoes_store/controllers/signin_screen_controller/signin_screen_controller.dart';
+import 'package:shoes_store/screens/forgot_password_screen/forgot_password_screen.dart';
 import 'package:shoes_store/screens/signup_screen/signup_screen.dart';
 
 class EmailIdTextField extends StatelessWidget {
@@ -81,6 +82,31 @@ class LoginButton extends StatelessWidget {
     );
   }
 }
+
+class ForgotPasswordText extends StatelessWidget {
+  const ForgotPasswordText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(),
+        GestureDetector(
+          onTap: (){
+            Get.to(() => ForgotPasswordScreen());
+          },
+          child: Text(
+            "FORGOT PASSWORD?",
+            textAlign: TextAlign.end,
+            style: TextStyle(color: Colors.black, fontSize: 14),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 
 class SignUpTextModule extends StatelessWidget {
   const SignUpTextModule({Key? key}) : super(key: key);

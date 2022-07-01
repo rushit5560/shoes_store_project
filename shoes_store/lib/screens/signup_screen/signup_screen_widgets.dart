@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/field_validation.dart';
+import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/common/input_field_decoration.dart';
 import 'package:shoes_store/controllers/sign_up_screen_controller/sign_up_screen_controller.dart';
 import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
@@ -83,11 +84,7 @@ class SignUpButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if(signUpScreenController.formKey.currentState!.validate()){
-          signUpScreenController.getRegisterData(
-            "${signUpScreenController.userNameFieldController.text.trim()}",
-            "${signUpScreenController.emailIdFieldController.text.trim().toLowerCase()}",
-            "${signUpScreenController.passwordFieldController.text.trim()}",
-          );
+          signUpScreenController.getRegisterData();
         }
       },
       child: Container(
@@ -137,6 +134,76 @@ class LoginText extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class LoginWithFacebookModule extends StatelessWidget {
+  LoginWithFacebookModule({Key? key}) : super(key: key);
+  final signUpScreenController = Get.find<SignUpScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        signUpScreenController.signInWithFacebookFunction();
+      },
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: AppColors.colorDarkBlue),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(Images.ic_facebook),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Login WIth Facebook",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginWithGoogleModule extends StatelessWidget {
+  LoginWithGoogleModule({Key? key}) : super(key: key);
+  final signUpScreenController = Get.find<SignUpScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        signUpScreenController.googleAuthentication(context);
+      },
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            color: AppColors.colorDarkRed),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(Images.ic_google),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Login WIth Google",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

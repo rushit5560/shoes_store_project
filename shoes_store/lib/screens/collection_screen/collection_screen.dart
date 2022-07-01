@@ -40,8 +40,8 @@ class CollectionScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 30),
                           Expanded(
-                              child: /*collectionScreenController.searchCollectionLists.isNotEmpty
-                                  ? searchCollectionListModule():*/
+                              child: collectionScreenController.searchCollectionLists.isNotEmpty
+                                  ? searchCollectionListModule():
                               collectionList())
                         ],
                       ),
@@ -74,6 +74,7 @@ class CollectionScreen extends StatelessWidget {
                   // screenController.loadUI();
                 } else {
                   collectionScreenController.searchCollectionListFunction();
+                  collectionScreenController.categorySearchFieldController.clear();
                 }
                 CommonFunctions().hideKeyBoard();
               },
@@ -194,16 +195,16 @@ class CollectionScreen extends StatelessWidget {
         gridDelegate:
         SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
-          Datum1 categorySingleItem =
-          collectionScreenController.searchCollectionLists[index];
-          return _searchCollectionListTile(categorySingleItem);
+          // Datum categorySingleItem =
+          // collectionScreenController.searchCollectionLists[index];
+          return _searchCollectionListTile(index);
         },
       ),
     );
   }
 
-  Widget _searchCollectionListTile(Datum1 categorySingleItem) {
-    final imgUrl = ApiUrl.ApiMainPath + "${categorySingleItem.showimg}";
+  Widget _searchCollectionListTile(index) {
+    final imgUrl = ApiUrl.ApiMainPath + "${collectionScreenController.searchCollectionLists[index].showimg}";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -211,7 +212,7 @@ class CollectionScreen extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Get.to(() => ProductDetailsScreen(),
-                arguments: categorySingleItem.id,
+                arguments: collectionScreenController.searchCollectionLists[index].id,
               );
             },
             child: Container(
@@ -234,7 +235,7 @@ class CollectionScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            "${categorySingleItem.productname}",
+            "${collectionScreenController.searchCollectionLists[index].productname}",
             style: TextStyle(
                 color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
           ),
@@ -245,7 +246,7 @@ class CollectionScreen extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "\$${categorySingleItem.productcost}",
+                "\$${collectionScreenController.searchCollectionLists[index].productcost}",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -254,7 +255,7 @@ class CollectionScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  "\$${categorySingleItem.productcost}",
+                  "\$${collectionScreenController.searchCollectionLists[index].productcost}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 18),

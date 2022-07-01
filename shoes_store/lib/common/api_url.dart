@@ -41,6 +41,13 @@ class ApiUrl {
 
   static const GetRelatedProductsApi = ApiMainPath + "api/related/";
   static const GetBrandBannerApi = ApiMainPath + "api/brandbanner";
+  static const ForgotPasswordApi = ApiMainPath + "api/forgetpassword";
+
+  static const SearchProductsApi = ApiMainPath + "api/searchproduct";
+
+  /// Add, Get Blog comment API
+  static const AddBlogCommentApi = ApiMainPath + "api/addblogcomment";
+  static const GetBlogCommentApi = ApiMainPath + "api/getcomment/";
 
   static const InvoicePdfPrefix = "${ApiMainPath}public/";
   static const InvoicePdfSuffix = ".pdf";

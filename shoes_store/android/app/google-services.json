@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "806819621562",
+    "project_id": "shoes-store-52a02",
+    "storage_bucket": "shoes-store-52a02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806819621562:android:9d33b421a9d13cb86bf083",
+        "android_client_info": {
+          "package_name": "com.example.shoes_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806819621562-fgqrjq6u2grdp7m6v5qgh7n0831p4j5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOeFG0g4KV6Vs3e7NyqzQMr1EPWzE0t6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806819621562-fgqrjq6u2grdp7m6v5qgh7n0831p4j5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
