@@ -7,7 +7,8 @@ import 'package:shoes_store/controllers/change_password_sceen_controller/change_
 
 class OldPasswordTextFieldModule extends StatelessWidget {
   OldPasswordTextFieldModule({Key? key}) : super(key: key);
-  final changePasswordScreenController = Get.find<ChangePasswordScreenController>();
+  final changePasswordScreenController =
+      Get.find<ChangePasswordScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,11 @@ class OldPasswordTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 25.0,
+              spreadRadius: 1,
+            ),
           ]),
       child: TextFormField(
         controller: changePasswordScreenController.oldPassFieldController,
@@ -27,9 +32,20 @@ class OldPasswordTextFieldModule extends StatelessWidget {
   }
 }
 
-class NewPasswordTextFieldModule extends StatelessWidget {
+class NewPasswordTextFieldModule extends StatefulWidget {
   NewPasswordTextFieldModule({Key? key}) : super(key: key);
-  final changePasswordScreenController = Get.find<ChangePasswordScreenController>();
+
+  @override
+  State<NewPasswordTextFieldModule> createState() =>
+      _NewPasswordTextFieldModuleState();
+}
+
+class _NewPasswordTextFieldModuleState
+    extends State<NewPasswordTextFieldModule> {
+  final changePasswordScreenController =
+      Get.find<ChangePasswordScreenController>();
+
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,21 +53,52 @@ class NewPasswordTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 25.0,
+              spreadRadius: 1,
+            ),
           ]),
       child: TextFormField(
         controller: changePasswordScreenController.newPassFieldController,
         keyboardType: TextInputType.text,
-        decoration: formInputDecoration(hintText: 'New Password', radius: 30),
+        decoration: formInputDecoration(
+          hintText: 'New Password',
+          radius: 30,
+          sufficIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                isVisible = !isVisible;
+              });
+            },
+            icon: Icon(
+              isVisible
+                  ? Icons.remove_red_eye_rounded
+                  : Icons.remove_red_eye_outlined,
+              color: Colors.grey,
+            ),
+          ),
+        ),
         validator: (value) => FieldValidator().validatePassword(value!),
       ),
     );
   }
 }
 
-class CNewPasswordTextFieldModule extends StatelessWidget {
+class CNewPasswordTextFieldModule extends StatefulWidget {
   CNewPasswordTextFieldModule({Key? key}) : super(key: key);
-  final changePasswordScreenController = Get.find<ChangePasswordScreenController>();
+
+  @override
+  State<CNewPasswordTextFieldModule> createState() =>
+      _CNewPasswordTextFieldModuleState();
+}
+
+class _CNewPasswordTextFieldModuleState
+    extends State<CNewPasswordTextFieldModule> {
+  final changePasswordScreenController =
+      Get.find<ChangePasswordScreenController>();
+
+  var isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +106,42 @@ class CNewPasswordTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 25.0,
+              spreadRadius: 1,
+            ),
           ]),
       child: TextFormField(
         controller: changePasswordScreenController.cNewPassFieldController,
         keyboardType: TextInputType.text,
-        decoration: formInputDecoration(hintText: 'Confirm New Password', radius: 30),
-        validator: (value) => FieldValidator().validatePassword(value!),
+        decoration: formInputDecoration(
+            hintText: 'Confirm New Password',
+            radius: 30,
+            sufficIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  isVisible = !isVisible;
+                });
+              },
+              icon: Icon(
+                isVisible
+                    ? Icons.remove_red_eye_rounded
+                    : Icons.remove_red_eye_outlined,
+                color: Colors.grey,
+              ),
+            )),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "password is required";
+          } else if (value.length < 6) {
+            return "Length should be 6 character";
+          } else if (value.toString() !=
+              changePasswordScreenController.newPassFieldController.text) {
+            return "Password and confirm password should be same";
+          }
+          return null;
+        },
       ),
     );
   }
@@ -73,7 +149,8 @@ class CNewPasswordTextFieldModule extends StatelessWidget {
 
 class SubmitButtonModule extends StatelessWidget {
   SubmitButtonModule({Key? key}) : super(key: key);
-  final changePasswordScreenController = Get.find<ChangePasswordScreenController>();
+  final changePasswordScreenController =
+      Get.find<ChangePasswordScreenController>();
 
   @override
   Widget build(BuildContext context) {

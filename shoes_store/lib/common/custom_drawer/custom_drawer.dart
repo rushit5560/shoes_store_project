@@ -142,7 +142,7 @@ class CustomDrawer extends StatelessWidget {
           // homeButton(),
           newCollection(),
           categories(),
-          notification(),
+          // notification(),
           // setting(),
           contactUs(),
           UserDetails.isUserLoggedIn == true ? addressManager() : Container(),

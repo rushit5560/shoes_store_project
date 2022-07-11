@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
+import '../../common/contants/user_details.dart';
 import '../../common/custom_appbar.dart';
 import '../../controllers/blog_detail_screen_controller/blog_detail_controller.dart';
 import 'blog_detail_screen_widgets.dart';
@@ -23,7 +24,9 @@ class BlogDetailScreen extends StatelessWidget {
               child: Column(
           children: [
               BlogDetailsViewModule(),
-              BlogCommentModule(),
+            
+        
+              BlogCommentModule() ,
           ],
         ),
             ),

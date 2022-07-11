@@ -59,7 +59,7 @@ class BlogDetailController extends GetxController {
     } catch(e) {
       print('Blog Detail Error : $e');
     } finally{
-      //isLoading(false);
+      // isLoading(false);
       getBlogCommentFunction();
     }
 

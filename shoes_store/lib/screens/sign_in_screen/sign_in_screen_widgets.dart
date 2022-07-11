@@ -33,8 +33,15 @@ class EmailIdTextField extends StatelessWidget {
   }
 }
 
-class PasswordTextField extends StatelessWidget {
+class PasswordTextField extends StatefulWidget {
+  @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
   final signInScreenController = Get.find<SignInScreenController>();
+
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +50,34 @@ class PasswordTextField extends StatelessWidget {
         border: Border.all(color: Colors.transparent),
         boxShadow: [
           BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 25.0,
-              blurStyle: BlurStyle.normal,
-              offset: Offset(0, 0),
-            )
+            color: Colors.grey.shade300,
+            blurRadius: 25.0,
+            blurStyle: BlurStyle.normal,
+            offset: Offset(0, 0),
+          )
         ],
       ),
       child: TextFormField(
         controller: signInScreenController.passwordFieldController,
         keyboardType: TextInputType.visiblePassword,
-        obscureText: true,
-        decoration: formInputDecoration(hintText: 'Password', radius: 30),
+        obscureText: isVisible,
+        decoration: formInputDecoration(
+          hintText: 'Password',
+          radius: 30,
+          sufficIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                isVisible = !isVisible;
+              });
+            },
+            icon: Icon(
+              isVisible
+                  ? Icons.remove_red_eye_rounded
+                  : Icons.remove_red_eye_outlined,
+                  color: Colors.grey,
+            ),
+          ),
+        ),
         validator: (value) => FieldValidator().validatePassword(value!),
       ),
     );
@@ -103,7 +126,7 @@ class ForgotPasswordText extends StatelessWidget {
       children: [
         Container(),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             Get.to(() => ForgotPasswordScreen());
           },
           child: Text(
@@ -116,7 +139,6 @@ class ForgotPasswordText extends StatelessWidget {
     );
   }
 }
-
 
 class SignUpTextModule extends StatelessWidget {
   const SignUpTextModule({Key? key}) : super(key: key);

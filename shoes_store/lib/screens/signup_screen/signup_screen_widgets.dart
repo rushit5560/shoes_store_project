@@ -68,9 +68,17 @@ class EmailIdTextField extends StatelessWidget {
   }
 }
 
-class PasswordTextField extends StatelessWidget {
+class PasswordTextField extends StatefulWidget {
   PasswordTextField({Key? key}) : super(key: key);
+
+  @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
   final signUpScreenController = Get.find<SignUpScreenController>();
+
+  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +97,27 @@ class PasswordTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         controller: signUpScreenController.passwordFieldController,
         obscureText: true,
-        decoration: formInputDecoration(hintText: 'Password'),
+        decoration: formInputDecoration(
+          hintText: 'Password',
+
+
+          sufficIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                isVisible = !isVisible;
+              });
+            },
+            icon: Icon(
+              isVisible
+                  ? Icons.remove_red_eye_rounded
+                  : Icons.remove_red_eye_outlined,
+                  color: Colors.grey,
+            ),
+          ),
+        ),
         validator: (value) => FieldValidator().validatePassword(value!),
       ),
     );
