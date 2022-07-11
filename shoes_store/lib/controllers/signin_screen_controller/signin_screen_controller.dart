@@ -40,9 +40,12 @@ class SignInScreenController extends GetxController {
 
       if(isStatus.value){
         var id = signInData.data.id;
-        var token = signInData.data.token;
+        var token = signInData.data.rememberToken;
+        var userName = signInData.data.name;
+        var userEmail = signInData.data.email;
+
         print('id : $id \nToken : $token');
-        CommonFunctions().setUserDetailsInPrefs(id, token);
+        CommonFunctions().setUserDetailsInPrefs(id, token, userName, userEmail);
         Get.offAll(() => IndexScreen());
         Get.snackbar('User Login In Successfully.','');
       } else {

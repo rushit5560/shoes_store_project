@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ class CartScreenController extends GetxController{
 
     try {
       Map data = {"user_id": "$userId"};
+      log('data: $data');
       http.Response response = await http.post(Uri.parse(url), body: data);
       UserCartData userCartData = UserCartData.fromJson(json.decode(response.body));
       isStatus = userCartData.success.obs;

@@ -6,8 +6,6 @@ import '../../common/api_url.dart';
 import '../../controllers/order_screen_controller/order_screen_controller.dart';
 import '../order_detail_screen/order_detail_screen.dart';
 
-
-
 class OrderScreen extends StatelessWidget {
   final orderScreenController = Get.put(OrderScreenController());
 
@@ -15,22 +13,24 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commonAppBarModule(image: "Orders"),
-      body: Obx(
-          ()=> orderScreenController.isLoading.value
-              ? Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  orderScreenController.totalOrdersLists.isEmpty
-                  ? Center(child: Text('No Data Available'))
-                  : showOrderList(),
-                ],
+      body: Obx(() => orderScreenController.isLoading.value
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    orderScreenController.totalOrdersLists.isEmpty
+                        ? Container(
+                            height: Get.size.height / 1.2,
+                            width: double.infinity,
+                            child: Center(child: Text('No Data Available')))
+                        : showOrderList(),
+                  ],
+                ),
               ),
-            ),
-          )
-      ),
+            )),
     );
   }
 
@@ -61,9 +61,10 @@ class OrderScreen extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               Get.to(() => OrderDetailScreen(),
-                arguments: orderScreenController.totalOrdersLists[index].orderId
-              );
-              print('Order Id : ${orderScreenController.totalOrdersLists[index].orderId}');
+                  arguments:
+                      orderScreenController.totalOrdersLists[index].orderId);
+              print(
+                  'Order Id : ${orderScreenController.totalOrdersLists[index].orderId}');
             },
             child: Material(
               borderRadius: BorderRadius.circular(15),
@@ -92,11 +93,11 @@ class OrderScreen extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Text(
-                                      "${orderScreenController.totalOrdersLists[index].userFname} "
-                                    ),
+                                        "${orderScreenController.totalOrdersLists[index].userFname} "),
                                     Expanded(
                                       child: Text(
-                                        orderScreenController.totalOrdersLists[index].userLname,
+                                        orderScreenController
+                                            .totalOrdersLists[index].userLname,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -109,7 +110,6 @@ class OrderScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 5),
-
                       Row(
                         children: [
                           Expanded(
@@ -122,17 +122,15 @@ class OrderScreen extends StatelessWidget {
                           Expanded(
                             flex: 7,
                             child: Text(
-                              orderScreenController.totalOrdersLists[index].userStreetAddress,
+                              orderScreenController
+                                  .totalOrdersLists[index].userStreetAddress,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-
                         ],
                       ),
-
                       SizedBox(width: 5),
-
                       Row(
                         children: [
                           Expanded(
@@ -145,13 +143,13 @@ class OrderScreen extends StatelessWidget {
                           Expanded(
                             flex: 7,
                             child: Text(
-                              orderScreenController.totalOrdersLists[index].userFname,
+                              orderScreenController
+                                  .totalOrdersLists[index].userFname,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(width: 5),
-
                       Row(
                         children: [
                           Expanded(
@@ -164,7 +162,8 @@ class OrderScreen extends StatelessWidget {
                           Expanded(
                             flex: 7,
                             child: Text(
-                              orderScreenController.totalOrdersLists[index].userLname,
+                              orderScreenController
+                                  .totalOrdersLists[index].userLname,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -172,7 +171,6 @@ class OrderScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(width: 5),
-
                       Row(
                         children: [
                           Expanded(
@@ -185,7 +183,8 @@ class OrderScreen extends StatelessWidget {
                           Expanded(
                             flex: 7,
                             child: Text(
-                              orderScreenController.totalOrdersLists[index].orderType,
+                              orderScreenController
+                                  .totalOrdersLists[index].orderType,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -193,7 +192,6 @@ class OrderScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(width: 5),
-
                       Row(
                         children: [
                           Expanded(
@@ -206,7 +204,8 @@ class OrderScreen extends StatelessWidget {
                           Expanded(
                             flex: 7,
                             child: Text(
-                              orderScreenController.totalOrdersLists[index].totalqty,
+                              orderScreenController
+                                  .totalOrdersLists[index].totalqty,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -214,7 +213,6 @@ class OrderScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(width: 5),
-
                       Row(
                         children: [
                           Expanded(
@@ -227,22 +225,22 @@ class OrderScreen extends StatelessWidget {
                           Expanded(
                             flex: 7,
                             child: Text(
-                              orderScreenController.totalOrdersLists[index].totalprice,
+                              orderScreenController
+                                  .totalOrdersLists[index].totalprice,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
-
                       SizedBox(width: 5),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           MaterialButton(
                             onPressed: () {
-                              String invoiceLink = "${ApiUrl.InvoicePdfPrefix}${orderScreenController.totalOrdersLists[index].orderPdf}${ApiUrl.InvoicePdfSuffix}";
+                              String invoiceLink =
+                                  "${ApiUrl.InvoicePdfPrefix}${orderScreenController.totalOrdersLists[index].orderPdf}${ApiUrl.InvoicePdfSuffix}";
                               print('invoiceLink : $invoiceLink');
                               print('invoiceLink');
                               openBrowserTab(invoiceLink);
@@ -266,5 +264,4 @@ class OrderScreen extends StatelessWidget {
   openBrowserTab(url) async {
     await FlutterWebBrowser.openWebPage(url: url);
   }
-
 }

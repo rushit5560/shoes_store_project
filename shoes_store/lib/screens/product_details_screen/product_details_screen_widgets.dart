@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -6,7 +8,9 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/contants/user_details.dart';
+import 'package:shoes_store/common/field_validation.dart';
 import 'package:shoes_store/common/images.dart';
+import 'package:shoes_store/common/input_field_decoration.dart';
 import 'package:shoes_store/controllers/product_details_screen_controller/product_details_screen_controller.dart';
 import 'package:shoes_store/models/product_detail_screen_model/related_products_model.dart';
 import 'package:shoes_store/screens/sign_in_screen/sign_in_screen.dart';
@@ -22,7 +26,7 @@ class ProductImageSliderModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: Get.height * 0.40,
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: 15, right: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -66,19 +70,22 @@ class ProductImageSliderIndicatorModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(
-          productDetailsScreenController.productDetailLists[0].images.length,
-          (index) => Container(
-            margin: EdgeInsets.all(4),
-            width: 11,
-            height: 11,
-            decoration: BoxDecoration(
-              color: productDetailsScreenController.activeIndex.value == index
-                  ? AppColors.colorDarkPink
-                  : Colors.grey,
-              shape: BoxShape.circle,
+      () => Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            productDetailsScreenController.productDetailLists[0].images.length,
+            (index) => Container(
+              margin: EdgeInsets.all(4),
+              width: 11,
+              height: 11,
+              decoration: BoxDecoration(
+                color: productDetailsScreenController.activeIndex.value == index
+                    ? AppColors.colorDarkPink
+                    : Colors.grey,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
         ),
@@ -146,7 +153,7 @@ class ProductDetailsModule extends StatelessWidget {
                   },
                 ),
                 Text(
-                  "\$${productDetailsScreenController.productDetailLists[0].totalcost}",
+                  "\$${productDetailsScreenController.productDetailLists[0].productcost}",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -250,15 +257,33 @@ class ProductDetailsModule extends StatelessWidget {
             // ),
 
             const SizedBox(height: 10),
+            Text(
+              "Product Description",
+              style: TextStyle(
+                  fontSize: 19,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Html(
+              data:
+                  productDetailsScreenController.productDetailLists[0].fullText,
+            ),
+            const SizedBox(height: 10),
+            productReview(),
+
+            const SizedBox(height: 25),
             productDetailsScreenController
-                        .productDetailLists[0].outofStockStatus == "instock"
+                        .productDetailLists[0].outofStockStatus ==
+                    "instock"
                 ? GestureDetector(
                     onTap: () async {
                       if (UserDetails.isUserLoggedIn == true) {
                         await productDetailsScreenController.productAddToCart(
                             qty: 1);
                       } else {
-                        Get.to(() => SignInScreen(), transition: Transition.zoom);
+                        Get.to(() => SignInScreen(),
+                            transition: Transition.zoom);
                       }
                     },
                     child: Container(
@@ -295,24 +320,95 @@ class ProductDetailsModule extends StatelessWidget {
                     ),
                   ),
 
-            const SizedBox(height: 10),
-            Text(
-              "Product Description",
-              style: TextStyle(
-                  fontSize: 19, color: Colors.black, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Html(
-              data: productDetailsScreenController.productDetailLists[0].fullText,
-            ),
-
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
             productDetailsScreenController.relatedProductLists.isEmpty
-            ? Container()
+                ? Container()
                 : RelatedProductListModule(),
           ],
         ),
+      ),
+    );
+  }
+
+  productReview() {
+    return Form(
+      key: productDetailsScreenController.productReviewFormKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Product Review",
+            style: TextStyle(
+                fontSize: 19, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemSize: 25,
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+              productDetailsScreenController.rating.value = rating;
+              log('productDetailsScreenController.rating.value: ${productDetailsScreenController.rating.value}');
+            },
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 45,
+                  child: TextFormField(
+                    controller: productDetailsScreenController
+                        .productReviewFieldController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: formInputDecoration(
+                        hintText: 'Product Review', radius: 30),
+                    validator: (value) =>
+                        FieldValidator().validateProductReview(value!),
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              GestureDetector(
+                onTap: () async {
+                  if (UserDetails.isUserLoggedIn == true) {
+                    await productDetailsScreenController.addProductReview();
+                  } else {
+                    Get.to(() => SignInScreen(), transition: Transition.zoom);
+                  }
+                },
+                child: Container(
+                  height: 45,
+                  width: Get.width / 4.5,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: AppColors.colorDarkPink),
+                  child: Center(
+                    child: Text(
+                      "Save",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -320,7 +416,8 @@ class ProductDetailsModule extends StatelessWidget {
 
 class RelatedProductListModule extends StatelessWidget {
   RelatedProductListModule({Key? key}) : super(key: key);
-  final homeScreenController = Get.find<ProductDetailsScreenController>();
+  final productDetailsScreenController =
+      Get.find<ProductDetailsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -353,89 +450,135 @@ class RelatedProductListModule extends StatelessWidget {
               // ),
             ],
           ),
-
           SizedBox(height: 10),
-
           Container(
             //height: Get.height * 0.25,
-            child: homeScreenController.relatedProductLists.isEmpty ?
-                Center(child: Text("No Related Products")):
-            ListView.builder(
-                itemCount: homeScreenController.relatedProductLists.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                //scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  RelatedProductDatum singleItem= homeScreenController.relatedProductLists[index];
-                  final imgUrl = ApiUrl.ApiMainPath + "asset/uploads/product/" + "${singleItem.showimg}";
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(() => ProductDetailsScreen(),
-                        arguments: singleItem.id,
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              //height: 100,
-                              width: 90,
-                              margin: EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Colors.grey.shade200,
-                                  //border: Border.all(color: Colors.grey.shade400
-                                  //),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.grey.shade400, blurRadius: 5)
-                                  ]),
-                              child: Image.network("$imgUrl"),
-                            ),
-                            const SizedBox(height: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+            child: productDetailsScreenController.relatedProductLists.isEmpty
+                ? Center(child: Text("No Related Products"))
+                : ListView.builder(
+                    itemCount: productDetailsScreenController
+                        .relatedProductLists.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    //scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      RelatedProductDatum singleItem =
+                          productDetailsScreenController
+                              .relatedProductLists[index];
+                      final imgUrl = ApiUrl.ApiMainPath +
+                          "asset/uploads/product/" +
+                          "${singleItem.showimg}";
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            () => ProductDetailsScreen(),
+                            arguments: singleItem.id,
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "${singleItem.productname}",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const SizedBox(height: 5),
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "\$${singleItem.totalcost}",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500),
+                                    Container(
+                                      //height: 100,
+                                      width: 90,
+                                      margin:
+                                          EdgeInsets.only(left: 10, right: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        // color: Colors.grey.shade200,
+                                        //border: Border.all(color: Colors.grey.shade400
+                                        //),
+                                        // boxShadow: [
+                                        //   BoxShadow(
+                                        //       color: Colors.grey.shade400,
+                                        //       blurRadius: 5)
+                                        // ],
+                                      ),
+                                      child: Image.network(
+                                        "$imgUrl",
+                                        errorBuilder: (ctx, obj, st) {
+                                          return FittedBox(
+                                            child: Text("File Not Found"),
+                                          );
+                                        },
+                                      ),
                                     ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      "\$${singleItem.totalcost}",
-                                      style: TextStyle(fontSize: 18),
-                                    )
+                                    const SizedBox(height: 10),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${singleItem.productname}",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "\$${singleItem.productcost}",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            // const SizedBox(width: 10),
+                                            // Text(
+                                            //   "\$${singleItem.totalcost}",
+                                            //   style: TextStyle(fontSize: 18),
+                                            // )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ],
+                                ),
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (UserDetails.isUserLoggedIn == true) {
+                                      await productDetailsScreenController
+                                          .productAddToCart(qty: 1);
+                                    } else {
+                                      Get.to(() => SignInScreen(),
+                                          transition: Transition.zoom);
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        color: AppColors.colorDarkPink),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Order",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
-
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  );
-                }),
+                      );
+                    }),
           )
         ],
       ),

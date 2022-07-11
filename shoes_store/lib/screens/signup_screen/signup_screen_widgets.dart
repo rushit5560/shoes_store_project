@@ -15,14 +15,24 @@ class NameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade200),
-          boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0)
-          ]),
+        border: Border.all(
+          style: BorderStyle.none,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade300,
+            blurRadius: 25.0,
+            blurStyle: BlurStyle.normal,
+            offset: Offset(0, 0),
+          )
+        ],
+      ),
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
         controller: signUpScreenController.userNameFieldController,
-        decoration: formInputDecoration(hintText: 'Name'),
+        decoration: formInputDecoration(
+          hintText: 'Name',
+        ),
         validator: (value) => FieldValidator().validateFullName(value!),
       ),
     );
@@ -37,9 +47,16 @@ class EmailIdTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade200),
+          border: Border.all(
+            style: BorderStyle.none,
+          ),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0)
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 25.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
           ]),
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
@@ -59,9 +76,16 @@ class PasswordTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(
+          style: BorderStyle.none,
+        ),
         boxShadow: [
-          BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+          BoxShadow(
+            color: Colors.grey.shade300,
+            blurRadius: 25.0,
+            blurStyle: BlurStyle.normal,
+            offset: Offset(0, 0),
+          ),
         ],
       ),
       child: TextFormField(
@@ -83,7 +107,7 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(signUpScreenController.formKey.currentState!.validate()){
+        if (signUpScreenController.formKey.currentState!.validate()) {
           signUpScreenController.getRegisterData();
         }
       },
@@ -146,7 +170,7 @@ class LoginWithFacebookModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         signUpScreenController.signInWithFacebookFunction();
       },
       child: Container(
@@ -181,7 +205,7 @@ class LoginWithGoogleModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         signUpScreenController.googleAuthentication(context);
       },
       child: Container(

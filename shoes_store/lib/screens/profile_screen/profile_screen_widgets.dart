@@ -10,7 +10,8 @@ import 'package:shoes_store/models/profile_screen_model/city_model.dart';
 import 'package:shoes_store/models/profile_screen_model/state_model.dart';
 import 'package:shoes_store/models/profile_screen_model/country_model.dart';
 
-PreferredSizeWidget profileScreenAppBarModule({required String title, required BuildContext context}) {
+PreferredSizeWidget profileScreenAppBarModule(
+    {required String title, required BuildContext context}) {
   return AppBar(
     centerTitle: true,
     elevation: 0,
@@ -57,7 +58,7 @@ editProfileDialogModule(BuildContext context) {
                             StateDropDownModule(),
                             const SizedBox(height: 8),
                             CityDropDownModule(),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 20),
                             UpdateButton(),
                           ],
                         ),
@@ -81,16 +82,19 @@ class EditProfileTextModule extends StatelessWidget {
           children: [
             Text(
               "Edit Profile",
-              style:
-              TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
             ),
             GestureDetector(
               onTap: () {
                 Get.back();
               },
               child: Container(
-                height: 20,
-                width: 20,
+                height: 24,
+                width: 24,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.black),
@@ -98,7 +102,7 @@ class EditProfileTextModule extends StatelessWidget {
                   child: Icon(
                     Icons.close,
                     color: Colors.white,
-                    size: 12,
+                    size: 18,
                   ),
                 ),
               ),
@@ -120,10 +124,19 @@ class FullNameTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade200),
-          boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0)
-          ]),
+        border: Border.all(
+          style: BorderStyle.none,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            blurRadius: 25.0,
+            spreadRadius: 1,
+            blurStyle: BlurStyle.normal,
+            offset: Offset(0, 0),
+          )
+        ],
+      ),
       child: TextFormField(
         keyboardType: TextInputType.text,
         controller: profileScreenController.fullNameController,
@@ -140,7 +153,7 @@ class CountryDropDownModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () => Container(
+      () => Container(
         padding: EdgeInsets.only(left: 10, right: 10),
         width: Get.width,
         height: 43,
@@ -184,7 +197,7 @@ class StateDropDownModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () => Container(
+      () => Container(
         padding: EdgeInsets.only(left: 10, right: 10),
         width: Get.width,
         height: 43,
@@ -195,7 +208,7 @@ class StateDropDownModule extends StatelessWidget {
         child: DropdownButton<DatumState>(
           value: profileScreenController.stateDropDownValue,
           icon:
-          const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.grey),
+              const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.grey),
           style: const TextStyle(color: Colors.grey),
           isExpanded: true,
           underline: Container(
@@ -230,7 +243,7 @@ class CityDropDownModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () => Container(
+      () => Container(
         padding: EdgeInsets.only(left: 10, right: 10),
         width: Get.width,
         height: 43,
@@ -308,4 +321,3 @@ class UpdateButton extends StatelessWidget {
     );
   }
 }
-

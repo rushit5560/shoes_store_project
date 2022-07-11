@@ -13,9 +13,12 @@ class CategoryListModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
           color: Colors.white),
       child: ListView.builder(
         itemCount: categoryController.categoryLists.length,
@@ -23,19 +26,20 @@ class CategoryListModule extends StatelessWidget {
         physics: AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           Datum categorySingleItem = categoryController.categoryLists[index];
-          return _categoryListTile(categorySingleItem);
+          return _categoryListTile(categorySingleItem, index);
         },
       ),
     );
   }
 
-  Widget _categoryListTile(Datum categorySingleItem) {
+  Widget _categoryListTile(Datum categorySingleItem, int index) {
     final imgUrl = ApiUrl.ApiMainPath + "${categorySingleItem.showimg}";
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
       child: GestureDetector(
         onTap: () {
-          Get.to(()=> CategoryCollectionScreen(),
+          Get.to(
+            () => CategoryCollectionScreen(),
             arguments: [
               categorySingleItem.categoryId,
               categorySingleItem.categoryName,
@@ -67,16 +71,25 @@ class CategoryListModule extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(6),
                               child: Container(
-                                height: 65,
-                                width: 65,
+                                height: 55,
+                                width: 55,
+                                // margin: EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(color: Colors.grey, blurRadius: 10)
-                                  ],
-                                  image: DecorationImage(
-                                    image: NetworkImage("$imgUrl"),
-                                    fit: BoxFit.cover,
+                                  color: Colors.white,
+                                  // boxShadow: [
+                                  //   BoxShadow(
+                                  //       color: Colors.grey, blurRadius: 10)
+                                  // ],
+                                  // image: DecorationImage(
+                                  //   image: NetworkImage("$imgUrl"),
+                                  //   fit: BoxFit.fitWidth,
+                                  // ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: ClipRRect(
+                                    child: Image.network("$imgUrl"),
                                   ),
                                 ),
                               ),
@@ -84,6 +97,7 @@ class CategoryListModule extends StatelessWidget {
                             const SizedBox(width: 15),
                             Expanded(
                               child: Container(
+                                
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -96,14 +110,14 @@ class CategoryListModule extends StatelessWidget {
                                           // color: Colors.black,
                                           fontSize: 18),
                                     ),
-                                    SizedBox(height: 2),
-                                    Text(
-                                      "1020 item",
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                    // SizedBox(height: 2),
+                                    // Text(
+                                    //   "1020 item",
+                                    //   maxLines: 1,
+                                    //   style: TextStyle(
+                                    //     fontWeight: FontWeight.bold,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -126,7 +140,7 @@ class CategoryListModule extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 5),
+                    const SizedBox(width: 15),
                   ],
                 ),
               ),

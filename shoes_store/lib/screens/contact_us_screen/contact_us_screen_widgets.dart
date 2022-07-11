@@ -86,7 +86,7 @@ class ContactUsForm extends StatelessWidget {
               SubjectTextFieldModule(),
               const SizedBox(height: 20),
               CommentTextFieldModule(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 35),
               SubmitButtonModule(),
             ],
           ),
@@ -106,8 +106,14 @@ class UsernameTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
-          ]),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 35.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
+          ]
+          ),
       child: TextFormField(
         controller: contactUsScreenController.fullNameController,
         keyboardType: TextInputType.text,
@@ -128,7 +134,12 @@ class EmailTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 35.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
           ]),
       child: TextFormField(
         controller: contactUsScreenController.emailIdController,
@@ -150,7 +161,12 @@ class PhoneNoTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 35.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
           ]),
       child: TextFormField(
         controller: contactUsScreenController.phoneNoController,
@@ -172,7 +188,12 @@ class SubjectTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 35.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
           ]),
       child: TextFormField(
         controller: contactUsScreenController.subjectController,
@@ -194,7 +215,12 @@ class CommentTextFieldModule extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 35.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
           ]),
       child: TextFormField(
         controller: contactUsScreenController.commentController,

@@ -15,6 +15,8 @@ class SplashScreenController extends GetxController{
     UserDetails.isUserLoggedIn = prefs.getBool('userLoggedInStatus') ?? false;
     UserDetails.userId = prefs.getInt('id') ?? 0;
     UserDetails.token = prefs.getString('token') ?? "";
+    UserDetails.userName = prefs.getString('userName') ?? "";
+    UserDetails.userEmail = prefs.getString('userEmail') ?? "";
     print('Value : $onBoardingValue');
 
     if (onBoardingValue == true) {

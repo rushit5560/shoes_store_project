@@ -132,6 +132,13 @@ class FieldValidator {
     return null;
   }
 
+  String? validateProductReview(String value) {
+    if (value.isEmpty) {
+      return 'Review is required';
+    }
+    return null;
+  }
+
   String? validateShippingAddress(String value) {
     if(value.isEmpty){
           return "Shipping Address should not be Empty";

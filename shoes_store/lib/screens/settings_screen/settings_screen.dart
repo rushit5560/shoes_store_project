@@ -7,222 +7,260 @@ import 'package:shoes_store/controllers/settings_screen_controller/setting_scree
 import 'package:shoes_store/screens/change_password_sceen/change_password_sceen.dart';
 
 class SettingsScreen extends StatelessWidget {
-   SettingsScreen({Key? key}) : super(key: key);
+  SettingsScreen({Key? key}) : super(key: key);
 
-   SettingScreenController settingScreenController = Get.put(SettingScreenController());
+  SettingScreenController settingScreenController =
+      Get.put(SettingScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
       appBar: commonAppBarModule(image: "Settings"),
-
       body: Column(
         children: [
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(30),topLeft: Radius.circular(30)),
-                  color: Colors.white
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(30),
+                ),
+                color: Colors.white,
               ),
               child: Container(
-                margin: EdgeInsets.only(left: 15, right: 15),
+                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
                     emailNotification(),
                     const SizedBox(height: 5),
-
-                    Divider(color: Colors.grey.shade500,),
+                    Divider(
+                      color: Colors.grey.shade500,
+                    ),
                     const SizedBox(height: 5),
                     smsNotification(),
-
                     const SizedBox(height: 5),
-                    Divider(color: Colors.grey.shade500,),
+                    Divider(
+                      color: Colors.grey.shade500,
+                    ),
                     const SizedBox(height: 5),
-
                     profileAvailability(),
-
                     const SizedBox(height: 5),
-                    Divider(color: Colors.grey.shade500,),
+                    Divider(
+                      color: Colors.grey.shade500,
+                    ),
                     const SizedBox(height: 5),
-
                     sentRequest(),
-
                     const SizedBox(height: 5),
-                    Divider(color: Colors.grey.shade500,),
+                    Divider(
+                      color: Colors.grey.shade500,
+                    ),
                     const SizedBox(height: 5),
-
                     changePassword(),
-
                     const SizedBox(height: 10),
                   ],
                 ),
               ),
             ),
           ),
-
           Container(),
         ],
-         
       ),
     );
   }
 
-   emailNotification(){
-     return Row(
-       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-       children: [
-         Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
-             Text("Email Notification",
-               style: TextStyle(
-                   color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
-               ),),
-             SizedBox(height: 5,),
-             Text("Default notification will be sent",
-               style: TextStyle(fontSize: 18, color: Colors.black),)
-           ],
-         ),
-         Obx(()=>
-             Switch(
-               value: settingScreenController.isEmail.value,
-               onChanged: (value) {
-                 // setState(() {
-                 settingScreenController.isEmail.value = value;
-                 print(settingScreenController.isEmail.value);
-                 //      });
-               },
-               activeTrackColor: AppColors.colorDarkPink,
-               activeColor: Colors.white,
-             ),
-         ),
-
-       ],
-     );
-   }
-
-   smsNotification(){
+  emailNotification() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("SMS Notification",
+            Text(
+              "Email Notification",
               style: TextStyle(
-                  color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
-              ),),
-            SizedBox(height: 5,),
-            Text("Receive SMS notification",
-              style: TextStyle(fontSize: 18, color: Colors.black),)
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Default notification will be sent",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            )
           ],
         ),
-        Obx(()=>
-            Switch(
-              value: settingScreenController.isSms.value,
-              onChanged: (value) {
-                // setState(() {
-                settingScreenController.isSms.value = value;
-                print(settingScreenController.isSms.value);
-                //      });
-              },
-              activeTrackColor: AppColors.colorDarkPink,
-              activeColor: Colors.white,
-            ),
+        Obx(
+          () => Switch(
+            value: settingScreenController.isEmail.value,
+            onChanged: (value) {
+              // setState(() {
+              settingScreenController.isEmail.value = value;
+              print(settingScreenController.isEmail.value);
+              //      });
+            },
+            activeTrackColor: AppColors.colorDarkPink,
+            activeColor: Colors.white,
+          ),
         ),
-
       ],
     );
-   }
+  }
 
-   profileAvailability(){
-    return  Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Profile Avaiability",
-              style: TextStyle(
-                  color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
-              ),),
-            SizedBox(height: 5,),
-            Text("Everyone can sent me a request",
-              style: TextStyle(fontSize: 18, color: Colors.black),)
-          ],
-        ),
-        Obx(()=>
-            Switch(
-              value: settingScreenController.isProfile.value,
-              onChanged: (value) {
-                // setState(() {
-                settingScreenController.isProfile.value = value;
-                print(settingScreenController.isProfile.value);
-                //      });
-              },
-              activeTrackColor: AppColors.colorDarkPink,
-              activeColor: Colors.white,
-            ),
-        ),
-
-      ],
-    );
-   }
-
-   sentRequest(){
+  smsNotification() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Sent Request",
+            Text(
+              "SMS Notification",
               style: TextStyle(
-                  color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
-              ),),
-            SizedBox(height: 5,),
-            Text("Default notification will be sent",
-              style: TextStyle(fontSize: 18, color: Colors.black),)
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Receive SMS notification",
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            )
           ],
         ),
-        Obx(()=>
-            Switch(
-              value: settingScreenController.isRequest.value,
-              onChanged: (value) {
-                // setState(() {
-                settingScreenController.isRequest.value = value;
-                print(settingScreenController.isRequest.value);
-                //      });
-              },
-              activeTrackColor: AppColors.colorDarkPink,
-              activeColor: Colors.white,
-            ),
+        Obx(
+          () => Switch(
+            value: settingScreenController.isSms.value,
+            onChanged: (value) {
+              // setState(() {
+              settingScreenController.isSms.value = value;
+              print(settingScreenController.isSms.value);
+              //      });
+            },
+            activeTrackColor: AppColors.colorDarkPink,
+            activeColor: Colors.white,
+          ),
         ),
-
       ],
     );
-   }
+  }
 
-   changePassword(){
+  profileAvailability() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Profile Avaiability",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Everyone can sent me a request",
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            )
+          ],
+        ),
+        Obx(
+          () => Switch(
+            value: settingScreenController.isProfile.value,
+            onChanged: (value) {
+              // setState(() {
+              settingScreenController.isProfile.value = value;
+              print(settingScreenController.isProfile.value);
+              //      });
+            },
+            activeTrackColor: AppColors.colorDarkPink,
+            activeColor: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+  sentRequest() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Sent Request",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "Default notification will be sent",
+              style: TextStyle(fontSize: 15, color: Colors.black),
+            )
+          ],
+        ),
+        Obx(
+          () => Switch(
+            value: settingScreenController.isRequest.value,
+            onChanged: (value) {
+              // setState(() {
+              settingScreenController.isRequest.value = value;
+              print(settingScreenController.isRequest.value);
+              //      });
+            },
+            activeTrackColor: AppColors.colorDarkPink,
+            activeColor: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+  changePassword() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
           onTap: () {
-            Get.to(()=> ChangePasswordScreen());
+            Get.to(() => ChangePasswordScreen());
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Change Password",
+              Text(
+                "Change Password",
                 style: TextStyle(
-                    color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500
-                ),),
-              SizedBox(height: 5,),
-              Text("you must need youe verified email",
-                style: TextStyle(fontSize: 18, color: Colors.black),)
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "you must need youe verified email",
+                style: TextStyle(fontSize: 15, color: Colors.black),
+              )
             ],
           ),
         ),
@@ -240,8 +278,7 @@ class SettingsScreen extends StatelessWidget {
               activeColor: Colors.white,
             ),
         ),*/
-
       ],
     );
-   }
+  }
 }

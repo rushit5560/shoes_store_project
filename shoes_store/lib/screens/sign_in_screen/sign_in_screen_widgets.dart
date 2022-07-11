@@ -16,7 +16,12 @@ class EmailIdTextField extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.transparent),
           boxShadow: [
-            BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 25.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
           ]),
       child: TextFormField(
         controller: signInScreenController.emailIdFieldController,
@@ -37,7 +42,12 @@ class PasswordTextField extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.transparent),
         boxShadow: [
-          BoxShadow(color: Colors.grey.shade400, blurRadius: 20.0),
+          BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 25.0,
+              blurStyle: BlurStyle.normal,
+              offset: Offset(0, 0),
+            )
         ],
       ),
       child: TextFormField(

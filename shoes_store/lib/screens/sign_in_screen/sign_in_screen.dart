@@ -24,43 +24,45 @@ class SignInScreen extends StatelessWidget {
       body: Obx(
         () => signInScreenController.isLoading.value
             ? CustomCircularProgressIndicator()
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 30, left: 20, right: 20),
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white),
-                      child: Form(
-                        key: signInScreenController.formKey,
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 30),
-                            EmailIdTextField(),
-                            const SizedBox(height: 20),
-                            PasswordTextField(),
-                            const SizedBox(height: 25),
-                            LoginButton(),
-                            const SizedBox(height: 25),
-                            ForgotPasswordText(),
-                            const SizedBox(height: 25),
-                            // OrTextModule(),
-                            // const SizedBox(height: 25),
-                            // LoginWithFacebookModule(),
-                            // const SizedBox(height: 10),
-                            // LoginWithGoogleModule(),
-                            // const SizedBox(height: 30),
-                          ],
-                        ),
-                      ),
+            : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 30, left: 20, right: 20),
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  child: Form(
+                    key: signInScreenController.formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const SizedBox(height: 30),
+                        EmailIdTextField(),
+                        const SizedBox(height: 20),
+                        PasswordTextField(),
+                        const SizedBox(height: 25),
+                        LoginButton(),
+                        const SizedBox(height: 25),
+                        ForgotPasswordText(),
+                        const SizedBox(height: 25),
+                        // OrTextModule(),
+                        // const SizedBox(height: 25),
+                        // LoginWithFacebookModule(),
+                        // const SizedBox(height: 10),
+                        // LoginWithGoogleModule(),
+                        // const SizedBox(height: 30),
+                      ],
                     ),
-                    const SizedBox(height: 30),
-                    SignUpTextModule(),
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(height: 30),
+                SignUpTextModule(),
+              ],
+            ),
       ),
     );
   }

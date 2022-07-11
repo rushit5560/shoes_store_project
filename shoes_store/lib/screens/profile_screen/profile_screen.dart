@@ -18,8 +18,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final ImagePicker imagePicker = ImagePicker();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         () => profileScreenController.isLoading.value
             ? CustomCircularProgressIndicator()
             : Column(
-                children: [Container(height: 50), profileContainer(context),],
+                children: [
+                  Container(height: 50),
+                  profileContainer(context),
+                ],
               ),
       ),
     );
@@ -51,7 +52,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 10),
               profileName(),
               SizedBox(height: 10),
-              Expanded(child: tabView()),
+              Expanded(
+                child: tabView(),
+              ),
             ],
           ),
         ),
@@ -63,23 +66,79 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        profileScreenController.file != null ?
-        ClipRRect(
-          borderRadius: BorderRadius.circular(80.0),
-          child: Image.file(profileScreenController.file!, height: 120 ,width: 120, fit: BoxFit.fill),
-        ):
-        ClipRRect(
-          borderRadius: BorderRadius.circular(80.0),
-          child: Image.network(profileScreenController.userProfile!, height: 120 ,width: 120, fit: BoxFit.fill),
-        ),
+        profileScreenController.file != null
+            ? Container(
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(80.0),
+                  shape: BoxShape.circle,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(100),
+                  ),
+                  child: Image.file(
+                    profileScreenController.file!,
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                    errorBuilder: (ctx, ibj, st) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                        child: Image.asset(
+                          Images.noImage,
+                          height: 120,
+                          width: 120,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
+            : Container(
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(80.0),
+                  shape: BoxShape.circle,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(100),
+                  ),
+                  child: Image.network(
+                    profileScreenController.userProfile!,
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                    errorBuilder: (ctx, ibj, st) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                        child: Image.asset(
+                          Images.noImage,
+                          height: 120,
+                          width: 120,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             _showPicker(context);
           },
           child: Container(
             height: 25,
             width: 25,
-            margin: EdgeInsets.only(right: 5),
+            margin: EdgeInsets.only(right: 5,bottom: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: AppColors.colorDarkPink),
@@ -100,6 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       children: [
         Container(
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Text(
             "${profileScreenController.userData.name}",
             style: TextStyle(
@@ -115,25 +175,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   tabView() {
     return Column(
-        children: [
-          // mainTabsModule(),
-          Divider(color: Colors.black, height: 2),
-          SizedBox(height: 5),
-          Expanded(
-            child: Container(
-              child: personalInfoModule(),
-              // child: profileScreenController.isPersonalInfoSelected.value
-              //     ? personalInfoModule()
-              //     : myOrderModule(),
-            ),
+      children: [
+        // mainTabsModule(),
+        Divider(
+          color: Colors.grey,
+          height: 1,
+          thickness: 0.5,
+        ),
+        SizedBox(height: 5),
+        Expanded(
+          child: Container(
+            child: personalInfoModule(),
+            // child: profileScreenController.isPersonalInfoSelected.value
+            //     ? personalInfoModule()
+            //     : myOrderModule(),
           ),
-        ],
+        ),
+      ],
     );
   }
 
   mainTabsModule() {
     return Obx(
-          () => Row(
+      () => Row(
         children: [
           Expanded(
             child: Padding(
@@ -145,16 +209,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 child: Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
                   child: Center(
                     child: Text(
                       'Personal Info',
                       textScaleFactor: 1.1,
                       style: TextStyle(
                         color:
-                        profileScreenController.isPersonalInfoSelected.value
-                            ? AppColors.colorDarkPink
-                            : Colors.black,
+                            profileScreenController.isPersonalInfoSelected.value
+                                ? AppColors.colorDarkPink
+                                : Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -258,10 +322,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   personalInfoModule() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             /*Row(
               children: [
@@ -315,25 +380,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
 
             SizedBox(height: 20),*/
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Email Id',
-                  style: TextStyle(
+            Container(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Email Id',
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.black, fontSize: 17
-                  ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  '${profileScreenController.userData.email}',
-                  style: TextStyle(
                       color: Colors.black,
-                      fontSize: 17
+                      fontSize: 15,
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 5),
+                  Text(
+                    '${profileScreenController.userData.email}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
             ),
 
             SizedBox(height: 20),
@@ -368,7 +438,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // ),
             // SizedBox(height: 5,),
             // Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
-
           ],
         ),
       ),
@@ -390,19 +459,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade500,
-                        blurRadius: 10
-                    )
-                  ]
-              ),
+                    BoxShadow(color: Colors.grey.shade500, blurRadius: 10)
+                  ]),
               child: Container(
                 padding: EdgeInsets.only(top: 5, bottom: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Expanded(
                       child: Container(
                         child: Row(
@@ -416,14 +483,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10
-                                    )
+                                        color: Colors.grey, blurRadius: 10)
                                   ],
                                   image: DecorationImage(
                                     image: AssetImage(
                                       Images.ic_shoes1,
-                                    ),fit: BoxFit.cover,),
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -431,8 +498,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Expanded(
                               child: Container(
                                 child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "Men's Shoes",
@@ -468,8 +534,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               // color: Colors.black,
-                                              decoration: TextDecoration
-                                                  .lineThrough),
+                                              decoration:
+                                                  TextDecoration.lineThrough),
                                         ),
                                       ],
                                     )
@@ -518,26 +584,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   void gallery() async {
     final image = await imagePicker.pickImage(source: ImageSource.gallery);
-    if(image != null){
+    if (image != null) {
       setState(() {
         profileScreenController.file = File(image.path);
       });
-    } else{}
+    } else {}
   }
 
   void camera() async {
     final image = await imagePicker.pickImage(source: ImageSource.camera);
-    if(image != null){
+    if (image != null) {
       setState(() {
         profileScreenController.file = File(image.path);
       });
-    } else{}
+    } else {}
   }
-
 }

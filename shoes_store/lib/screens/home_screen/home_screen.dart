@@ -40,24 +40,19 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             const SizedBox(height: 20),
-                            Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: [
-                                ImageBannerModule(),
-                                ImageBannerIndicator(),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
+                            ImageBannerModule(),
+                                // ImageBannerIndicator(),
+                            const SizedBox(height: 10),
                             NewCollectionListModule(),
                             const SizedBox(height: 20),
-                            BestSellerListModule(),
-                            const SizedBox(height: 25),
+                            // BestSellerListModule(),
+                            // const SizedBox(height: 25),
                             TestimonialModule(),
                             const SizedBox(height: 25),
                             BrandBannerModule(),
-                            SizedBox(height: 25),
+                            SizedBox(height: 10),
                             OfferListModule(),
-                            const SizedBox(height: 15),
+                            // const SizedBox(height: 15),
                           ],
                         ),
                       )

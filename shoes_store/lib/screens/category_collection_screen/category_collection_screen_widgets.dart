@@ -15,10 +15,12 @@ class CategoryCollectionListModule extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10),
       child: GridView.builder(
-        itemCount:
-            categoryCollectionScreenController.categoryCollectionLists.length,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: categoryCollectionScreenController.categoryCollectionLists.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+          childAspectRatio: 1/1.3,
+            mainAxisSpacing: 20
+        ),
         itemBuilder: (BuildContext context, int index) {
           CategoryCollectionDetail categoryCollectionSingleItem =
               categoryCollectionScreenController.categoryCollectionLists[index];
@@ -53,40 +55,45 @@ class CategoryCollectionListModule extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 5)
                   ]),
-              child: Image.network("$imgUrl"),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network("$imgUrl", fit: BoxFit.cover),
+
+                  SizedBox(height: 10),
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${categoryCollectionSingleItem.productname}",
+                            style: TextStyle(
+                                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "\$${categoryCollectionSingleItem.productcost}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                  )
+
+
+                ],
+              ),
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          "${categoryCollectionSingleItem.productname}",
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Row(
-          children: [
-            Text(
-              "\$${categoryCollectionSingleItem.productcost}",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "\$${categoryCollectionSingleItem.productcost}",
-              style: TextStyle(fontSize: 18),
-            )
-          ],
-        ),
-        SizedBox(height: 10),
+
       ],
     );
   }

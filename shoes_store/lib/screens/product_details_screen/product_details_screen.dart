@@ -29,9 +29,10 @@ class ProductDetailsScreen extends StatelessWidget {
                       ProductImageSliderIndicatorModule(),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 15),
                   Expanded(
                     child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),

@@ -28,11 +28,11 @@ class AddressManagerScreen extends StatelessWidget {
             : SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 10),
+             SizedBox(height: 12),
               shippingAddressFields(),
               SizedBox(height: 20),
               billingAddressFields(),
-              SizedBox(height: 10),
+             SizedBox(height: 12),
             ],
           ),
         ),
@@ -56,16 +56,16 @@ class AddressManagerScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 12),
 
             TextFormField(
               controller: addressManagerScreenController.shippingAddressController,
               maxLines: 3,
               keyboardType: TextInputType.text,
               validator: (value) => FieldValidator().validateShippingAddress(value!),
-              decoration: addressInputDecoration(hintText: "Shipping Address", radius: 25),
+              decoration: addressInputDecoration(hintText: "Shipping Address", radius: 15),
             ),
-            SizedBox(height: 10),
+           SizedBox(height: 12),
 
             TextFormField(
               controller: addressManagerScreenController.shippingMobileController,
@@ -75,7 +75,7 @@ class AddressManagerScreen extends StatelessWidget {
               validator: (value)=> FieldValidator().validateMobile(value!),
               decoration: addressInputDecoration(hintText: "Mobile Number", radius: 25),
             ),
-            SizedBox(height: 10),
+           SizedBox(height: 12),
 
             TextFormField(
               controller: addressManagerScreenController.shippingEmailController,
@@ -84,7 +84,7 @@ class AddressManagerScreen extends StatelessWidget {
               validator: (value)=> FieldValidator().validateEmail(value!),
               decoration: addressInputDecoration(hintText: "Email", radius: 25),
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 18),
 
             GestureDetector(
               onTap: () async {
@@ -133,16 +133,16 @@ class AddressManagerScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold
               ),
             ),
-            SizedBox(height: 10),
+           SizedBox(height: 12),
 
             TextFormField(
               controller: addressManagerScreenController.billingAddressController,
               maxLines: 3,
               keyboardType: TextInputType.text,
               validator: (value)=> FieldValidator().validateBillingAddress(value!),
-              decoration: addressInputDecoration(hintText: "Billing Address", radius: 25),
+              decoration: addressInputDecoration(hintText: "Billing Address", radius: 15),
             ),
-            SizedBox(height: 10),
+           SizedBox(height: 12),
 
             TextFormField(
               controller: addressManagerScreenController.billingMobileController,
@@ -160,7 +160,7 @@ class AddressManagerScreen extends StatelessWidget {
               },
               decoration: addressInputDecoration(hintText: "Mobile Number", radius: 25),
             ),
-            SizedBox(height: 10),
+           SizedBox(height: 12),
 
             TextFormField(
               controller: addressManagerScreenController.billingEmailController,
@@ -177,7 +177,7 @@ class AddressManagerScreen extends StatelessWidget {
               },
               decoration: addressInputDecoration(hintText: "Email", radius: 25),
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 18),
 
             GestureDetector(
               onTap: () async {

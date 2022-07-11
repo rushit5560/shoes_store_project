@@ -20,7 +20,7 @@ class BlogScreen extends StatelessWidget {
           ()=> blogScreenController.isLoading.value
               ? Center(child: CircularProgressIndicator())
               : Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: ListView.builder(
             itemCount: blogScreenController.blogDataLists.length,
             physics: BouncingScrollPhysics(),
@@ -29,26 +29,26 @@ class BlogScreen extends StatelessWidget {
                 "${blogScreenController.blogDataLists[index].createdDate.month}/" +
                 "${blogScreenController.blogDataLists[index].createdDate.year}";
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
+                  padding:  EdgeInsets.only(bottom: 10,top: index == 0 ? 12 : 0),
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: GestureDetector(
-                              onTap: () {
-                                print('id : ${blogScreenController.blogDataLists[index].id}');
-                                Get.to(() => BlogDetailScreen(),
-                                  arguments: blogScreenController.blogDataLists[index].id,
-                                );
-                              },
+                          GestureDetector(
+                            onTap: () {
+                              print('id : ${blogScreenController.blogDataLists[index].id}');
+                              Get.to(() => BlogDetailScreen(),
+                                arguments: blogScreenController.blogDataLists[index].id,
+                              );
+                            },
+                            child: ClipRRect(
+                                 borderRadius: BorderRadius.circular(10),
                               child: Image(
                                 height: Get.height * 0.23,
                                 width: Get.width,

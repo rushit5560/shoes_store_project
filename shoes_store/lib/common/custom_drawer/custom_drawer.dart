@@ -23,6 +23,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      elevation: 0,
       child: Obx(
         () => customDrawerController.isLoading.value
             ? const Center(child: CircularProgressIndicator())
@@ -30,48 +31,46 @@ class CustomDrawer extends StatelessWidget {
                 alignment: Alignment.topRight,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 70),
+                    padding: EdgeInsets.only(top: 85, left: 10),
                     color: Colors.white,
                     child: Column(
                       children: [
                         Expanded(
-                          child: Container(
-                            //margin: EdgeInsets.only(left: 15),
+                          child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 5),
-                                UserDetails.isUserLoggedIn == true
-                                    ? profilePicAndName()
-                                    : Container(),
+                                // SizedBox(height: 5),
+                                // UserDetails.isUserLoggedIn == true
+                                //     ? profilePicAndName()
+                                //     : Container(),
+                                profilePicAndName(),
                                 SizedBox(height: 20),
                                 drawerList(),
                               ],
                             ),
                           ),
                         ),
-                        UserDetails.isUserLoggedIn == true
-                            ? logout()
-                            : login(),
+                        UserDetails.isUserLoggedIn == true ? logout() : login(),
                       ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Container(
-                        height: 25,
-                        width: 25,
-                        margin: EdgeInsets.only(top: 65, right: 5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.black),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        )),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Get.back();
+                  //   },
+                  //   child: Container(
+                  //       height: 25,
+                  //       width: 25,
+                  //       margin: EdgeInsets.only(top: 75, right: 20),
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(15),
+                  //           color: Colors.black),
+                  //       child: Icon(
+                  //         Icons.close,
+                  //         color: Colors.white,
+                  //       )),
+                  // ),
                 ],
               ),
       ),
@@ -85,36 +84,51 @@ class CustomDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 100,
-            width: 100,
+            height: 110,
+            width: 110,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(color: Colors.grey.shade500, blurRadius: 12)
-                ]),
+              shape: BoxShape.circle,
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade300,
+                  blurRadius: 20,
+                  offset: Offset(0, 2),
+                  spreadRadius: 5,
+                )
+              ],
+            ),
             child: Center(
-              child: Image.asset(Images.ic_logo, color: Colors.black),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  Images.ic_logo,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 25),
           Container(
-              child: Text(
-            "John Doe",
-            textScaleFactor: 1.5,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          )),
-          SizedBox(
-            height: 5,
+            child: UserDetails.isUserLoggedIn == true
+                ? Text(
+                    "${UserDetails.userName}",
+                    textScaleFactor: 1.3,
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  )
+                : Container(),
           ),
+          SizedBox(height: 5),
           Container(
-              child: Text(
-            "john@demo.com",
-            textScaleFactor: 1.3,
-            style: TextStyle(color: Colors.black),
-          ))
+            child: UserDetails.isUserLoggedIn == true
+                ? Text(
+                    "${UserDetails.userEmail}",
+                    textScaleFactor: 1.2,
+                    style: TextStyle(color: Colors.black),
+                  )
+                : Container(),
+          ),
         ],
       ),
     );
@@ -122,7 +136,7 @@ class CustomDrawer extends StatelessWidget {
 
   drawerList() {
     return Container(
-      margin: EdgeInsets.only(left: 5),
+      // margin: EdgeInsets.only(left: 5),
       child: Column(
         children: [
           // homeButton(),
@@ -149,9 +163,10 @@ class CustomDrawer extends StatelessWidget {
         color: Colors.black,
         scale: 0.75,
       ),
+      minLeadingWidth: 30,
       title: Text(
         'Home',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -163,10 +178,16 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => CollectionScreen());
       },
-      leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
+      leading: Image.asset(
+        Images.ic_home,
+        color: Colors.black,
+        scale: 0.75,
+      ),
+      minLeadingWidth: 30,
       title: Text(
-        'New Collection',
-        textScaleFactor: 1.4,
+        //'New Collection',
+        'Product',
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -179,9 +200,10 @@ class CustomDrawer extends StatelessWidget {
         Get.to(() => CategoryScreen());
       },
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
+      minLeadingWidth: 30,
       title: Text(
         'Categories',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -193,11 +215,12 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => NotificationScreen());
       },
+      minLeadingWidth: 30,
       leading:
           Image.asset(Images.ic_notification, color: Colors.black, scale: 0.75),
       title: Text(
         'Notification',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -209,10 +232,11 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => SettingsScreen());
       },
+      minLeadingWidth: 30,
       leading: Image.asset(Images.ic_setting, color: Colors.black, scale: 0.75),
       title: Text(
         'Settings',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -224,10 +248,11 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => ContactUsScreen());
       },
+      minLeadingWidth: 30,
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Contact Us',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -239,10 +264,11 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => AddressManagerScreen());
       },
+      minLeadingWidth: 30,
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Address',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -254,10 +280,11 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => OrderScreen());
       },
+      minLeadingWidth: 30,
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Orders',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -269,10 +296,11 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.to(() => BlogScreen());
       },
+      minLeadingWidth: 30,
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       title: Text(
         'Blogs',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -289,11 +317,12 @@ class CustomDrawer extends StatelessWidget {
         Get.back();
         Get.snackbar("User logout successfully!", "");
       },
+      minLeadingWidth: 30,
       // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       leading: Icon(Icons.logout, color: Colors.black),
       title: Text(
         'Logout',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
     );
@@ -306,11 +335,12 @@ class CustomDrawer extends StatelessWidget {
         // await commonFunctions.clearUserDetailsFromPrefs();
         Get.to(() => SignInScreen());
       },
+      minLeadingWidth: 30,
       // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       leading: Icon(Icons.login, color: Colors.black),
       title: Text(
         'Login',
-        textScaleFactor: 1.4,
+        textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
     );

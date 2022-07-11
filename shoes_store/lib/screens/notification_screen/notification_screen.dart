@@ -32,14 +32,20 @@ class NotificationScreen extends StatelessWidget {
   }
 
   notificationList() {
-    return ListView.builder(
-      itemCount: 5,
+    return ListView.separated(
+      itemCount: 10,
       shrinkWrap: true,
       physics: AlwaysScrollableScrollPhysics(),
+      separatorBuilder: (ctx,ind){
+        if(ind != 0){
+        }
+          return ind != 10 ? Divider(color: Colors.grey) : SizedBox();
+      },
       itemBuilder: (context, index) {
         return Column(
           children: [
-            const SizedBox(height: 10),
+             index == 0 ? const SizedBox(height: 15) : SizedBox(),
+            
             Container(
               margin: EdgeInsets.only(bottom: 5, left: 10, right: 10),
               child: Column(
@@ -49,8 +55,8 @@ class NotificationScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(6),
                         child: Container(
-                          height: 65,
-                          width: 65,
+                          height: 60,
+                          width: 60,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(color: Colors.grey),
@@ -63,7 +69,7 @@ class NotificationScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 15),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: Container(
                           child: Column(
@@ -75,10 +81,10 @@ class NotificationScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 18,
+                                  fontSize: 17,
                                 ),
                               ),
-                              const SizedBox(height: 2),
+                              const SizedBox(height: 12),
                               Text(
                                 "Last Week",
                                 maxLines: 1,
@@ -89,7 +95,7 @@ class NotificationScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Divider(color: Colors.grey),
+                 
                 ],
               ),
             ),

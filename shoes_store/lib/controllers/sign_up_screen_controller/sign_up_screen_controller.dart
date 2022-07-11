@@ -51,8 +51,10 @@ class SignUpScreenController extends GetxController {
       if(isStatus.value){
         var id = signUpData.data[0].id;
         var token = signUpData.data[0].rememberToken;
+        var userName = signUpData.data[0].name;
+        var userEmail = signUpData.data[0].email;
         // Save id And token in SharedPreference
-        CommonFunctions().setUserDetailsInPrefs(id, token);
+        CommonFunctions().setUserDetailsInPrefs(id, token, userName, userEmail);
         Get.offAll(() => IndexScreen());
         Get.snackbar('User registered successfully.', '');
       } else {

@@ -74,7 +74,7 @@ class _IndexScreenState extends State<IndexScreen> {
            topLeft: Radius.circular(25),
            topRight: Radius.circular(25),
          ),
-         // color: AppColors.colorLightGrey,
+        //  color: AppColors.colorWhite,
        ),
        child: Row(
          mainAxisAlignment: MainAxisAlignment.spaceEvenly,

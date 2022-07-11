@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/models/product_detail_screen_model/add_product_review_model.dart';
 import 'package:shoes_store/models/product_detail_screen_model/addtocart_model.dart';
+import 'package:shoes_store/models/product_detail_screen_model/get_product_review_model.dart';
 import 'package:shoes_store/models/product_detail_screen_model/product_detail_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shoes_store/models/product_detail_screen_model/related_products_model.dart';
@@ -22,10 +24,15 @@ class ProductDetailsScreenController extends GetxController {
   int productQty = 1;
   RxList<Datum> productDetailLists = RxList();
   List<RelatedProductDatum> relatedProductLists = [];
+
+  final GlobalKey<FormState> productReviewFormKey = GlobalKey<FormState>();
+  final TextEditingController productReviewFieldController = TextEditingController();
   // RxList<Datum1> productReviewList = RxList();
   var userId;
 
   RxString? wishListData;
+
+  RxDouble rating = 0.0.obs;
 
   getProductDetailData() async {
     isLoading(true);
@@ -86,7 +93,7 @@ class ProductDetailsScreenController extends GetxController {
     }
   }*/
 
-  addProductReview(ratings, comment) async {
+  addProductReview() async {
     isLoading(true);
     String url = ApiUrl.AddProductReviewApi;
     print('Url : $url');
@@ -96,10 +103,10 @@ class ProductDetailsScreenController extends GetxController {
       Map data = {
         "userid": "$userId",
         "productid": "$productId",
-        "ratings": "$ratings",
-        "comment": "$comment"
+        "ratings": rating.toString(),
+        "comment": productReviewFieldController.text.trim()
       };
-
+      log('data: $data');
       http.Response response = await http.post(Uri.parse(url), body: data);
       AddProductReviewData addProductReviewData =
           AddProductReviewData.fromJson(json.decode(response.body));
@@ -108,6 +115,7 @@ class ProductDetailsScreenController extends GetxController {
       if (isStatus.value) {
         Fluttertoast.showToast(
             msg: "${addProductReviewData.message.toString()}");
+        productReviewFieldController.clear();
       } else {
         print('Else False');
       }
@@ -202,13 +210,14 @@ class ProductDetailsScreenController extends GetxController {
     log('Related product list url : $url');
     try {
       http.Response response = await http.get(Uri.parse(url));
+      log('Related product response: ${response.body}');
 
       RelatedProductsModel relatedProductsModel = RelatedProductsModel.fromJson(json.decode(response.body));
       isStatus = relatedProductsModel.success.obs;
 
       if(isStatus.value) {
-        relatedProductLists.clear();
-        relatedProductLists.addAll(relatedProductsModel.data);
+        //relatedProductLists.clear();
+        relatedProductLists = relatedProductsModel.data;
         log("relatedProductLists : ${relatedProductLists.length}");
 
       } else {

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class SearchTextFieldModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 45,
       margin: EdgeInsets.only(left: 15, right: 15),
       child: TextFormField(
           keyboardType: TextInputType.emailAddress,
@@ -58,20 +59,30 @@ class ImageBannerModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: homeScreenController.bannerLists.length,
-      itemBuilder: (context, index, realIndex) {
-        final imgUrl = ApiUrl.ApiMainPath +
-            "${homeScreenController.bannerLists[index].imagePath}";
-        return _imageModule(imgUrl, index);
-      },
-      options: CarouselOptions(
-          height: 150,
-          autoPlay: true,
-          viewportFraction: 1,
-          onPageChanged: (index, reason) {
-            homeScreenController.activeIndex.value = index;
-          }),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 10),
+      child: Column(
+        children: [
+          CarouselSlider.builder(
+            itemCount: homeScreenController.bannerLists.length,
+            itemBuilder: (context, index, realIndex) {
+              final imgUrl = ApiUrl.ApiMainPath +
+                  "${homeScreenController.bannerLists[index].imagePath}";
+              return _imageModule(imgUrl, index);
+            },
+            options: CarouselOptions(
+              height: 165,
+              autoPlay: true,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                homeScreenController.activeIndex.value = index;
+              },
+            ),
+          ),
+          SizedBox(height: 8),
+          ImageBannerIndicator(),
+        ],
+      ),
     );
   }
 
@@ -126,20 +137,29 @@ class BrandBannerModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: homeScreenController.brandBannerList.length,
-      itemBuilder: (context, index, realIndex) {
-        final imgUrl = ApiUrl.ApiMainPath +
-            "${homeScreenController.brandBannerList[index].brandImage}";
-        return _imageModule(imgUrl, index);
-      },
-      options: CarouselOptions(
-          height: 150,
-          autoPlay: true,
-          viewportFraction: 1,
-          onPageChanged: (index, reason) {
-            homeScreenController.activeIndex.value = index;
-          }),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          CarouselSlider.builder(
+            itemCount: homeScreenController.brandBannerList.length,
+            itemBuilder: (context, index, realIndex) {
+              final imgUrl = ApiUrl.ApiMainPath +
+                  "${homeScreenController.brandBannerList[index].brandImage}";
+              return _imageModule(imgUrl, index);
+            },
+            options: CarouselOptions(
+                height: 165,
+                autoPlay: true,
+                viewportFraction: 1,
+                onPageChanged: (index, reason) {
+                  homeScreenController.activeIndex.value = index;
+                }),
+          ),
+          SizedBox(height: 8),
+          ImageBannerIndicator(),
+        ],
+      ),
     );
   }
 
@@ -147,21 +167,28 @@ class BrandBannerModule extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey,
-              image: DecorationImage(
-                image: NetworkImage("$imgUrl"),
-                fit: BoxFit.cover,
-              ),
+          decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.80),
+            borderRadius: BorderRadius.circular(10),
+          
+            
+          ),
+        child: Container(
+          margin: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            // color: Colors.grey,
+            image: DecorationImage(
+              image: NetworkImage("$imgUrl"),
+              fit: BoxFit.contain,
+              
             ),
           ),
-
-
+        ),
+      ),
     );
   }
 }
-
 
 class ImageBannerIndicator extends StatelessWidget {
   ImageBannerIndicator({Key? key}) : super(key: key);
@@ -176,12 +203,12 @@ class ImageBannerIndicator extends StatelessWidget {
           homeScreenController.bannerLists.length,
           (index) => Container(
             margin: EdgeInsets.all(4),
-            width: 11,
-            height: 11,
+            width: 10,
+            height: 10,
             decoration: BoxDecoration(
               color: homeScreenController.activeIndex.value == index
                   ? AppColors.colorDarkPink
-                  : Colors.white,
+                  : Colors.grey,
               shape: BoxShape.circle,
             ),
           ),
@@ -205,42 +232,47 @@ class NewCollectionListModule extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "New Collections",
+                "Featured Product",
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.to(()=> CollectionScreen());
-                },
-                child: Text(
-                  "Show All",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                      decoration: TextDecoration.underline),
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
                 ),
-              )
+              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.to(()=> CollectionScreen());
+              //   },
+              //   child: Text(
+              //     "Show All",
+              //     style: TextStyle(
+              //         color: Colors.black,
+              //         fontWeight: FontWeight.w500,
+              //         fontSize: 20,
+              //         decoration: TextDecoration.underline),
+              //   ),
+              // )
             ],
           ),
-
-          SizedBox(height: 10),
-
+          SizedBox(height: 20),
           Container(
-            height: Get.height * 0.25,
-            child: ListView.builder(
+            height: Get.height * 0.22,
+            child: ListView.separated(
                 itemCount: homeScreenController.featuredProductLists.length,
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
+                separatorBuilder: (ctx, ind) {
+                  return SizedBox(width: 15);
+                },
                 itemBuilder: (context, index) {
-                  Datum1 featuredSingleItem= homeScreenController.featuredProductLists[index];
-                  final imgUrl = ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
+                  Datum1 featuredSingleItem =
+                      homeScreenController.featuredProductLists[index];
+                  final imgUrl =
+                      ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
                   return GestureDetector(
                     onTap: () {
-                      Get.to(() => ProductDetailsScreen(),
+                      Get.to(
+                        () => ProductDetailsScreen(),
                         arguments: featuredSingleItem.id,
                       );
                     },
@@ -250,17 +282,32 @@ class NewCollectionListModule extends StatelessWidget {
                         Expanded(
                           child: Container(
                             //height: 100,
-                            margin: EdgeInsets.only(left: 10, right: 10),
+                            // margin: EdgeInsets.only(left: 10, right: 10),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.grey.shade200,
-                                //border: Border.all(color: Colors.grey.shade400
-                                //),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.shade400, blurRadius: 5)
-                                ]),
-                            child: Image.network("$imgUrl"),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: Colors.grey.shade100,
+                              //     blurRadius: 20,
+                              //     spreadRadius: 30,
+                              //   ),
+                              // ],
+                              // image: DecorationImage(
+                              //   image: NetworkImage(imgUrl),
+                              //   fit: BoxFit.cover,
+
+                              // ),
+                              //border: Border.all(color: Colors.grey.shade400
+                              //),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                              child: Image.network("$imgUrl"),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -268,24 +315,24 @@ class NewCollectionListModule extends StatelessWidget {
                           "${featuredSingleItem.productname}",
                           style: TextStyle(
                               color: Colors.black,
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 5),
                         Row(
                           children: [
                             Text(
-                              "\$${featuredSingleItem.totalcost}",
+                              "\$${featuredSingleItem.productcost}",
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w500),
                             ),
-                            const SizedBox(width: 10),
-                            Text(
-                              "\$${featuredSingleItem.totalcost}",
-                              style: TextStyle(fontSize: 18),
-                            )
+                            // const SizedBox(width: 10),
+                            // Text(
+                            //   "\$${featuredSingleItem.totalcost}",
+                            //   style: TextStyle(fontSize: 18),
+                            // )
                           ],
                         )
                       ],
@@ -321,7 +368,7 @@ class BestSellerListModule extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(()=> CollectionScreen());
+                  Get.to(() => CollectionScreen());
                 },
                 child: Text(
                   "Show All",
@@ -342,11 +389,14 @@ class BestSellerListModule extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  Datum1 featuredSingleItem= homeScreenController.featuredProductLists[index];
-                  final imgUrl = ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
+                  Datum1 featuredSingleItem =
+                      homeScreenController.featuredProductLists[index];
+                  final imgUrl =
+                      ApiUrl.ApiMainPath + "${featuredSingleItem.showimg}";
                   return GestureDetector(
                     onTap: () {
-                      Get.to(() => ProductDetailsScreen(),
+                      Get.to(
+                        () => ProductDetailsScreen(),
                         arguments: featuredSingleItem.id,
                       );
                     },
@@ -364,7 +414,8 @@ class BestSellerListModule extends StatelessWidget {
                                 //),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Colors.grey.shade400, blurRadius: 5)
+                                      color: Colors.grey.shade400,
+                                      blurRadius: 5)
                                 ]),
                             child: Image.network("$imgUrl"),
                           ),
@@ -414,12 +465,14 @@ class OfferListModule extends StatelessWidget {
     return Container(
       height: Get.height * 0.20,
       child: ListView.builder(
+        physics: PageScrollPhysics(),
           itemCount: homeScreenController.bannerLists.length,
           shrinkWrap: true,
+
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             String imgUrl = ApiUrl.ApiMainPath +
-            "${homeScreenController.bannerLists[index].imagePath}";
+                "${homeScreenController.bannerLists[index].imagePath}";
             return _offerListTile(imgUrl);
           }),
     );
@@ -440,16 +493,18 @@ class OfferListModule extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 // color: Colors.grey,
               ),
-              child: Image.network("$imgUrl", fit: BoxFit.cover,),
+              child: Image.network(
+                "$imgUrl",
+                fit: BoxFit.cover,
+              ),
             ),
-
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
-                // color: Colors.grey,
-              ),
+                  // color: Colors.grey,
+                  ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
@@ -468,7 +523,8 @@ class OfferListModule extends StatelessWidget {
                       color: AppColors.colorDarkPink,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       child: Text(
                         "Shop Now",
                         style: TextStyle(color: Colors.white, fontSize: 17),
@@ -485,58 +541,87 @@ class OfferListModule extends StatelessWidget {
   }
 }
 
-
 class TestimonialModule extends StatelessWidget {
   TestimonialModule({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: homeScreenController.testimonialLists.length,
-      itemBuilder: (context, index, realIndex){
-        return Container(
-          child: Column(
-            children: [
-              Container(
-                width: 65,
-                height: 65,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        '${ApiUrl.ApiMainPath}${homeScreenController.testimonialLists[index].showimg}'
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Testimonials",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 20),
+          CarouselSlider.builder(
+            itemCount: homeScreenController.testimonialLists.length,
+
+            itemBuilder: (context, index, realIndex) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey.shade200,
+                    // boxShadow: [
+                    //   BoxShadow(color: Colors.grey.shade400, blurRadius: 5)
+                    // ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 65,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  '${ApiUrl.ApiMainPath}${homeScreenController.testimonialLists[index].showimg}'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          homeScreenController.testimonialLists[index].name,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Expanded(
+                          child: Html(
+                            data: homeScreenController
+                                .testimonialLists[index].description,
+                                
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 5),
-              Text(
-                homeScreenController.testimonialLists[index].name,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              Expanded(
-                child: Html(
-                  data: homeScreenController.testimonialLists[index].description,
-                ),
-              ),
-            ],
+              );
+            },
+            options: CarouselOptions(
+                // height: 200,
+                autoPlay: true,
+                viewportFraction: 1,
+                aspectRatio: 1.6,
+                onPageChanged: (index, reason) {
+                  // bannerController.activeIndex.value = index;
+                }),
           ),
-        );
-      },
-      options: CarouselOptions(
-          height: 160,
-          autoPlay: true,
-          viewportFraction: 1,
-          onPageChanged: (index, reason) {
-            // bannerController.activeIndex.value = index;
-          }),
+        ],
+      ),
     );
   }
 }
-
-

@@ -31,5 +31,9 @@ class Images {
   static const mastercard = root + 'mastercard.png';
   static const paypal = root + 'paypal.png';
   static const visa = root + 'visa.png';
+
+
+  //no image placeholder
+  static const noImage = root + 'image_placeholder.jpg';
 }
 

@@ -32,19 +32,63 @@ class SignInData {
 class Data {
   Data({
     required this.id,
-    required this.token,
+    required this.name,
+    required this.email,
+    required this.emailVerifiedAt,
+    required this.password,
+    required this.rememberToken,
+    required this.image,
+    required this.country,
+    required this.state,
+    required this.city,
+    required this.forgotpasswordToken,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   int id;
-  String token;
+  String name;
+  String email;
+  String emailVerifiedAt;
+  String password;
+  String rememberToken;
+  String image;
+  int country;
+  int state;
+  int city;
+  String forgotpasswordToken;
+  String createdAt;
+  String updatedAt;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["ID"] == null ? 0 : json["ID"],
-    token: json["Token"] == null ? "" : json["Token"],
+    id: json["id"] ?? 0,
+    name: json["name"] ?? "",
+    email: json["email"] ?? "",
+    emailVerifiedAt: json["email_verified_at"] ?? "",
+    password: json["password"] ?? "",
+    rememberToken: json["remember_token"] ?? "",
+    image: json["image"] ?? "",
+    country: json["country"] ?? 0,
+    state: json["state"] ?? 0,
+    city: json["city"] ?? 0,
+    forgotpasswordToken: json["forgotpassword_token"] ?? "",
+    createdAt: json["created_at"] ?? "",
+    updatedAt: json["updated_at"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
-    "ID": id.toString().isEmpty ? 0 : id,
-    "Token": token.isEmpty ? "" : token,
+    "id": id,
+    "name": name,
+    "email": email,
+    "email_verified_at": emailVerifiedAt,
+    "password": password,
+    "remember_token": rememberToken,
+    "image": image,
+    "country": country,
+    "state": state,
+    "city": city,
+    "forgotpassword_token": forgotpasswordToken,
+    "created_at": createdAt,
+    "updated_at": updatedAt,
   };
 }
