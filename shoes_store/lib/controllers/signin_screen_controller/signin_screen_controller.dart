@@ -24,13 +24,19 @@ class SignInScreenController extends GetxController {
       print('data : $data');
 
       http.Response response = await http.post(Uri.parse(url), body: data);
+      
+      if(response.body.contains('"success": false')) {
+
+      } else {
+
+      }
 
       // When User SignIn Failed
-      if (response.body.contains('Email')) {
+      if (response.body.contains('Email don')) {
         print('Email Don\'t Match');
         Get.snackbar('', 'Email Don\'t Match');
       }
-      if(response.body.contains('password')) {
+      if(response.body.contains('password don')) {
         print('Password Don\'t Match');
         Get.snackbar('', 'Password Don\'t Match');
       } //

@@ -192,7 +192,7 @@ class Cartditeil {
   String isActive;
   String images;
   int feature;
-  String todaydeals;
+  int todaydeals;
   String relatedProducts;
   String topProduct;
   String modifiedBy;
@@ -203,7 +203,7 @@ class Cartditeil {
     cartDetailId: json["cartDetailId"] ?? 0,
     cartId: json["cartId"] ?? 0,
     productId: json["productId"] ?? "",
-    variyantid: json["variyantid"] ?? "",
+    variyantid: json["variyantid"].toString(),
     productKg: json["product_kg"] ?? 0,
     quantity: json["quantity"] ?? 0,
     createdDate: json["created_date"] ?? "",
@@ -230,7 +230,7 @@ class Cartditeil {
     metaTagDescription: json["meta_tag_description"] ?? "",
     showimg: json["showimg"] ?? "",
     metaTagTitle: json["meta_tag_title"] ?? "",
-    productcost: json["productcost"]  ?? "",
+    productcost: json["productcost"].toString(),
     tax: json["tax"] ?? "",
     taxvalue: json["taxvalue"] ?? "",
     totalcost: json["totalcost"] ?? 0,
@@ -243,7 +243,7 @@ class Cartditeil {
     isActive: json["is_active"] ?? "",
     images: json["images"] ?? "",
     feature: json["feature"] ?? 0,
-    todaydeals: json["todaydeals"] ?? "",
+    todaydeals: json["todaydeals"] ?? 0,
     relatedProducts: json["related_products"] ?? "",
     topProduct: json["top_product"] ?? "",
     modifiedBy: json["modified_by"] ?? "",

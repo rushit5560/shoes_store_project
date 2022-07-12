@@ -64,7 +64,7 @@ class FieldValidator {
       return 'Full name is required';
     }
 
-    if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
+    else if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
       return 'Invalid first name';
     }
     return null;
@@ -94,11 +94,12 @@ class FieldValidator {
   
 
   String? validateMobile(String value) {
-// Indian Mobile number are of 10 digit only
     if (value.isEmpty) {
       return "Mobile number is required";
     } else if (value.length != 10) {
       return 'Mobile number must be of 10 digit';
+    } else if (value.contains("-")) {
+      return 'Invalid mobile number';
     } else {
       return null;
     }

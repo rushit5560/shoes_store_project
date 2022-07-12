@@ -13,6 +13,7 @@ import '../collection_screen/collection_screen.dart';
 
 class SearchTextFieldModule extends StatelessWidget {
   SearchTextFieldModule({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +21,18 @@ class SearchTextFieldModule extends StatelessWidget {
       height: 45,
       margin: EdgeInsets.only(left: 15, right: 15),
       child: TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          //controller: signInPasswordFieldController,
+          keyboardType: TextInputType.text,
+          controller: homeScreenController.searchFieldController,
           // obscureText: true,
           decoration: InputDecoration(
             hintText: "Search",
-            suffixIcon: Icon(Icons.search_outlined),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                homeScreenController.searchFieldController.clear();
+                Get.to(()=> CollectionScreen());
+              },
+                child: Icon(Icons.search_outlined),
+            ),
             //prefixIcon: Icon(icon, color: Colors.black),
             // isDense: true,
             contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
@@ -152,12 +159,13 @@ class BrandBannerModule extends StatelessWidget {
                 height: 165,
                 autoPlay: true,
                 viewportFraction: 1,
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
                 onPageChanged: (index, reason) {
                   homeScreenController.activeIndex.value = index;
                 }),
           ),
-          SizedBox(height: 8),
-          ImageBannerIndicator(),
+          // SizedBox(height: 8),
+          // ImageBannerIndicator(),
         ],
       ),
     );

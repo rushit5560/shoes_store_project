@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,7 @@ class HomeScreenController extends GetxController{
   RxList<TestimonialDetails> testimonialLists = RxList();
 
   List<BrandBanner> brandBannerList = [];
+  TextEditingController searchFieldController = TextEditingController();
 
   Future<void> getBannerData() async {
     isLoading(true);

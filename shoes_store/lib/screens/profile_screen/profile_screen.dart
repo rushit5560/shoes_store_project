@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/custom_widgets.dart';
 import 'package:shoes_store/common/images.dart';
@@ -111,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Radius.circular(100),
                   ),
                   child: Image.network(
-                    profileScreenController.userProfile!,
+                    "${ApiUrl.ApiMainPath}${profileScreenController.userProfile!}",
                     height: 120,
                     width: 120,
                     fit: BoxFit.cover,
@@ -131,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-        GestureDetector(
+        /*GestureDetector(
           onTap: () {
             _showPicker(context);
           },
@@ -150,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-        ),
+        ),*/
       ],
     );
   }
@@ -195,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  mainTabsModule() {
+  /*mainTabsModule() {
     return Obx(
       () => Row(
         children: [
@@ -318,7 +319,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //     ],
     //   ),
     // );
-  }
+  }*/
 
   personalInfoModule() {
     return Container(
@@ -405,8 +406,80 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
+            SizedBox(height: 10),
+            Divider(
+              color: Colors.grey.shade300,
+              height: 1,
+              thickness: 0.5,
+            ),
 
             SizedBox(height: 20),
+            Text(
+              'Address',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
+            SizedBox(height: 10),
+
+
+            Container(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Shipping Address',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    '${profileScreenController.userAddress}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+
+            Container(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Mobile Number',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    '${profileScreenController.userAddressMobileNo}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+
+
             /*Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -604,4 +677,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     } else {}
   }
+
 }

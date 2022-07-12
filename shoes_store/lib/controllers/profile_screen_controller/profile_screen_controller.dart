@@ -30,6 +30,10 @@ class ProfileScreenController extends GetxController {
   DatumCity? cityDropDownValue;
   UserData userData = UserData();
   String userAddress = "";
+  String userAddressMobileNo = "1234567890";
+  int countryId = 0;
+  int stateId = 0;
+  int cityId = 0;
 
   File ? file;
   String ? userProfile;
@@ -53,7 +57,16 @@ class ProfileScreenController extends GetxController {
         countryLists.clear();
         countryLists.add(Datum(id: 0, name: 'Select Country', sortname: ''));
         countryLists.addAll(countryList.data);
-        countryDropDownValue = countryLists[0];
+
+        for(int i = 0; i < countryLists.length; i++) {
+          if(countryId == countryLists[i].id) {
+            countryDropDownValue = countryLists[i];
+            await getStateData(countryDropDownValue!.id);
+          }
+        }
+        if(countryId == 1001) {
+          countryDropDownValue = countryLists[0];
+        }
         print('countryLists : ${countryLists.length}');
       } else {
         print('Country False False');
@@ -83,7 +96,16 @@ class ProfileScreenController extends GetxController {
         stateLists.clear();
         stateLists.add(DatumState(id: 0, name: 'Select State', countryId: 0));
         stateLists.addAll(stateData.data);
-        stateDropDownValue = stateLists[0];
+
+        for(int i = 0; i < stateLists.length; i++) {
+          if(stateId == stateLists[i].id) {
+            stateDropDownValue = stateLists[i];
+            await getCityData(stateDropDownValue!.id);
+          }
+        }
+        if(stateId == 1001) {
+          stateDropDownValue = stateLists[0];
+        }
         print('stateLists : ${stateLists.length}');
       } else {
         print('State False False');
@@ -114,7 +136,17 @@ class ProfileScreenController extends GetxController {
         cityLists.clear();
         cityLists.add(DatumCity(id: 0, name: 'Select City', stateId: 0));
         cityLists.addAll(cityData.data);
-        cityDropDownValue = cityLists[0];
+
+        for(int i = 0; i < cityLists.length; i++) {
+          if(cityId == cityLists[i].id) {
+            cityDropDownValue = cityLists[i];
+          }
+        }
+
+        if(cityId == 1001) {
+          cityDropDownValue = cityLists[0];
+        }
+
         print('cityLists : ${cityLists.length}');
       } else {
         print('City False False');
@@ -176,6 +208,7 @@ class ProfileScreenController extends GetxController {
 
           if(isStatus.value){
             Fluttertoast.showToast(msg: response1.message);
+            Get.back();
             getUserProfileFunction(userId: "$userId");
           } else {
             log('status code false: ${response1.success}');
@@ -215,6 +248,7 @@ class ProfileScreenController extends GetxController {
 
           if(isStatus.value){
             Fluttertoast.showToast(msg: response1.message);
+            Get.back();
             getUserProfileFunction(userId: "$userId");
           } else {
             log('status code false: ${response1.success}');
@@ -240,6 +274,7 @@ class ProfileScreenController extends GetxController {
     }
   }
 
+  /// Get User Profile
   Future<void> getUserProfileFunction({required String userId}) async {
     isLoading(true);
     String url = ApiUrl.GetProfileApi + "$userId";
@@ -254,7 +289,16 @@ class ProfileScreenController extends GetxController {
 
       if(isStatus.value) {
         userData = userProfileModel.data;
-        userProfile = ApiUrl.ApiMainPath  + userData.image!;
+        userProfile = userData.image!;
+        fullNameController.text = userProfileModel.data.name!;
+        countryId = userProfileModel.data.country ?? 1001;
+        stateId = userProfileModel.data.state ?? 1001;
+        cityId = userProfileModel.data.city ?? 1001;
+
+        log("countryId : $countryId");
+        log("stateId : $stateId");
+        log("cityId : $cityId");
+
         log('userProfile: $userProfile');
         log("userData : ${userData.name}");
       } else {
@@ -270,6 +314,7 @@ class ProfileScreenController extends GetxController {
 
   }
 
+  /// Get User All Address
   Future<void> getUserAllAddress(String userId) async {
     // isLoading(true);
     String url = ApiUrl.UserAllAddressApi;
@@ -292,6 +337,7 @@ class ProfileScreenController extends GetxController {
 
       if(isStatus.value){
         userAddress = userAllAddressData.data.shippinginfo.address;
+        userAddressMobileNo = userAllAddressData.data.shippinginfo.mobile;
       } else {
         print('User All Address False False');
       }

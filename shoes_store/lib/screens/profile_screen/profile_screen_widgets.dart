@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/custom_widgets.dart';
 import 'package:shoes_store/common/field_validation.dart';
+import 'package:shoes_store/common/images.dart';
 import 'package:shoes_store/common/input_field_decoration.dart';
 import 'package:shoes_store/controllers/profile_screen_controller/profile_screen_controller.dart';
 import 'package:shoes_store/models/profile_screen_model/city_model.dart';
@@ -34,6 +39,46 @@ PreferredSizeWidget profileScreenAppBarModule(
 
 editProfileDialogModule(BuildContext context) {
   final profileScreenController = Get.find<ProfileScreenController>();
+  final ImagePicker imagePicker = ImagePicker();
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () async {
+                        final image = await imagePicker.pickImage(source: ImageSource.gallery);
+                        if(image != null){
+                          profileScreenController.file = File(image.path);
+                          profileScreenController.loading();
+                        } else{}
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () async {
+                      final image = await imagePicker.pickImage(source: ImageSource.camera);
+                      if(image != null){
+                        profileScreenController.file = File(image.path);
+                        profileScreenController.loading();
+                      } else{}
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
 
   return showDialog(
       context: context,
@@ -46,21 +91,81 @@ editProfileDialogModule(BuildContext context) {
                   : AlertDialog(
                       content: Form(
                         key: profileScreenController.formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            EditProfileTextModule(),
-                            const SizedBox(height: 10),
-                            FullNameTextField(),
-                            const SizedBox(height: 8),
-                            CountryDropDownModule(),
-                            const SizedBox(height: 8),
-                            StateDropDownModule(),
-                            const SizedBox(height: 8),
-                            CityDropDownModule(),
-                            const SizedBox(height: 20),
-                            UpdateButton(),
-                          ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              EditProfileTextModule(),
+                              const SizedBox(height: 10),
+                              Stack(
+                                alignment: Alignment.bottomRight,
+                                children: [
+                                  profileScreenController.file != null
+                                      ? ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.circular(80.0),
+                                    child: Image.file(
+                                        profileScreenController
+                                            .file!,
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.fill),
+                                  )
+                                      : ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.circular(80.0),
+                                    child: Image.network(
+                                        "${ApiUrl.ApiMainPath}${profileScreenController.userProfile}",
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.fill,
+                                      errorBuilder: (ctx, ibj, st) {
+                                        return ClipRRect(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(100),
+                                          ),
+                                          child: Image.asset(
+                                            Images.noImage,
+                                            height: 120,
+                                            width: 120,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _showPicker(context);
+                                    },
+                                    child: Container(
+                                      height: 25,
+                                      width: 25,
+                                      margin: EdgeInsets.only(bottom: 5),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          color: AppColors.colorDarkPink),
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              FullNameTextField(),
+                              const SizedBox(height: 8),
+                              CountryDropDownModule(),
+                              const SizedBox(height: 8),
+                              StateDropDownModule(),
+                              const SizedBox(height: 8),
+                              CityDropDownModule(),
+                              const SizedBox(height: 20),
+                              UpdateButton(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -68,6 +173,8 @@ editProfileDialogModule(BuildContext context) {
           },
         );
       });
+
+
 }
 
 class EditProfileTextModule extends StatelessWidget {
@@ -288,7 +395,7 @@ class UpdateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (profileScreenController.formKey.currentState!.validate()) {
           if (profileScreenController.countryDropDownValue!.id == 0) {
             Fluttertoast.showToast(
@@ -300,7 +407,7 @@ class UpdateButton extends StatelessWidget {
             Fluttertoast.showToast(
                 msg: 'Please Select City', toastLength: Toast.LENGTH_LONG);
           } else {
-            profileScreenController.updateProfileData(
+            await profileScreenController.updateProfileData(
               "${profileScreenController.fullNameController.text.trim()}",
             );
           }
