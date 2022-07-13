@@ -2,29 +2,43 @@
 class FieldValidator {
 
   String? validateFirstName(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
+
     if (value.isEmpty) {
       return 'First name is required';
+    } else if(!validCharacters.hasMatch(value)) {
+      return "Invalid first name";
     }
     return null;
   }
 
   String? validateUserName(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
     if (value.isEmpty) {
       return 'User name is required';
+    } else if(!validCharacters.hasMatch(value)) {
+      return "Invalid user name";
     }
     return null;
   }
 
   String? validateLastName(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
+
     if (value.isEmpty) {
       return 'Last name is required';
+    } else if(validCharacters.hasMatch(value)) {
+      return "Invalid last name";
     }
     return null;
   }
 
   String? validateCompanyName(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
     if (value.isEmpty) {
       return 'Company name is required';
+    } else if(!validCharacters.hasMatch(value)) {
+      return "Invalid company name";
     }
     return null;
   }
@@ -44,15 +58,21 @@ class FieldValidator {
   }
 
   String? validateCity(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
     if (value.isEmpty) {
       return 'City is required';
+    } else if(!validCharacters.hasMatch(value)) {
+      return "Invalid city name";
     }
     return null;
   }
 
   String? validateState(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
     if (value.isEmpty) {
       return 'State is required';
+    } else if(!validCharacters.hasMatch(value)) {
+      return "Invalid state name";
     }
     return null;
   }
@@ -60,12 +80,12 @@ class FieldValidator {
 
 
   String? validateFullName(String value) {
+    final validCharacters = RegExp(r'^[a-zA-Z]+$');
     if (value.isEmpty) {
       return 'Full name is required';
     }
-
-    else if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'Invalid first name';
+    else if(!validCharacters.hasMatch(value)) {
+      return "Invalid full name";
     }
     return null;
   }
@@ -116,9 +136,8 @@ class FieldValidator {
     if (value.isEmpty) {
       return 'Subject is required';
     }
-
-    if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'Invalid first name';
+    else if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
+      return 'Invalid subject name';
     }
     return null;
   }
@@ -127,9 +146,8 @@ class FieldValidator {
     if (value.isEmpty) {
       return 'Comment is required';
     }
-
-    if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
-      return 'Invalid first name';
+    else if (!RegExp(r"^[A-Z a-z-]{2,25}$").hasMatch(value)) {
+      return 'Invalid comment name';
     }
     return null;
   }

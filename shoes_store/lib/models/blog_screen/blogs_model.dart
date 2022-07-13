@@ -40,8 +40,8 @@ class Datum {
     required this.metaTitle,
     required this.metaDescription,
     required this.metaKeywords,
-    required this.createdBy,
-    required this.modifiedBy,
+    // required this.createdBy,
+    // required this.modifiedBy,
     required this.createdDate,
     required this.updatedDate,
     required this.showimg,
@@ -57,27 +57,27 @@ class Datum {
   String metaTitle;
   String metaDescription;
   String metaKeywords;
-  int createdBy;
-  int modifiedBy;
+  // int createdBy;
+  // int modifiedBy;
   DateTime createdDate;
-  DateTime updatedDate;
+  String updatedDate;
   String showimg;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
-    title: json["title"] == null ? "" : json["title"],
-    content: json["content"] == null ? "" : json["content"],
-    image: json["image"] == null ? "" : json["image"],
-    sortOrder: json["sort_order"] == null ? "" : json["sort_order"],
-    isActive: json["is_active"].toString().isEmpty ? 1 : json["is_active"],
-    relatedBlogs: json["related_blogs"] == null ? "" : json["related_blogs"],
-    metaTitle: json["meta_title"] == null ? "" : json["meta_title"],
-    metaDescription: json["meta_description"] == null ? "" : json["meta_description"],
-    metaKeywords: json["meta_keywords"] == null ? "" : json["meta_keywords"],
-    createdBy: json["created_by"].toString().isEmpty ? 1 : json["created_by"],
-    modifiedBy: json["modified_by"].toString().isEmpty ? 1 : json["modified_by"],
-    createdDate: DateTime.parse(json["created_date"]),
-    updatedDate: DateTime.parse(json["updated_date"]),
+    title: json["title"] ?? "",
+    content: json["content"] ?? "",
+    image: json["image"] ?? "",
+    sortOrder: json["sort_order"] ?? "",
+    isActive: json["is_active"] ?? 1,
+    relatedBlogs: json["related_blogs"] ?? "",
+    metaTitle: json["meta_title"] ?? "",
+    metaDescription: json["meta_description"] ?? "",
+    metaKeywords: json["meta_keywords"] ?? "",
+    // createdBy: json["created_by"].toString().isEmpty ? 1 : json["created_by"],
+    // modifiedBy: json["modified_by"].toString().isEmpty ? 1 : json["modified_by"],
+    createdDate: DateTime.parse(json["created_date"] ?? DateTime.now()),
+    updatedDate: json["updated_date"] ?? "",
     showimg: json["showimg"] == null ? "" : json["showimg"],
   );
 
@@ -92,10 +92,10 @@ class Datum {
     "meta_title": metaTitle.isEmpty ? "" : metaTitle,
     "meta_description": metaDescription.isEmpty ? "" : metaDescription,
     "meta_keywords": metaKeywords.isEmpty ? "" : metaKeywords,
-    "created_by": createdBy.toString().isEmpty ? 1 : createdBy,
-    "modified_by": modifiedBy.toString().isEmpty ? 1 : modifiedBy,
+    // "created_by": createdBy.toString().isEmpty ? 1 : createdBy,
+    // "modified_by": modifiedBy.toString().isEmpty ? 1 : modifiedBy,
     "created_date": createdDate.toIso8601String(),
-    "updated_date": updatedDate.toIso8601String(),
+    "updated_date": updatedDate,
     "showimg": showimg.isEmpty ? "" : showimg,
   };
 }

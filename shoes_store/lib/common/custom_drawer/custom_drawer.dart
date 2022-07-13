@@ -202,7 +202,7 @@ class CustomDrawer extends StatelessWidget {
       leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),
       minLeadingWidth: 30,
       title: Text(
-        'Categories',
+        'Category',
         textScaleFactor: 1.3,
         style: TextStyle(color: Colors.black),
       ),

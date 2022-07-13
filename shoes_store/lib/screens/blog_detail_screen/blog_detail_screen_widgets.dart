@@ -119,11 +119,10 @@ class BlogCommentModule extends StatelessWidget {
 
   Widget submitButton() {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
           if (screenController.formKey.currentState!.validate()) {
-            screenController.addBlogCommentFunction();
+            await screenController.addBlogCommentFunction();
           }
-        
       },
       child: Container(
         height: 40,

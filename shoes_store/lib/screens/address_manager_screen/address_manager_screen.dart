@@ -61,6 +61,7 @@ class AddressManagerScreen extends StatelessWidget {
             TextFormField(
               controller: addressManagerScreenController.shippingAddressController,
               maxLines: 3,
+              maxLength: 10,
               keyboardType: TextInputType.text,
               validator: (value) => FieldValidator().validateShippingAddress(value!),
               decoration: addressInputDecoration(hintText: "Shipping Address", radius: 15),
@@ -149,15 +150,7 @@ class AddressManagerScreen extends StatelessWidget {
               maxLines: 1,
               keyboardType: TextInputType.number,
               maxLength: 10,
-              validator: (value){
-                if(value!.isEmpty){
-                  return "Mobile No. should not be Empty";
-                }
-                if(value.length > 10 || value.length < 10){
-                  return "Mobile No. Should be 10 Digit.";
-                }
-                return null;
-              },
+              validator: (value)=> FieldValidator().validateMobile(value!),
               decoration: addressInputDecoration(hintText: "Mobile Number", radius: 25),
             ),
            SizedBox(height: 12),

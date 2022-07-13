@@ -25,6 +25,7 @@ class OldPasswordTextFieldModule extends StatelessWidget {
       child: TextFormField(
         controller: changePasswordScreenController.oldPassFieldController,
         keyboardType: TextInputType.text,
+        obscureText: true,
         decoration: formInputDecoration(hintText: 'Old Password', radius: 30),
         validator: (value) => FieldValidator().validatePassword(value!),
       ),
@@ -32,20 +33,9 @@ class OldPasswordTextFieldModule extends StatelessWidget {
   }
 }
 
-class NewPasswordTextFieldModule extends StatefulWidget {
-  NewPasswordTextFieldModule({Key? key}) : super(key: key);
-
-  @override
-  State<NewPasswordTextFieldModule> createState() =>
-      _NewPasswordTextFieldModuleState();
-}
-
-class _NewPasswordTextFieldModuleState
-    extends State<NewPasswordTextFieldModule> {
+class NewPasswordTextFieldModule extends StatelessWidget {
   final changePasswordScreenController =
       Get.find<ChangePasswordScreenController>();
-
-  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,46 +49,71 @@ class _NewPasswordTextFieldModuleState
               spreadRadius: 1,
             ),
           ]),
-      child: TextFormField(
-        controller: changePasswordScreenController.newPassFieldController,
-        keyboardType: TextInputType.text,
-        decoration: formInputDecoration(
-          hintText: 'New Password',
-          radius: 30,
-          sufficIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                isVisible = !isVisible;
-              });
-            },
-            icon: Icon(
-              isVisible
-                  ? Icons.remove_red_eye_rounded
-                  : Icons.remove_red_eye_outlined,
-              color: Colors.grey,
+      child: Obx(
+        ()=> TextFormField(
+          controller: changePasswordScreenController.newPassFieldController,
+          keyboardType: TextInputType.text,
+          obscureText: changePasswordScreenController.isNewVisible.value,
+          decoration: formInputDecoration(
+            hintText: 'New Password',
+            radius: 30,
+            sufficIcon: IconButton(
+              onPressed: () {
+                changePasswordScreenController.isLoading(true);
+                changePasswordScreenController.isNewVisible.value =
+                !changePasswordScreenController.isNewVisible.value;
+                changePasswordScreenController.isLoading(false);
+              },
+              icon: Icon(
+                changePasswordScreenController.isNewVisible.value
+                    ? Icons.remove_red_eye_rounded
+                    : Icons.remove_red_eye_outlined,
+                color: Colors.grey,
+              ),
             ),
           ),
+          validator: (value) => FieldValidator().validatePassword(value!),
+          /*decoration: InputDecoration(
+            hintText: "New Password",
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            filled: true,
+            fillColor: Colors.white,
+            suffixIcon: IconButton(
+              onPressed: () {
+                changePasswordScreenController.isLoading(true);
+                changePasswordScreenController.isNewVisible.value =
+                !changePasswordScreenController.isNewVisible.value;
+                changePasswordScreenController.isLoading(false);
+              },
+              icon: Icon(
+                changePasswordScreenController.isNewVisible.value
+                    ? Icons.remove_red_eye_rounded
+                    : Icons.remove_red_eye_outlined,
+                color: Colors.grey,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.grey)),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.grey)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderSide: BorderSide(color: Colors.grey)),
+          ),*/
         ),
-        validator: (value) => FieldValidator().validatePassword(value!),
       ),
     );
   }
 }
 
-class CNewPasswordTextFieldModule extends StatefulWidget {
-  CNewPasswordTextFieldModule({Key? key}) : super(key: key);
-
-  @override
-  State<CNewPasswordTextFieldModule> createState() =>
-      _CNewPasswordTextFieldModuleState();
-}
-
-class _CNewPasswordTextFieldModuleState
-    extends State<CNewPasswordTextFieldModule> {
+class CNewPasswordTextFieldModule extends StatelessWidget {
   final changePasswordScreenController =
       Get.find<ChangePasswordScreenController>();
-
-  var isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -112,36 +127,40 @@ class _CNewPasswordTextFieldModuleState
               spreadRadius: 1,
             ),
           ]),
-      child: TextFormField(
-        controller: changePasswordScreenController.cNewPassFieldController,
-        keyboardType: TextInputType.text,
-        decoration: formInputDecoration(
-            hintText: 'Confirm New Password',
-            radius: 30,
-            sufficIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-              icon: Icon(
-                isVisible
-                    ? Icons.remove_red_eye_rounded
-                    : Icons.remove_red_eye_outlined,
-                color: Colors.grey,
-              ),
-            )),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return "password is required";
-          } else if (value.length < 6) {
-            return "Length should be 6 character";
-          } else if (value.toString() !=
-              changePasswordScreenController.newPassFieldController.text) {
-            return "Password and confirm password should be same";
-          }
-          return null;
-        },
+      child: Obx(
+        ()=> TextFormField(
+          controller: changePasswordScreenController.cNewPassFieldController,
+          keyboardType: TextInputType.text,
+          obscureText: changePasswordScreenController.isConfirmNewVisible.value,
+          decoration: formInputDecoration(
+              hintText: 'Confirm New Password',
+              radius: 30,
+              sufficIcon: IconButton(
+                onPressed: () {
+                  changePasswordScreenController.isLoading(true);
+                  changePasswordScreenController.isConfirmNewVisible.value =
+                  !changePasswordScreenController.isConfirmNewVisible.value;
+                  changePasswordScreenController.isLoading(false);
+                },
+                icon: Icon(
+                  changePasswordScreenController.isConfirmNewVisible.value
+                      ? Icons.remove_red_eye_rounded
+                      : Icons.remove_red_eye_outlined,
+                  color: Colors.grey,
+                ),
+              )),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "password is required";
+            } else if (value.length < 6) {
+              return "Length should be 6 character";
+            } else if (value.toString() !=
+                changePasswordScreenController.newPassFieldController.text) {
+              return "Password and confirm password should be same";
+            }
+            return null;
+          },
+        ),
       ),
     );
   }

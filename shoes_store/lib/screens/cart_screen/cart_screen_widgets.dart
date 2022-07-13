@@ -15,7 +15,7 @@ class CartItemListModule extends StatelessWidget {
       child: ListView.builder(
         itemCount: cartScreenController.userCartProductLists.length,
         shrinkWrap: true,
-        physics: AlwaysScrollableScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           Cartditeil cartSingleItem =
               cartScreenController.userCartProductLists[index];

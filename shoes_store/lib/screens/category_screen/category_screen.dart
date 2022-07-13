@@ -14,7 +14,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
-      appBar: commonAppBarModule(image: "Category", index: 2),
+      appBar: commonAppBarModule(image: "Category"),
       body: Obx(
         () => categoryController.isLoading.value
             ? CustomCircularProgressIndicator()

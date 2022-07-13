@@ -366,27 +366,26 @@ class ProductDetailsModule extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: Container(
-                  height: 45,
-                  child: TextFormField(
-                    controller: productDetailsScreenController
-                        .productReviewFieldController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: formInputDecoration(
-                        hintText: 'Product Review', radius: 30),
-                    validator: (value) =>
-                        FieldValidator().validateProductReview(value!),
-                  ),
+                child: TextFormField(
+                  controller: productDetailsScreenController
+                      .productReviewFieldController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: formInputDecoration(
+                      hintText: 'Product Review', radius: 30),
+                  validator: (value) =>
+                      FieldValidator().validateProductReview(value!),
                 ),
               ),
               SizedBox(width: 10),
               GestureDetector(
                 onTap: () async {
-                  if (UserDetails.isUserLoggedIn == true) {
-                    await productDetailsScreenController.addProductReview();
-                  } else {
-                    Get.to(() => SignInScreen(), transition: Transition.zoom);
-                  }
+                 if(productDetailsScreenController.productReviewFormKey.currentState!.validate()) {
+                   if (UserDetails.isUserLoggedIn == true) {
+                     await productDetailsScreenController.addProductReview();
+                   } else {
+                     Get.to(() => SignInScreen(), transition: Transition.zoom);
+                   }
+                 }
                 },
                 child: Container(
                   height: 45,

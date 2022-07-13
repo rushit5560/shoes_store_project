@@ -17,6 +17,9 @@ class ChangePasswordScreenController extends GetxController {
   final newPassFieldController = TextEditingController();
   final cNewPassFieldController = TextEditingController();
 
+  RxBool isNewVisible = true.obs;
+  RxBool isConfirmNewVisible = true.obs;
+
 
   getForgotPasswordData(oldPass, newPass, cNewPass) async {
     isLoading(true);
