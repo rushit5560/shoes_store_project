@@ -22,12 +22,32 @@ class OldPasswordTextFieldModule extends StatelessWidget {
               spreadRadius: 1,
             ),
           ]),
-      child: TextFormField(
-        controller: changePasswordScreenController.oldPassFieldController,
-        keyboardType: TextInputType.text,
-        obscureText: true,
-        decoration: formInputDecoration(hintText: 'Old Password', radius: 30),
-        validator: (value) => FieldValidator().validatePassword(value!),
+      child: Obx(
+        () => TextFormField(
+          controller: changePasswordScreenController.oldPassFieldController,
+          keyboardType: TextInputType.text,
+          obscureText: changePasswordScreenController.isOldVisible.value,
+          decoration: formInputDecoration(
+            hintText: 'Old Password',
+            radius: 30,
+            sufficIcon: IconButton(
+              onPressed: () {
+                changePasswordScreenController.isLoading(true);
+                changePasswordScreenController.isOldVisible.value =
+                    !changePasswordScreenController.isOldVisible.value;
+                changePasswordScreenController.isLoading(false);
+              },
+              icon: Icon(
+                changePasswordScreenController.isOldVisible.value
+                    ? Icons.remove_red_eye_rounded
+                    : Icons.remove_red_eye_outlined,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => FieldValidator().validatePassword(value!),
+        ),
       ),
     );
   }
@@ -50,7 +70,7 @@ class NewPasswordTextFieldModule extends StatelessWidget {
             ),
           ]),
       child: Obx(
-        ()=> TextFormField(
+        () => TextFormField(
           controller: changePasswordScreenController.newPassFieldController,
           keyboardType: TextInputType.text,
           obscureText: changePasswordScreenController.isNewVisible.value,
@@ -61,7 +81,7 @@ class NewPasswordTextFieldModule extends StatelessWidget {
               onPressed: () {
                 changePasswordScreenController.isLoading(true);
                 changePasswordScreenController.isNewVisible.value =
-                !changePasswordScreenController.isNewVisible.value;
+                    !changePasswordScreenController.isNewVisible.value;
                 changePasswordScreenController.isLoading(false);
               },
               icon: Icon(
@@ -72,6 +92,7 @@ class NewPasswordTextFieldModule extends StatelessWidget {
               ),
             ),
           ),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) => FieldValidator().validatePassword(value!),
           /*decoration: InputDecoration(
             hintText: "New Password",
@@ -128,7 +149,7 @@ class CNewPasswordTextFieldModule extends StatelessWidget {
             ),
           ]),
       child: Obx(
-        ()=> TextFormField(
+        () => TextFormField(
           controller: changePasswordScreenController.cNewPassFieldController,
           keyboardType: TextInputType.text,
           obscureText: changePasswordScreenController.isConfirmNewVisible.value,
@@ -139,7 +160,7 @@ class CNewPasswordTextFieldModule extends StatelessWidget {
                 onPressed: () {
                   changePasswordScreenController.isLoading(true);
                   changePasswordScreenController.isConfirmNewVisible.value =
-                  !changePasswordScreenController.isConfirmNewVisible.value;
+                      !changePasswordScreenController.isConfirmNewVisible.value;
                   changePasswordScreenController.isLoading(false);
                 },
                 icon: Icon(
@@ -149,9 +170,10 @@ class CNewPasswordTextFieldModule extends StatelessWidget {
                   color: Colors.grey,
                 ),
               )),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (value) {
             if (value!.isEmpty) {
-              return "password is required";
+              return "Password is required";
             } else if (value.length < 6) {
               return "Length should be 6 character";
             } else if (value.toString() !=

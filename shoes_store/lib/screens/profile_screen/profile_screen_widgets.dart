@@ -53,22 +53,24 @@ editProfileDialogModule(BuildContext context) {
                       leading: new Icon(Icons.photo_library),
                       title: new Text('Photo Library'),
                       onTap: () async {
-                        final image = await imagePicker.pickImage(source: ImageSource.gallery);
-                        if(image != null){
+                        final image = await imagePicker.pickImage(
+                            source: ImageSource.gallery);
+                        if (image != null) {
                           profileScreenController.file = File(image.path);
                           profileScreenController.loading();
-                        } else{}
+                        } else {}
                         Navigator.of(context).pop();
                       }),
                   new ListTile(
                     leading: new Icon(Icons.photo_camera),
                     title: new Text('Camera'),
                     onTap: () async {
-                      final image = await imagePicker.pickImage(source: ImageSource.camera);
-                      if(image != null){
+                      final image = await imagePicker.pickImage(
+                          source: ImageSource.camera);
+                      if (image != null) {
                         profileScreenController.file = File(image.path);
                         profileScreenController.loading();
-                      } else{}
+                      } else {}
                       Navigator.of(context).pop();
                     },
                   ),
@@ -76,12 +78,12 @@ editProfileDialogModule(BuildContext context) {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   return showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, setState2) {
@@ -89,9 +91,15 @@ editProfileDialogModule(BuildContext context) {
               () => profileScreenController.isLoading.value
                   ? CustomCircularProgressIndicator()
                   : AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                      ),
                       content: Form(
                         key: profileScreenController.formKey,
                         child: SingleChildScrollView(
+                          physics: ScrollPhysics(),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -101,39 +109,67 @@ editProfileDialogModule(BuildContext context) {
                                 alignment: Alignment.bottomRight,
                                 children: [
                                   profileScreenController.file != null
-                                      ? ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(80.0),
-                                    child: Image.file(
-                                        profileScreenController
-                                            .file!,
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.fill),
-                                  )
-                                      : ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(80.0),
-                                    child: Image.network(
-                                        "${ApiUrl.ApiMainPath}${profileScreenController.userProfile}",
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.fill,
-                                      errorBuilder: (ctx, ibj, st) {
-                                        return ClipRRect(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(100),
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            _showPicker(context);
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(80.0),
+                                            child: Image.file(
+                                              profileScreenController.file!,
+                                              height: 120,
+                                              width: 120,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                          child: Image.asset(
-                                            Images.noImage,
-                                            height: 120,
-                                            width: 120,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
+                                        )
+                                      : profileScreenController.userProfile !=
+                                              null
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                _showPicker(context);
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(80.0),
+                                                child: Image.network(
+                                                  "${ApiUrl.ApiMainPath}${profileScreenController.userProfile}",
+                                                  height: 120,
+                                                  width: 120,
+                                                  fit: BoxFit.cover,
+                                                  errorBuilder: (ctx, ibj, st) {
+                                                    return ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(100),
+                                                      ),
+                                                      child: Image.asset(
+                                                        Images.noImage,
+                                                        height: 120,
+                                                        width: 120,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          : GestureDetector(
+                                              onTap: () {
+                                                _showPicker(context);
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(80.0),
+                                                child: Image.asset(
+                                                  Images.noImage,
+                                                  height: 120,
+                                                  width: 120,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
                                   GestureDetector(
                                     onTap: () {
                                       _showPicker(context);
@@ -141,9 +177,11 @@ editProfileDialogModule(BuildContext context) {
                                     child: Container(
                                       height: 25,
                                       width: 25,
-                                      margin: EdgeInsets.only(bottom: 5),
+                                      margin:
+                                          EdgeInsets.only(bottom: 8, right: 5),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50),
+                                          borderRadius:
+                                              BorderRadius.circular(50),
                                           color: AppColors.colorDarkPink),
                                       child: Icon(
                                         Icons.camera_alt,
@@ -154,15 +192,21 @@ editProfileDialogModule(BuildContext context) {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
-                              FullNameTextField(),
-                              const SizedBox(height: 8),
-                              CountryDropDownModule(),
-                              const SizedBox(height: 8),
-                              StateDropDownModule(),
-                              const SizedBox(height: 8),
-                              CityDropDownModule(),
                               const SizedBox(height: 20),
+                              FullNameTextField(),
+                              const SizedBox(height: 12),
+                              CountryDropDownModule(),
+                              const SizedBox(height: 12),
+                              profileScreenController.stateLists.length == 1
+                                  ? SizedBox()
+                                  : StateDropDownModule(),
+                              const SizedBox(height: 12),
+                              profileScreenController.cityLists.length == 2
+                                  ? SizedBox()
+                                  : CityDropDownModule(),
+                              profileScreenController.cityLists.length == 2
+                                  ? SizedBox()
+                                  : SizedBox(height: 28),
                               UpdateButton(),
                             ],
                           ),
@@ -173,8 +217,6 @@ editProfileDialogModule(BuildContext context) {
           },
         );
       });
-
-
 }
 
 class EditProfileTextModule extends StatelessWidget {
@@ -217,7 +259,8 @@ class EditProfileTextModule extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10),
-        Container(height: 1, color: Colors.black),
+        Container(height: 0.5, color: Colors.black),
+        SizedBox(height: 10),
       ],
     );
   }
@@ -265,7 +308,7 @@ class CountryDropDownModule extends StatelessWidget {
         width: Get.width,
         height: 43,
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.circular(35),
           border: Border.all(color: Colors.grey),
         ),
         child: DropdownButton<Datum>(
@@ -283,6 +326,7 @@ class CountryDropDownModule extends StatelessWidget {
             print(
                 "countryDropDownValue : ${profileScreenController.countryDropDownValue!.name}");
             print("countryDropDownValue ID : ${newValue.id}");
+            profileScreenController.stateLists.clear();
             profileScreenController.getStateData(newValue.id);
           },
           items: profileScreenController.countryLists
@@ -309,7 +353,7 @@ class StateDropDownModule extends StatelessWidget {
         width: Get.width,
         height: 43,
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.circular(35),
           border: Border.all(color: Colors.grey),
         ),
         child: DropdownButton<DatumState>(
@@ -328,6 +372,7 @@ class StateDropDownModule extends StatelessWidget {
             print(
                 "stateDropDownValue : ${profileScreenController.stateDropDownValue}");
             print('newValue.name : ${newValue.name}');
+            profileScreenController.cityLists.clear();
             profileScreenController.getCityData(newValue.id);
             profileScreenController.loading();
           },
@@ -355,7 +400,7 @@ class CityDropDownModule extends StatelessWidget {
         width: Get.width,
         height: 43,
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(35),
+          borderRadius: BorderRadius.circular(35),
           border: Border.all(color: Colors.grey),
         ),
         child: DropdownButton<DatumCity>(

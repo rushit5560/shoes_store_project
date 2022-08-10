@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(20),
                             ),
-                            color: Colors.white,
+                            color: AppColors.colorWhite,
                           ),
                           child: Column(
                             children: [

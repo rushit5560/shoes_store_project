@@ -15,11 +15,12 @@ class CategoryCollectionListModule extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10),
       child: GridView.builder(
-        itemCount: categoryCollectionScreenController.categoryCollectionLists.length,
+        itemCount:
+            categoryCollectionScreenController.categoryCollectionLists.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          childAspectRatio: 1/1.3,
-            mainAxisSpacing: 20
+          crossAxisCount: 2,
+          childAspectRatio: 1 / 1.3,
+          mainAxisSpacing: 20,
         ),
         itemBuilder: (BuildContext context, int index) {
           CategoryCollectionDetail categoryCollectionSingleItem =
@@ -30,7 +31,8 @@ class CategoryCollectionListModule extends StatelessWidget {
     );
   }
 
-  Widget _categoryListTile(CategoryCollectionDetail categoryCollectionSingleItem) {
+  Widget _categoryListTile(
+      CategoryCollectionDetail categoryCollectionSingleItem) {
     final imgUrl =
         ApiUrl.ApiMainPath + "${categoryCollectionSingleItem.showimg}";
     return Column(
@@ -39,7 +41,8 @@ class CategoryCollectionListModule extends StatelessWidget {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              Get.to(() => ProductDetailsScreen(),
+              Get.to(
+                () => ProductDetailsScreen(),
                 arguments: categoryCollectionSingleItem.id,
               );
             },
@@ -48,20 +51,31 @@ class CategoryCollectionListModule extends StatelessWidget {
               width: Get.width,
               margin: EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.grey.shade200,
-                  //border: Border.all(color: Colors.grey.shade400
-                  //),
-                  boxShadow: [
-                    BoxShadow(color: Colors.grey.shade400, blurRadius: 5)
-                  ]),
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.grey.shade200,
+                //border: Border.all(color: Colors.grey.shade400
+                //),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade400,
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.network("$imgUrl", fit: BoxFit.cover),
-
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                    child: Image.network(
+                      "$imgUrl",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   SizedBox(height: 10),
-
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10),
@@ -71,7 +85,9 @@ class CategoryCollectionListModule extends StatelessWidget {
                           Text(
                             "${categoryCollectionSingleItem.productname}",
                             style: TextStyle(
-                                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
                           ),
                           SizedBox(height: 5),
                           Text(
@@ -86,14 +102,11 @@ class CategoryCollectionListModule extends StatelessWidget {
                       ),
                     ),
                   )
-
-
                 ],
               ),
             ),
           ),
         ),
-
       ],
     );
   }

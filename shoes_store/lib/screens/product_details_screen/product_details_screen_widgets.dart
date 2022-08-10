@@ -39,13 +39,38 @@ class ProductImageSliderModule extends StatelessWidget {
               productDetailsScreenController
                   .productDetailLists[0].images[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.only(top: 0, bottom: 20),
             child: Container(
+              width: Get.width * 0.8,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage("$imgUrl"),
-                  fit: BoxFit.cover,
-                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.network(
+                "$imgUrl",
+                errorBuilder: (ctx, ot, st) {
+                  return Stack(
+                    children: [
+                      Image.asset(
+                        Images.noApiPhoto,
+                        color: Colors.grey,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 45),
+                          child: Text(
+                            "No Image",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
               ),
             ),
           );
@@ -101,232 +126,248 @@ class ProductDetailsModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "${productDetailsScreenController.productDetailLists[0].productname}",
-                  style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return SingleChildScrollView(
+      physics: AlwaysScrollableScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "${productDetailsScreenController.productDetailLists[0].productname}",
+                style: TextStyle(
+                  fontSize: 19,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
                 ),
-                GestureDetector(
+              ),
+              GestureDetector(
+                onTap: () async {
+                  if (UserDetails.isUserLoggedIn == true) {
+                    await productDetailsScreenController
+                        .addProductWishlistFunction(
+                            productDetailsScreenController
+                                .productDetailLists[0].id);
+                    productDetailsScreenController.isProductWishLishes(true);
+                  } else {
+                    Get.snackbar(
+                      "Invalid User",
+                      "Please Login First",
+                      colorText: Colors.white,
+                    );
+                    Get.to(
+                      () => SignInScreen(),
+                      transition: Transition.zoom,
+                    );
+                  }
+                },
+                child: Image.asset(
+                  Images.ic_heart,
+                  scale: 15,
+                  color:
+                      productDetailsScreenController.isProductWishLishes.value
+                          ? Colors.red
+                          : Colors.grey.shade400,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              RatingBar.builder(
+                initialRating: 3,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 25,
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  print(rating);
+                },
+              ),
+              Text(
+                "\$${productDetailsScreenController.productDetailLists[0].productcost}",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+          // const SizedBox(height: 5),
+          // Row(
+          //   children: [
+          //     Expanded(
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Text(
+          //             "Color",
+          //             style: TextStyle(
+          //               color: Colors.black,
+          //               fontWeight: FontWeight.bold,
+          //               fontSize: 20,
+          //             ),
+          //           ),
+          //           const SizedBox(height: 5),
+          //           Container(
+          //             height: 30,
+          //             child: ListView.builder(
+          //               itemCount: 4,
+          //               shrinkWrap: true,
+          //               scrollDirection: Axis.horizontal,
+          //               itemBuilder: (context, index) {
+          //                 return Container(
+          //                   height: 30,
+          //                   width: 30,
+          //                   margin: EdgeInsets.only(left: 5, right: 5),
+          //                   decoration: BoxDecoration(
+          //                       borderRadius: BorderRadius.circular(15),
+          //                       color: index == 0
+          //                           ? Colors.blue
+          //                           : index == 1
+          //                               ? Colors.deepPurple
+          //                               : index == 2
+          //                                   ? Colors.grey
+          //                                   : index == 3
+          //                                       ? Colors.red
+          //                                       : Colors.white),
+          //                 );
+          //               },
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //     Expanded(
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Text(
+          //             "Size",
+          //             style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontWeight: FontWeight.bold,
+          //                 fontSize: 20),
+          //           ),
+          //           const SizedBox(height: 5),
+          //           Container(
+          //             height: 30,
+          //             child: ListView.builder(
+          //               itemCount: 4,
+          //               shrinkWrap: true,
+          //               scrollDirection: Axis.horizontal,
+          //               itemBuilder: (context, index) {
+          //                 return Container(
+          //                   height: 30,
+          //                   width: 30,
+          //                   margin: EdgeInsets.only(left: 5, right: 5),
+          //                   decoration: BoxDecoration(
+          //                     borderRadius: BorderRadius.circular(15),
+          //                     color: Colors.white,
+          //                     border: Border.all(color: Colors.black),
+          //                   ),
+          //                   child: Center(
+          //                     child: index == 0
+          //                         ? Text("M")
+          //                         : index == 1
+          //                             ? Text("S")
+          //                             : index == 2
+          //                                 ? Text("XL")
+          //                                 : index == 3
+          //                                     ? Text("L")
+          //                                     : Container(),
+          //                   ),
+          //                 );
+          //               },
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )
+          //   ],
+          // ),
+
+          const SizedBox(height: 10),
+          Text(
+            "Product Description",
+            style: TextStyle(
+                fontSize: 19, color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          Html(
+            data: productDetailsScreenController
+                .productDetailLists[0].fullText.paramCase,
+          ),
+          const SizedBox(height: 10),
+          productReview(),
+
+          const SizedBox(height: 25),
+          productDetailsScreenController
+                      .productDetailLists[0].outofStockStatus ==
+                  "instock"
+              ? GestureDetector(
                   onTap: () async {
                     if (UserDetails.isUserLoggedIn == true) {
-                      await productDetailsScreenController
-                          .addProductWishlistFunction(
-                              productDetailsScreenController
-                                  .productDetailLists[0].id);
+                      await productDetailsScreenController.productAddToCart(
+                          qty: 1);
                     } else {
+                      Get.snackbar(
+                        "Invalid User",
+                        "Please Login First",
+                        colorText: Colors.white,
+                      );
                       Get.to(() => SignInScreen(), transition: Transition.zoom);
                     }
                   },
-                  child: Image.asset(Images.ic_heart, scale: 15),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RatingBar.builder(
-                  initialRating: 3,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 25,
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
-                ),
-                Text(
-                  "\$${productDetailsScreenController.productDetailLists[0].productcost}",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            // const SizedBox(height: 5),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           Text(
-            //             "Color",
-            //             style: TextStyle(
-            //               color: Colors.black,
-            //               fontWeight: FontWeight.bold,
-            //               fontSize: 20,
-            //             ),
-            //           ),
-            //           const SizedBox(height: 5),
-            //           Container(
-            //             height: 30,
-            //             child: ListView.builder(
-            //               itemCount: 4,
-            //               shrinkWrap: true,
-            //               scrollDirection: Axis.horizontal,
-            //               itemBuilder: (context, index) {
-            //                 return Container(
-            //                   height: 30,
-            //                   width: 30,
-            //                   margin: EdgeInsets.only(left: 5, right: 5),
-            //                   decoration: BoxDecoration(
-            //                       borderRadius: BorderRadius.circular(15),
-            //                       color: index == 0
-            //                           ? Colors.blue
-            //                           : index == 1
-            //                               ? Colors.deepPurple
-            //                               : index == 2
-            //                                   ? Colors.grey
-            //                                   : index == 3
-            //                                       ? Colors.red
-            //                                       : Colors.white),
-            //                 );
-            //               },
-            //             ),
-            //           )
-            //         ],
-            //       ),
-            //     ),
-            //     Expanded(
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           Text(
-            //             "Size",
-            //             style: TextStyle(
-            //                 color: Colors.black,
-            //                 fontWeight: FontWeight.bold,
-            //                 fontSize: 20),
-            //           ),
-            //           const SizedBox(height: 5),
-            //           Container(
-            //             height: 30,
-            //             child: ListView.builder(
-            //               itemCount: 4,
-            //               shrinkWrap: true,
-            //               scrollDirection: Axis.horizontal,
-            //               itemBuilder: (context, index) {
-            //                 return Container(
-            //                   height: 30,
-            //                   width: 30,
-            //                   margin: EdgeInsets.only(left: 5, right: 5),
-            //                   decoration: BoxDecoration(
-            //                     borderRadius: BorderRadius.circular(15),
-            //                     color: Colors.white,
-            //                     border: Border.all(color: Colors.black),
-            //                   ),
-            //                   child: Center(
-            //                     child: index == 0
-            //                         ? Text("M")
-            //                         : index == 1
-            //                             ? Text("S")
-            //                             : index == 2
-            //                                 ? Text("XL")
-            //                                 : index == 3
-            //                                     ? Text("L")
-            //                                     : Container(),
-            //                   ),
-            //                 );
-            //               },
-            //             ),
-            //           )
-            //         ],
-            //       ),
-            //     )
-            //   ],
-            // ),
-
-            const SizedBox(height: 10),
-            Text(
-              "Product Description",
-              style: TextStyle(
-                  fontSize: 19,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Html(
-              data:
-                  productDetailsScreenController.productDetailLists[0].fullText,
-            ),
-            const SizedBox(height: 10),
-            productReview(),
-
-            const SizedBox(height: 25),
-            productDetailsScreenController
-                        .productDetailLists[0].outofStockStatus ==
-                    "instock"
-                ? GestureDetector(
-                    onTap: () async {
-                      if (UserDetails.isUserLoggedIn == true) {
-                        await productDetailsScreenController.productAddToCart(
-                            qty: 1);
-                      } else {
-                        Get.to(() => SignInScreen(),
-                            transition: Transition.zoom);
-                      }
-                    },
-                    child: Container(
-                      height: 40,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: AppColors.colorDarkPink),
-                      child: Center(
-                        child: Text(
-                          "Add To Cart",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                : Container(
-                    height: 40,
+                  child: Container(
+                    height: 45,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: AppColors.colorDarkPink),
                     child: Center(
                       child: Text(
-                        "Stock out",
+                        "Add To Cart",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 19,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
+                )
+              : Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: AppColors.colorDarkPink),
+                  child: Center(
+                    child: Text(
+                      "Stock out",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
 
-            const SizedBox(height: 20),
+          const SizedBox(height: 20),
 
-            productDetailsScreenController.relatedProductLists.isEmpty
-                ? Container()
-                : RelatedProductListModule(),
-          ],
-        ),
+          productDetailsScreenController.relatedProductLists.isEmpty
+              ? Container()
+              : RelatedProductListModule(),
+        ],
       ),
     );
   }
@@ -379,13 +420,20 @@ class ProductDetailsModule extends StatelessWidget {
               SizedBox(width: 10),
               GestureDetector(
                 onTap: () async {
-                 if(productDetailsScreenController.productReviewFormKey.currentState!.validate()) {
-                   if (UserDetails.isUserLoggedIn == true) {
-                     await productDetailsScreenController.addProductReview();
-                   } else {
-                     Get.to(() => SignInScreen(), transition: Transition.zoom);
-                   }
-                 }
+                  if (productDetailsScreenController
+                      .productReviewFormKey.currentState!
+                      .validate()) {
+                    if (UserDetails.isUserLoggedIn == true) {
+                      await productDetailsScreenController.addProductReview();
+                    } else {
+                      Get.snackbar(
+                        "Invalid User",
+                        "Please Login First",
+                        colorText: Colors.white,
+                      );
+                      Get.to(() => SignInScreen(), transition: Transition.zoom);
+                    }
+                  }
                 },
                 child: Container(
                   height: 45,
@@ -484,7 +532,8 @@ class RelatedProductListModule extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
                                       //height: 100,
@@ -511,13 +560,15 @@ class RelatedProductListModule extends StatelessWidget {
                                         },
                                       ),
                                     ),
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 15),
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "${singleItem.productname}",
+                                          "${singleItem.productname.capitalizeFirst}",
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 18,
@@ -550,23 +601,31 @@ class RelatedProductListModule extends StatelessWidget {
                                       await productDetailsScreenController
                                           .productAddToCart(qty: 1);
                                     } else {
+                                      Get.snackbar(
+                                        "Invalid User",
+                                        "Please Login First",
+                                        colorText: Colors.white,
+                                      );
                                       Get.to(() => SignInScreen(),
                                           transition: Transition.zoom);
                                     }
                                   },
                                   child: Container(
-                                    height: 40,
+                                    height: 45,
+                                    width: 85,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(30),
                                         color: AppColors.colorDarkPink),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Order",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
+                                      child: Center(
+                                        child: Text(
+                                          "Order",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),

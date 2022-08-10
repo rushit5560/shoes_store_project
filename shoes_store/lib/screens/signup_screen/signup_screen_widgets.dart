@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/field_validation.dart';
@@ -33,6 +34,7 @@ class NameTextField extends StatelessWidget {
         decoration: formInputDecoration(
           hintText: 'Name',
         ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => FieldValidator().validateFullName(value!),
       ),
     );
@@ -63,22 +65,14 @@ class EmailIdTextField extends StatelessWidget {
         controller: signUpScreenController.emailIdFieldController,
         decoration: formInputDecoration(hintText: 'Email Id'),
         validator: (value) => FieldValidator().validateEmail(value!),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );
   }
 }
 
-class PasswordTextField extends StatefulWidget {
-  PasswordTextField({Key? key}) : super(key: key);
-
-  @override
-  State<PasswordTextField> createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<PasswordTextField> {
+class PasswordTextField extends StatelessWidget {
   final signUpScreenController = Get.find<SignUpScreenController>();
-
-  bool isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -96,29 +90,34 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           ),
         ],
       ),
-      child: TextFormField(
-        keyboardType: TextInputType.text,
-        controller: signUpScreenController.passwordFieldController,
-        obscureText: true,
-        decoration: formInputDecoration(
-          hintText: 'Password',
-
-
-          sufficIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                isVisible = !isVisible;
-              });
-            },
-            icon: Icon(
-              isVisible
-                  ? Icons.remove_red_eye_rounded
-                  : Icons.remove_red_eye_outlined,
-                  color: Colors.grey,
+      child: Obx(
+        () => TextFormField(
+          keyboardType: TextInputType.text,
+          controller: signUpScreenController.passwordFieldController,
+          obscureText: signUpScreenController.isPassVisible.value,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(8),
+          ],
+          decoration: formInputDecoration(
+            hintText: 'Password',
+            sufficIcon: IconButton(
+              onPressed: () {
+                signUpScreenController.isLoading(true);
+                signUpScreenController.isPassVisible.value =
+                    !signUpScreenController.isPassVisible.value;
+                signUpScreenController.isLoading(false);
+              },
+              icon: Icon(
+                signUpScreenController.isPassVisible.value
+                    ? Icons.remove_red_eye_rounded
+                    : Icons.remove_red_eye_outlined,
+                color: Colors.grey,
+              ),
             ),
           ),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (value) => FieldValidator().validatePassword(value!),
         ),
-        validator: (value) => FieldValidator().validatePassword(value!),
       ),
     );
   }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-InputDecoration formInputDecoration({String? hintText, double? radius,Widget? sufficIcon}) {
+InputDecoration formInputDecoration(
+    {String? hintText, double? radius, Widget? sufficIcon}) {
   return InputDecoration(
     hintText: "$hintText",
     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
     filled: true,
     fillColor: Colors.white,
     suffixIcon: sufficIcon,
+    errorMaxLines: 2,
     enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(radius ?? 30)),
         borderSide: BorderSide(color: Colors.grey)),

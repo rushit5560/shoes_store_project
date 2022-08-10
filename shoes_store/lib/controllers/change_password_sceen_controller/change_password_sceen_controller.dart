@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:shoes_store/models/change_password_screen_model/change_password_model.dart';
+
 class ChangePasswordScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
@@ -17,16 +18,16 @@ class ChangePasswordScreenController extends GetxController {
   final newPassFieldController = TextEditingController();
   final cNewPassFieldController = TextEditingController();
 
+  RxBool isOldVisible = true.obs;
   RxBool isNewVisible = true.obs;
   RxBool isConfirmNewVisible = true.obs;
-
 
   getForgotPasswordData(oldPass, newPass, cNewPass) async {
     isLoading(true);
     String url = ApiUrl.ChangePasswordApi;
     print('Url : $url');
 
-    try{
+    try {
       Map data = {
         "id": "$userId",
         "oldpassword": "$oldPass",
@@ -37,17 +38,18 @@ class ChangePasswordScreenController extends GetxController {
 
       http.Response response = await http.post(Uri.parse(url), body: data);
 
-      ChangePasswordData changePasswordData = ChangePasswordData.fromJson(json.decode(response.body));
+      ChangePasswordData changePasswordData =
+          ChangePasswordData.fromJson(json.decode(response.body));
       isStatus = changePasswordData.success.obs;
 
-      if(isStatus.value){
+      if (isStatus.value) {
         Fluttertoast.showToast(msg: "Password Change Successfully.");
         clearTextFields();
         Get.back();
       } else {
         Fluttertoast.showToast(msg: "${changePasswordData.message}");
       }
-    } catch(e) {
+    } catch (e) {
       print('Change Pass Error : $e');
     } finally {
       isLoading(false);
@@ -71,5 +73,4 @@ class ChangePasswordScreenController extends GetxController {
     newPassFieldController.clear();
     cNewPassFieldController.clear();
   }
-
 }

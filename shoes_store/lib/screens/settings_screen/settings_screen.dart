@@ -91,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
               "Default notification will be sent",
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.black,
+                color: Colors.grey,
               ),
             )
           ],
@@ -134,7 +134,7 @@ class SettingsScreen extends StatelessWidget {
               "Receive SMS notification",
               style: TextStyle(
                 fontSize: 15,
-                color: Colors.black,
+                color: Colors.grey,
               ),
             )
           ],
@@ -164,18 +164,19 @@ class SettingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Profile Avaiability",
+              "Profile Availability",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500),
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               "Everyone can sent me a request",
-              style: TextStyle(fontSize: 15, color: Colors.black),
+              style: TextStyle(fontSize: 15, color: Colors.grey),
             )
           ],
         ),
@@ -215,7 +216,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             Text(
               "Default notification will be sent",
-              style: TextStyle(fontSize: 15, color: Colors.black),
+              style: TextStyle(fontSize: 15, color: Colors.grey),
             )
           ],
         ),
@@ -258,8 +259,8 @@ class SettingsScreen extends StatelessWidget {
                 height: 5,
               ),
               Text(
-                "you must need youe verified email",
-                style: TextStyle(fontSize: 15, color: Colors.black),
+                "you must need your registered email",
+                style: TextStyle(fontSize: 15, color: Colors.grey),
               )
             ],
           ),

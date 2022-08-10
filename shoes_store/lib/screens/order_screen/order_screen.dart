@@ -66,193 +66,213 @@ class OrderScreen extends StatelessWidget {
               print(
                   'Order Id : ${orderScreenController.totalOrdersLists[index].orderId}');
             },
-            child: Material(
-              borderRadius: BorderRadius.circular(15),
-              elevation: 10,
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade300,
+                    blurRadius: 25.0,
+                    blurStyle: BlurStyle.normal,
+                    offset: Offset(0, 0),
+                  )
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Text(
+                              'Name',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 7,
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Text(
+                                    "${orderScreenController.totalOrdersLists[index].userFname} "),
+                                Expanded(
+                                  child: Text(
+                                    orderScreenController
+                                        .totalOrdersLists[index].userLname,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Row(
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                child: Text(
-                                  'Name',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 7,
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    Text(
-                                        "${orderScreenController.totalOrdersLists[index].userFname} "),
-                                    Expanded(
-                                      child: Text(
-                                        orderScreenController
-                                            .totalOrdersLists[index].userLname,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          'Address',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(width: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Address',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              orderScreenController
-                                  .totalOrdersLists[index].userStreetAddress,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'City',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              orderScreenController
-                                  .totalOrdersLists[index].userFname,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'State',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              orderScreenController
-                                  .totalOrdersLists[index].userLname,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Order Type',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              orderScreenController
-                                  .totalOrdersLists[index].orderType,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Total Qty',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              orderScreenController
-                                  .totalOrdersLists[index].totalqty,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 5),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Total Amount',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: Text(
-                              orderScreenController
-                                  .totalOrdersLists[index].totalprice,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 5),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          MaterialButton(
-                            onPressed: () {
-                              String invoiceLink =
-                                  "${ApiUrl.InvoicePdfPrefix}${orderScreenController.totalOrdersLists[index].orderPdf}${ApiUrl.InvoicePdfSuffix}";
-                              print('invoiceLink : $invoiceLink');
-                              print('invoiceLink');
-                              openBrowserTab(invoiceLink);
-                            },
-                            child: Text('Order Invoice'),
-                            color: Colors.grey,
-                          ),
-                        ],
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          orderScreenController
+                              .totalOrdersLists[index].userStreetAddress,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),
-                ),
+                  SizedBox(width: 5),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          'City',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          orderScreenController
+                              .totalOrdersLists[index].userFname,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 5),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          'State',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          orderScreenController
+                              .totalOrdersLists[index].userLname,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 5),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          'Order Type',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          orderScreenController
+                              .totalOrdersLists[index].orderType,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 5),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          'Total Qty',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          orderScreenController
+                              .totalOrdersLists[index].totalqty,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 5),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          'Total Amount',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Text(
+                          orderScreenController
+                              .totalOrdersLists[index].totalprice,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey.shade300,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          String invoiceLink =
+                              "${ApiUrl.InvoicePdfPrefix}${orderScreenController.totalOrdersLists[index].orderPdf}${ApiUrl.InvoicePdfSuffix}";
+                          print('invoiceLink : $invoiceLink');
+                          print('invoiceLink');
+                          openBrowserTab(invoiceLink);
+                        },
+                        child: Text(
+                          'Order Invoice',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

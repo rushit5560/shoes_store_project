@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:shoes_store/common/api_url.dart';
 import 'package:shoes_store/models/category_collection_screen_model/category_collection_model.dart';
 
-
-class CategoryCollectionScreenController extends GetxController{
+class CategoryCollectionScreenController extends GetxController {
   // categoryId & categoryName Getting From Category Screen
+
+  final size = Get.size;
   int categoryId = Get.arguments[0];
   String categoryName = Get.arguments[1];
   RxBool isLoading = false.obs;
@@ -26,7 +27,7 @@ class CategoryCollectionScreenController extends GetxController{
       http.Response response = await http.post(Uri.parse(url), body: data);
 
       CategoryCollectionModel categoryCollectionModel =
-      CategoryCollectionModel.fromJson(json.decode(response.body));
+          CategoryCollectionModel.fromJson(json.decode(response.body));
       isStatus = categoryCollectionModel.success.obs;
 
       if (isStatus.value) {

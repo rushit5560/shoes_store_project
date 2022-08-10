@@ -15,8 +15,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
-      appBar:
-          commonAppBarModule(image: "Product detail", context: context),
+      appBar: commonAppBarModule(image: "Product detail", context: context),
       body: Obx(
         () => productDetailsScreenController.isLoading.value
             ? CustomCircularProgressIndicator()
@@ -32,13 +31,15 @@ class ProductDetailsScreen extends StatelessWidget {
                   const SizedBox(height: 15),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30),
-                          ),
-                          color: Colors.white),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                        color: Colors.white,
+                      ),
                       child: ProductDetailsModule(),
                     ),
                   ),
@@ -47,5 +48,4 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
 }

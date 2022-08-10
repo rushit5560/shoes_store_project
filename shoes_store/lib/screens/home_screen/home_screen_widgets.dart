@@ -21,41 +21,50 @@ class SearchTextFieldModule extends StatelessWidget {
       height: 45,
       margin: EdgeInsets.only(left: 15, right: 15),
       child: TextFormField(
-          keyboardType: TextInputType.text,
-          controller: homeScreenController.searchFieldController,
-          // obscureText: true,
-          decoration: InputDecoration(
-            hintText: "Search",
-            suffixIcon: GestureDetector(
-              onTap: () {
-                homeScreenController.searchFieldController.clear();
-                Get.to(()=> CollectionScreen());
-              },
-                child: Icon(Icons.search_outlined),
+        keyboardType: TextInputType.text,
+        controller: homeScreenController.searchFieldController,
+        // obscureText: true,
+        decoration: InputDecoration(
+          hintText: "Search",
+          suffixIcon: GestureDetector(
+            onTap: () {
+              homeScreenController.searchFieldController.clear();
+              Get.to(() => CollectionScreen());
+            },
+            child: Icon(
+              Icons.search_outlined,
+              color: Colors.grey,
             ),
-            //prefixIcon: Icon(icon, color: Colors.black),
-            // isDense: true,
-            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-            // border: InputBorder.none,
-            filled: true,
-            fillColor: Colors.white,
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                borderSide: BorderSide(color: Colors.white)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                borderSide: BorderSide(color: Colors.white)),
-            errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                borderSide: BorderSide(color: Colors.white)),
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                borderSide: BorderSide(color: Colors.white)),
-          )
-
-          //validator: (value) => FieldValidator().validatePassword(value!),
-
           ),
+          //prefixIcon: Icon(icon, color: Colors.black),
+          // isDense: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+          // border: InputBorder.none,
+          filled: true,
+          fillColor: Colors.white,
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide(color: Colors.white)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide(color: Colors.white)),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide(color: Colors.white)),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide(color: Colors.white)),
+        ),
+        cursorColor: AppColors.colorDarkPink,
+        enableSuggestions: true,
+        textInputAction: TextInputAction.search,
+        onFieldSubmitted: (val) {
+          homeScreenController.searchFieldController.clear();
+          Get.to(() => CollectionScreen());
+        },
+
+        //validator: (value) => FieldValidator().validatePassword(value!),
+      ),
     );
   }
 }
@@ -175,12 +184,10 @@ class BrandBannerModule extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-          decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.80),
-            borderRadius: BorderRadius.circular(10),
-          
-            
-          ),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.80),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Container(
           margin: EdgeInsets.all(15),
           decoration: BoxDecoration(
@@ -189,7 +196,6 @@ class BrandBannerModule extends StatelessWidget {
             image: DecorationImage(
               image: NetworkImage("$imgUrl"),
               fit: BoxFit.contain,
-              
             ),
           ),
         ),
@@ -242,9 +248,22 @@ class NewCollectionListModule extends StatelessWidget {
               Text(
                 "Featured Product",
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => CollectionScreen());
+                },
+                child: Text(
+                  "Show All",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
               // GestureDetector(
@@ -262,7 +281,7 @@ class NewCollectionListModule extends StatelessWidget {
               // )
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Container(
             height: Get.height * 0.22,
             child: ListView.separated(
@@ -284,70 +303,63 @@ class NewCollectionListModule extends StatelessWidget {
                         arguments: featuredSingleItem.id,
                       );
                     },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            //height: 100,
-                            // margin: EdgeInsets.only(left: 10, right: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              //height: 100,
+                              // margin: EdgeInsets.only(left: 10, right: 10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.grey.shade200,
+                                //border: Border.all(color: Colors.grey.shade400
+                                //),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade400,
+                                      blurRadius: 5)
+                                ],
                               ),
-                              // boxShadow: [
-                              //   BoxShadow(
-                              //     color: Colors.grey.shade100,
-                              //     blurRadius: 20,
-                              //     spreadRadius: 30,
-                              //   ),
-                              // ],
-                              // image: DecorationImage(
-                              //   image: NetworkImage(imgUrl),
-                              //   fit: BoxFit.cover,
-
-                              // ),
-                              //border: Border.all(color: Colors.grey.shade400
-                              //),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(15),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network("$imgUrl"),
                               ),
-                              child: Image.network("$imgUrl"),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "${featuredSingleItem.productname}",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Text(
-                              "\$${featuredSingleItem.productcost}",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            // const SizedBox(width: 10),
-                            // Text(
-                            //   "\$${featuredSingleItem.totalcost}",
-                            //   style: TextStyle(fontSize: 18),
-                            // )
-                          ],
-                        )
-                      ],
+                          const SizedBox(height: 10),
+                          Text(
+                            "${featuredSingleItem.productname}",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Text(
+                                "\$${featuredSingleItem.productcost}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              // const SizedBox(width: 10),
+                              // Text(
+                              //   "\$${featuredSingleItem.totalcost}",
+                              //   style: TextStyle(fontSize: 18),
+                              // )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   );
                 }),
-          )
+          ),
         ],
       ),
     );
@@ -473,10 +485,9 @@ class OfferListModule extends StatelessWidget {
     return Container(
       height: Get.height * 0.20,
       child: ListView.builder(
-        physics: PageScrollPhysics(),
+          physics: PageScrollPhysics(),
           itemCount: homeScreenController.bannerLists.length,
           shrinkWrap: true,
-
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             String imgUrl = ApiUrl.ApiMainPath +
@@ -571,22 +582,23 @@ class TestimonialModule extends StatelessWidget {
           SizedBox(height: 20),
           CarouselSlider.builder(
             itemCount: homeScreenController.testimonialLists.length,
-
             itemBuilder: (context, index, realIndex) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.grey.shade200,
+                    color: Colors.grey.shade400,
                     // boxShadow: [
                     //   BoxShadow(color: Colors.grey.shade400, blurRadius: 5)
                     // ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                     child: Column(
                       children: [
+                        SizedBox(height: 8),
                         Container(
                           width: 65,
                           height: 65,
@@ -610,7 +622,6 @@ class TestimonialModule extends StatelessWidget {
                           child: Html(
                             data: homeScreenController
                                 .testimonialLists[index].description,
-                                
                           ),
                         ),
                       ],

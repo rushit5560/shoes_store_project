@@ -6,7 +6,6 @@ import 'package:shoes_store/common/common_functions.dart';
 import 'package:shoes_store/models/signin_screen_model/signin_model.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
 
-
 class SignInScreenController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailIdFieldController = TextEditingController();
@@ -19,32 +18,37 @@ class SignInScreenController extends GetxController {
     String url = ApiUrl.LoginApi;
     print("Url : $url");
 
-    try{
+    try {
       Map data = {"email": "$email", "password": "$password"};
       print('data : $data');
 
       http.Response response = await http.post(Uri.parse(url), body: data);
-      
-      if(response.body.contains('"success": false')) {
 
-      } else {
-
-      }
+      if (response.body.contains('"success": false')) {
+      } else {}
 
       // When User SignIn Failed
       if (response.body.contains('Email don')) {
         print('Email Don\'t Match');
-        Get.snackbar('', 'Email Don\'t Match');
+        Get.snackbar(
+          'Login Failed !',
+          'Email Don\'t Match',
+          colorText: Colors.white,
+        );
       }
-      if(response.body.contains('password don')) {
+      if (response.body.contains('password don')) {
         print('Password Don\'t Match');
-        Get.snackbar('', 'Password Don\'t Match');
+        Get.snackbar(
+          'Login Failed !',
+          'Password Don\'t Match',
+          colorText: Colors.white,
+        );
       } //
 
       SignInData signInData = signInDataFromJson(response.body);
       isStatus = signInData.success.obs;
 
-      if(isStatus.value){
+      if (isStatus.value) {
         var id = signInData.data.id;
         var token = signInData.data.rememberToken;
         var userName = signInData.data.name;
@@ -53,15 +57,14 @@ class SignInScreenController extends GetxController {
         print('id : $id \nToken : $token');
         CommonFunctions().setUserDetailsInPrefs(id, token, userName, userEmail);
         Get.offAll(() => IndexScreen());
-        Get.snackbar('User Login In Successfully.','');
+        Get.snackbar('User Login In Successfully.', '');
       } else {
         print('SignIn False');
       }
-    } catch(e) {
+    } catch (e) {
       print('Sign In Error : $e');
     } finally {
       isLoading(false);
     }
   }
-
 }

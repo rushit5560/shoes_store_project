@@ -37,8 +37,9 @@ class SplashScreen extends StatelessWidget {
             ],
           ),
           Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Container(
+              margin: EdgeInsets.only(top: Get.size.height * 0.28),
               child: CupertinoActivityIndicator(
                 radius: 15,
               ),

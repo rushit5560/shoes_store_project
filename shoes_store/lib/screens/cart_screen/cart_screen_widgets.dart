@@ -96,63 +96,66 @@ class CartItemListModule extends StatelessWidget {
                               Row(
                                 children: [
                                   Row(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () async {
-                                            if (cartSingleItem.cquantity > 1) {
-                                              var cartItemDec = cartSingleItem.cquantity - 1;
-                                              await cartScreenController.getAddProductCartQty(
-                                                cartItemDec,
-                                                cartSingleItem.cartDetailId,
-                                              );
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 20,
-                                            width: 20,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(10),
-                                                color: Colors.grey),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.remove,
-                                                size: 20,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          '${cartSingleItem.cquantity}',
-                                          style: TextStyle(fontSize: 15),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            var cartItemInc = cartSingleItem.cquantity + 1;
-                                            await cartScreenController.getAddProductCartQty(
-                                              cartItemInc,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          if (cartSingleItem.cquantity > 1) {
+                                            var cartItemDec =
+                                                cartSingleItem.cquantity - 1;
+                                            await cartScreenController
+                                                .getAddProductCartQty(
+                                              cartItemDec,
                                               cartSingleItem.cartDetailId,
                                             );
-                                          },
-                                          child: Container(
-                                            height: 20,
-                                            width: 20,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(10),
-                                                color: Colors.grey,
-                                            ),
+                                          }
+                                        },
+                                        child: Container(
+                                          height: 20,
+                                          width: 20,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Colors.grey),
+                                          child: Center(
                                             child: Icon(
-                                              Icons.add,
+                                              Icons.remove,
                                               size: 20,
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        '${cartSingleItem.cquantity}',
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          var cartItemInc =
+                                              cartSingleItem.cquantity + 1;
+                                          await cartScreenController
+                                              .getAddProductCartQty(
+                                            cartItemInc,
+                                            cartSingleItem.cartDetailId,
+                                          );
+                                        },
+                                        child: Container(
+                                          height: 20,
+                                          width: 20,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.grey,
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            size: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   const SizedBox(width: 10),
                                   Text(
                                     '\$${cartSingleItem.productcost}',
@@ -196,7 +199,6 @@ class CartItemListModule extends StatelessWidget {
   }
 }
 
-
 class CheckOutButtonModule extends StatelessWidget {
   CheckOutButtonModule({Key? key}) : super(key: key);
   final cartScreenController = Get.find<CartScreenController>();
@@ -205,12 +207,14 @@ class CheckOutButtonModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        cartScreenController.isLoading(true);
         Get.to(() => CheckOutScreen(),
-        arguments: cartScreenController.userCartId.value);
+            arguments: cartScreenController.userCartId.value);
+        cartScreenController.isLoading(false);
       },
       child: Container(
-        height: 40,
-        margin: EdgeInsets.only(left: 10, right: 10),
+        height: 45,
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: AppColors.colorDarkPink),
@@ -218,7 +222,10 @@ class CheckOutButtonModule extends StatelessWidget {
           child: Text(
             "Proceed To Checkout",
             style: TextStyle(
-                color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

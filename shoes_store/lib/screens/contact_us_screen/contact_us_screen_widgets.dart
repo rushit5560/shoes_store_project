@@ -69,8 +69,11 @@ class ContactUsForm extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: 30, left: 15, right: 15),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-          color: Colors.white
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          topLeft: Radius.circular(30),
+        ),
+        // color: Colors.white,
       ),
       child: SingleChildScrollView(
         child: Form(
@@ -104,20 +107,13 @@ class UsernameTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 35.0,
-              blurStyle: BlurStyle.normal,
-              offset: Offset(0, 0),
-            )
-          ]
-          ),
+        border: Border.all(color: Colors.transparent),
+      ),
       child: TextFormField(
         controller: contactUsScreenController.fullNameController,
         keyboardType: TextInputType.text,
         decoration: formInputDecoration(hintText: 'User Name', radius: 30),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => FieldValidator().validateUserName(value!),
       ),
     );
@@ -132,19 +128,13 @@ class EmailTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 35.0,
-              blurStyle: BlurStyle.normal,
-              offset: Offset(0, 0),
-            )
-          ]),
+        border: Border.all(color: Colors.transparent),
+      ),
       child: TextFormField(
         controller: contactUsScreenController.emailIdController,
         keyboardType: TextInputType.emailAddress,
         decoration: formInputDecoration(hintText: 'Email Id', radius: 30),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => FieldValidator().validateEmail(value!),
       ),
     );
@@ -159,19 +149,13 @@ class PhoneNoTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 35.0,
-              blurStyle: BlurStyle.normal,
-              offset: Offset(0, 0),
-            )
-          ]),
+        border: Border.all(color: Colors.transparent),
+      ),
       child: TextFormField(
         controller: contactUsScreenController.phoneNoController,
         keyboardType: TextInputType.phone,
         decoration: formInputDecoration(hintText: 'Mobile No', radius: 30),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => FieldValidator().validateMobile(value!),
       ),
     );
@@ -186,19 +170,13 @@ class SubjectTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 35.0,
-              blurStyle: BlurStyle.normal,
-              offset: Offset(0, 0),
-            )
-          ]),
+        border: Border.all(color: Colors.transparent),
+      ),
       child: TextFormField(
         controller: contactUsScreenController.subjectController,
         keyboardType: TextInputType.text,
         decoration: formInputDecoration(hintText: 'Subject', radius: 30),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => FieldValidator().validateSubject(value!),
       ),
     );
@@ -213,19 +191,13 @@ class CommentTextFieldModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade300,
-              blurRadius: 35.0,
-              blurStyle: BlurStyle.normal,
-              offset: Offset(0, 0),
-            )
-          ]),
+        border: Border.all(color: Colors.transparent),
+      ),
       child: TextFormField(
         controller: contactUsScreenController.commentController,
         keyboardType: TextInputType.text,
         decoration: formInputDecoration(hintText: 'Comment', radius: 30),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) => FieldValidator().validateComment(value!),
       ),
     );
@@ -270,4 +242,3 @@ class SubmitButtonModule extends StatelessWidget {
     );
   }
 }
-

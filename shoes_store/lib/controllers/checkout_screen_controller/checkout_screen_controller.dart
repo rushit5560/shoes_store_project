@@ -14,8 +14,6 @@ import '../../models/profile_screen_model/user_profile_model.dart';
 import '../../screens/confirm_screen/confirm_screen.dart';
 import '../../screens/index_screen/index_screen.dart';
 
-
-
 class CheckOutScreenController extends GetxController {
   int userCartId = Get.arguments;
   RxBool isLoading = false.obs;
@@ -35,10 +33,9 @@ class CheckOutScreenController extends GetxController {
   TextEditingController phoneNoFieldController = TextEditingController();
   TextEditingController emailIdFieldController = TextEditingController();
   TextEditingController orderNoteFieldController = TextEditingController();
-  RxList<Datum> countryLists = [Datum(id: 0, name: 'Select Country', sortname: '')].obs;
+  RxList<Datum> countryLists =
+      [Datum(id: 0, name: 'Select Country', sortname: '')].obs;
   Datum? countryDropDownValue;
-
-
 
   Future<void> addOrderFunction() async {
     isLoading(true);
@@ -47,7 +44,7 @@ class CheckOutScreenController extends GetxController {
 
     String orderType = selectPaymentMethod(isSelectedIndex.value);
 
-    try{
+    try {
       Map data = {
         "user_id": "$userId",
         "cartID": "$userCartId",
@@ -62,31 +59,28 @@ class CheckOutScreenController extends GetxController {
         "order_type": "$orderType"
       };
       print('asasasasasssas data : $data');
-      http.Response response = await http.post(Uri.parse(url),body: data);
+      http.Response response = await http.post(Uri.parse(url), body: data);
       print('Cart Response1 : ${response.statusCode}');
       print('Cart Response2 : ${response.body}');
 
-      OrderAddData orderAddData = OrderAddData.fromJson(json.decode(response.body));
+      OrderAddData orderAddData =
+          OrderAddData.fromJson(json.decode(response.body));
       isSuccessStatus = orderAddData.success.obs;
       print('Response Bool : ${orderAddData.success}');
       print('isStatus : $isSuccessStatus');
 
-      if(isSuccessStatus.value){
-        Get.offAll(()=> ConfirmScreen());
+      if (isSuccessStatus.value) {
+        Get.off(() => ConfirmScreen());
 
         Get.snackbar('Order Placed Successfully.', 'Check You Email');
-      }
-      else {
+      } else {
         print('OrderAddData False False');
       }
-
-    } catch(e){
+    } catch (e) {
       print('Add Order Error : $e');
     }
     isLoading(false);
   }
-
-
 
   /// Get All Country List
   Future<void> getAllCountryData() async {
@@ -94,13 +88,14 @@ class CheckOutScreenController extends GetxController {
     String url = ApiUrl.CountryApi;
     print('Url : $url');
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
 
-      AllCountryData countryList = AllCountryData.fromJson(json.decode(response.body));
+      AllCountryData countryList =
+          AllCountryData.fromJson(json.decode(response.body));
       isSuccessStatus = countryList.success.obs;
 
-      if(isSuccessStatus.value){
+      if (isSuccessStatus.value) {
         countryLists.clear();
         countryLists.add(Datum(id: 0, name: 'Select Country', sortname: ''));
         countryLists.addAll(countryList.data);
@@ -109,7 +104,7 @@ class CheckOutScreenController extends GetxController {
       } else {
         print('Country False False');
       }
-    } catch(e) {
+    } catch (e) {
       print('Country Error : $e');
     } finally {
       // isLoading(false);
@@ -123,31 +118,32 @@ class CheckOutScreenController extends GetxController {
     String url = ApiUrl.UserAllAddressApi;
     print('Url : $url');
 
-    try{
-      Map data = {
-        "user_id": "$userId"
-      };
+    try {
+      Map data = {"user_id": "$userId"};
       print('data : $data');
 
-      http.Response response = await http.post(Uri.parse(url),body: data);
+      http.Response response = await http.post(Uri.parse(url), body: data);
       print('Response1 : ${response.statusCode}');
       print('Response1 : ${response.body}');
 
-      UserAllAddressData userAllAddressData = UserAllAddressData.fromJson(json.decode(response.body));
+      UserAllAddressData userAllAddressData =
+          UserAllAddressData.fromJson(json.decode(response.body));
       isSuccessStatus = userAllAddressData.success.obs;
       print('Response Bool : ${userAllAddressData.success}');
       print('isStatus : $isSuccessStatus');
 
-      if(isSuccessStatus.value){
-
-        streetAddressFieldController.text = userAllAddressData.data.shippinginfo.address;
-        phoneNoFieldController.text = userAllAddressData.data.shippinginfo.mobile;
-        emailIdFieldController.text = userAllAddressData.data.shippinginfo.email;
+      if (isSuccessStatus.value) {
+        streetAddressFieldController.text =
+            userAllAddressData.data.shippinginfo.address;
+        phoneNoFieldController.text =
+            userAllAddressData.data.shippinginfo.mobile;
+        emailIdFieldController.text =
+            userAllAddressData.data.shippinginfo.email;
         print('User All Address True True');
       } else {
         print('User All Address False False');
       }
-    } catch(e) {
+    } catch (e) {
       print('User All Address Error : $e');
     }
     isLoading(false);
@@ -188,22 +184,10 @@ class CheckOutScreenController extends GetxController {
   // }
 
   List<CheckOutPaymentModel> paymentMethodList = [
-    CheckOutPaymentModel(
-        img: Images.mastercard,
-        name: 'Master Card'
-    ),
-    CheckOutPaymentModel(
-        img: Images.paypal,
-        name: 'Paypal'
-    ),
-    CheckOutPaymentModel(
-        img: Images.visa,
-        name: 'Visa Card'
-    ),
-    CheckOutPaymentModel(
-        img: Images.cod,
-        name: 'Cash On Delivery'
-    ),
+    CheckOutPaymentModel(img: Images.mastercard, name: 'Master Card'),
+    CheckOutPaymentModel(img: Images.paypal, name: 'Paypal'),
+    CheckOutPaymentModel(img: Images.visa, name: 'Visa Card'),
+    CheckOutPaymentModel(img: Images.cod, name: 'Cash On Delivery'),
   ];
 
   @override
@@ -213,20 +197,20 @@ class CheckOutScreenController extends GetxController {
     super.onInit();
   }
 
-  getUserDetailsFromPrefs() async{
+  getUserDetailsFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userId.value = prefs.getInt('id') ?? 0;
     print('UserId Add to Cart : $userId');
   }
 
   String selectPaymentMethod(int i) {
-    if(i == 0) {
+    if (i == 0) {
       return "Master Card";
-    } else if(i == 1) {
+    } else if (i == 1) {
       return "Paypal";
-    } else if(i == 2) {
+    } else if (i == 2) {
       return "Visa Card";
-    } else if(i == 3) {
+    } else if (i == 3) {
       return "Cash On Delivery";
     } else {
       return "";
@@ -237,11 +221,9 @@ class CheckOutScreenController extends GetxController {
     isLoading(true);
     isLoading(false);
   }
-
 }
 
-
-class CheckOutPaymentModel{
+class CheckOutPaymentModel {
   String img;
   String name;
   CheckOutPaymentModel({required this.img, required this.name});

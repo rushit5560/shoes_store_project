@@ -9,12 +9,11 @@ import 'package:shoes_store/models/home_screen_model/brand_banner_model.dart';
 import 'package:shoes_store/models/home_screen_model/featured_product_model.dart';
 import '../../models/home_screen_model/testimonial_model.dart';
 
-
-
-class HomeScreenController extends GetxController{
+class HomeScreenController extends GetxController {
   var activeIndex = 0.obs;
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
+
   RxList<Datum> bannerLists = RxList();
   RxList<Datum1> featuredProductLists = RxList();
   RxList<TestimonialDetails> testimonialLists = RxList();
@@ -27,25 +26,49 @@ class HomeScreenController extends GetxController{
     String url = ApiUrl.BannerApi;
     print('Url : $url');
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
 
       BannerData bannerList = BannerData.fromJson(json.decode(response.body));
       isStatus = bannerList.success.obs;
 
-      if(isStatus.value){
+      if (isStatus.value) {
         bannerLists = bannerList.data.obs;
         log('bannerLists: $bannerLists');
       } else {
         print('Banner False False');
       }
-    } catch(e) {
+    } catch (e) {
       print('Banner Error : $e');
     } finally {
       // isLoading(false);
-      getFeaturedProductData();
+      await getFeaturedProductData();
     }
+  }
 
+  Future<void> getBrandBannerData() async {
+    isLoading(true);
+    String url = ApiUrl.GetBrandBannerApi;
+    print('Url : $url');
+
+    try {
+      http.Response response = await http.get(Uri.parse(url));
+
+      GetBrandBannerModel getBrandBannerModel =
+          GetBrandBannerModel.fromJson(json.decode(response.body));
+      isStatus = getBrandBannerModel.success.obs;
+
+      if (isStatus.value) {
+        brandBannerList = getBrandBannerModel.data.obs;
+        log('brandBannerList: $brandBannerList');
+      } else {
+        print('Brand Banner False False');
+      }
+    } catch (e) {
+      print('Brand Banner Error : $e');
+    } finally {
+      isLoading(false);
+    }
   }
 
   Future<void> getFeaturedProductData() async {
@@ -53,18 +76,19 @@ class HomeScreenController extends GetxController{
     String url = ApiUrl.FeaturedProductApi;
     print('Url : $url');
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
 
-      FeaturedProductData featuredProductData = FeaturedProductData.fromJson(json.decode(response.body));
+      FeaturedProductData featuredProductData =
+          FeaturedProductData.fromJson(json.decode(response.body));
       isStatus = featuredProductData.success.obs;
 
-      if(isStatus.value) {
+      if (isStatus.value) {
         featuredProductLists = featuredProductData.data.obs;
       } else {
         print('FeaturedProduct False False');
       }
-    } catch(e) {
+    } catch (e) {
       print('FeaturedProduct Error : $e');
     } finally {
       // isLoading(false);
@@ -77,55 +101,29 @@ class HomeScreenController extends GetxController{
     String url = ApiUrl.TestimonialApi;
     print('Url : $url');
 
-    try{
+    try {
       http.Response response = await http.get(Uri.parse(url));
       // print('Response1 : ${response.statusCode}');
       // print('Testimonial Response2 : ${response.body}');
 
-      TestimonialsModel testimonialsModel = TestimonialsModel.fromJson(json.decode(response.body));
+      TestimonialsModel testimonialsModel =
+          TestimonialsModel.fromJson(json.decode(response.body));
       isStatus = testimonialsModel.success.obs;
       // print('Response Bool : ${testimonialData.success}');
       // print('isStatus : $isStatus');
 
-      if(isStatus.value){
+      if (isStatus.value) {
         // print('True True');
         testimonialLists = testimonialsModel.data.obs;
-
       } else {
         print('Testimonial False False');
       }
-    } catch(e) {
+    } catch (e) {
       print('Testimonial Error : $e');
     } finally {
       //isLoading(false);
-      getBrandBannerData();
+      await getBrandBannerData();
     }
-  }
-
-  Future<void> getBrandBannerData() async {
-    isLoading(true);
-    String url = ApiUrl.GetBrandBannerApi;
-    print('Url : $url');
-
-    try{
-      http.Response response = await http.get(Uri.parse(url));
-
-      GetBrandBannerModel getBrandBannerModel = GetBrandBannerModel.fromJson(json.decode(response.body));
-      isStatus = getBrandBannerModel.success.obs;
-
-      if(isStatus.value){
-        brandBannerList = getBrandBannerModel.data.obs;
-        log('brandBannerList: $brandBannerList');
-      } else {
-        print('Brand Banner False False');
-      }
-    } catch(e) {
-      print('Brand Banner Error : $e');
-    } finally {
-       isLoading(false);
-      //getFeaturedProductData();
-    }
-
   }
 
   @override
@@ -133,5 +131,4 @@ class HomeScreenController extends GetxController{
     getBannerData();
     super.onInit();
   }
-
 }

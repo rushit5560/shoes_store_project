@@ -10,7 +10,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
- final  transColor = Color(0x00000000);
+  final transColor = Color(0x00000000);
   MaterialColor accentColorSwatch = const MaterialColor(
     0x00000000,
     const {

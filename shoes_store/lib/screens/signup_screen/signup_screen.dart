@@ -26,6 +26,8 @@ class SignUpScreen extends StatelessWidget {
                 child: Form(
                   key: signUpScreenController.formKey,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Container(
                         margin: EdgeInsets.only(top: 30, left: 20, right: 20),
@@ -34,6 +36,8 @@ class SignUpScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.white),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             SizedBox(height: 30),
                             NameTextField(),

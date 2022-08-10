@@ -40,11 +40,11 @@ PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
     actions: [
       index == 1
           ? GestureDetector(
-        onTap: () {
-          UserDetails.isUserLoggedIn == true
-          ? Get.to(() => CartScreen())
-          : Get.to(()=> SignInScreen());
-        },
+              onTap: () {
+                UserDetails.isUserLoggedIn == true
+                    ? Get.to(() => CartScreen())
+                    : Get.to(() => SignInScreen());
+              },
               // child: Image.asset(Images.ic_notification, height: 25, width: 25),
               child: Icon(Icons.shopping_cart_rounded),
             )
@@ -66,7 +66,8 @@ PreferredSizeWidget commonAppBarModule({required image, index = 0, context}) {
                           },
                           child: Icon(Icons.edit),
                         )
-                      : */Container(),
+                      : */
+                  Container(),
       SizedBox(width: 20)
     ],
   );

@@ -32,8 +32,7 @@ class Images {
   static const paypal = root + 'paypal.png';
   static const visa = root + 'visa.png';
 
-
   //no image placeholder
-  static const noImage = root + 'image_placeholder.jpg';
+  static const noImage = root + 'image_placeholder.png';
+  static const noApiPhoto = root + 'photo_placeholder.png';
 }
-

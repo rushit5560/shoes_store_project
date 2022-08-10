@@ -6,10 +6,10 @@ import 'package:shoes_store/common/contants/user_details.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
 import 'package:shoes_store/screens/onboarding_screen/onboarding_screen.dart';
 
-class SplashScreenController extends GetxController{
+class SplashScreenController extends GetxController {
   bool? onBoardingValue = false;
 
-  getOnBoardingValue() async{
+  getOnBoardingValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     onBoardingValue = prefs.getBool("onboarding") ?? false;
     UserDetails.isUserLoggedIn = prefs.getBool('userLoggedInStatus') ?? false;
@@ -28,7 +28,10 @@ class SplashScreenController extends GetxController{
 
   @override
   void onInit() {
-    Timer(Duration(seconds: 3), () => getOnBoardingValue());
+    Timer(
+      Duration(seconds: 3),
+      () => getOnBoardingValue(),
+    );
     super.onInit();
   }
 }

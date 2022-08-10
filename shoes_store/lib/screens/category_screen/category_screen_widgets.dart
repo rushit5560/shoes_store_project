@@ -13,21 +13,23 @@ class CategoryListModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           ),
           color: Colors.white),
-      child: ListView.builder(
-        itemCount: categoryController.categoryLists.length,
-        shrinkWrap: true,
-        physics: AlwaysScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          Datum categorySingleItem = categoryController.categoryLists[index];
-          return _categoryListTile(categorySingleItem, index);
-        },
+      child: Container(
+        child: ListView.builder(
+          itemCount: categoryController.categoryLists.length,
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) {
+            Datum categorySingleItem = categoryController.categoryLists[index];
+            return _categoryListTile(categorySingleItem, index);
+          },
+        ),
       ),
     );
   }
@@ -55,7 +57,12 @@ class CategoryListModule extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.white,
                   boxShadow: [
-                    BoxShadow(color: Colors.grey.shade500, blurRadius: 10)
+                    BoxShadow(
+                      color: Colors.grey.shade400,
+                      blurRadius: 15.0,
+                      blurStyle: BlurStyle.normal,
+                      offset: Offset(0, 0),
+                    )
                   ]),
               child: Container(
                 padding: EdgeInsets.only(top: 5, bottom: 5),
@@ -97,12 +104,11 @@ class CategoryListModule extends StatelessWidget {
                             const SizedBox(width: 15),
                             Expanded(
                               child: Container(
-                                
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${categorySingleItem.categoryName}",
+                                      "${categorySingleItem.categoryName.capitalizeFirst}",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(

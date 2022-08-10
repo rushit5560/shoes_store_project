@@ -13,7 +13,6 @@ import 'package:shoes_store/models/signup_screen_model/signup_model.dart';
 import 'package:shoes_store/screens/index_screen/index_screen.dart';
 
 class SignUpScreenController extends GetxController {
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController userNameFieldController = TextEditingController();
   TextEditingController emailIdFieldController = TextEditingController();
@@ -21,15 +20,16 @@ class SignUpScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStatus = false.obs;
 
+  RxBool isPassVisible = true.obs;
   FacebookUserProfile? profile;
-  final FacebookLogin  plugin = FacebookLogin(debug: true);
+  final FacebookLogin plugin = FacebookLogin(debug: true);
 
   getRegisterData() async {
     isLoading(true);
     String url = ApiUrl.RegisterApi;
     print('Url : $url');
 
-    try{
+    try {
       Map data = {
         "name": userNameFieldController.text.trim(),
         "email": emailIdFieldController.text.trim().toLowerCase(),
@@ -48,7 +48,7 @@ class SignUpScreenController extends GetxController {
       SignUpData signUpData = SignUpData.fromJson(json.decode(response.body));
       isStatus = signUpData.success.obs;
 
-      if(isStatus.value){
+      if (isStatus.value) {
         var id = signUpData.data[0].id;
         var token = signUpData.data[0].rememberToken;
         var userName = signUpData.data[0].name;
@@ -60,8 +60,7 @@ class SignUpScreenController extends GetxController {
       } else {
         print('Register False');
       }
-
-    } catch(e) {
+    } catch (e) {
       print('Register Error : $e');
     } finally {
       isLoading(false);
@@ -102,10 +101,11 @@ class SignUpScreenController extends GetxController {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     googleSignIn.signOut();
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+          await googleSignInAccount.authentication;
       final AuthCredential authCredential = GoogleAuthProvider.credential(
           idToken: googleSignInAuthentication.idToken,
           accessToken: googleSignInAuthentication.accessToken);
@@ -151,7 +151,6 @@ class SignUpScreenController extends GetxController {
 
     await subPartOfFacebookLogin();
     await plugin.logOut();
-
   }
 
   subPartOfFacebookLogin() async {
@@ -171,15 +170,13 @@ class SignUpScreenController extends GetxController {
         emailIdFieldController.text = email!;
       }
       imageUrl = await plugin1.getProfileImageUrl(width: 100);
-      if(profile != null) {
-        if(profile!.userId.isNotEmpty) {
-
+      if (profile != null) {
+        if (profile!.userId.isNotEmpty) {
           String userName = profile!.name!;
           userNameFieldController.text = userName;
           passwordFieldController.text = "${userNameFieldController.text}@123";
 
           await getRegisterData();
-
 
           // prefs.setString('userId', profile!.userId);
           // prefs.setString('userName', profile!.firstName!);
@@ -193,8 +190,6 @@ class SignUpScreenController extends GetxController {
           // log('id: $userId, username : $uName, email : $uEmail, photo : $uPhotoUrl');
         }
       }
-
     }
   }
-
 }

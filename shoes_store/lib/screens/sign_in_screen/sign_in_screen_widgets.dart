@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shoes_store/common/app_colors.dart';
 import 'package:shoes_store/common/field_validation.dart';
@@ -28,6 +29,7 @@ class EmailIdTextField extends StatelessWidget {
         keyboardType: TextInputType.emailAddress,
         decoration: formInputDecoration(hintText: 'Email Id', radius: 30),
         validator: (value) => FieldValidator().validateEmail(value!),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );
   }
@@ -61,6 +63,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         controller: signInScreenController.passwordFieldController,
         keyboardType: TextInputType.visiblePassword,
         obscureText: isVisible,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(8),
+        ],
         decoration: formInputDecoration(
           hintText: 'Password',
           radius: 30,
@@ -74,7 +80,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               isVisible
                   ? Icons.remove_red_eye_rounded
                   : Icons.remove_red_eye_outlined,
-                  color: Colors.grey,
+              color: Colors.grey,
             ),
           ),
         ),

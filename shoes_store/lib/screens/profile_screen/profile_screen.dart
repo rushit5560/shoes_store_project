@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               profile(context),
               SizedBox(height: 10),
               profileName(),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Expanded(
                 child: tabView(),
               ),
@@ -67,40 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        profileScreenController.file != null
+        profileScreenController.userProfile != null
             ? Container(
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(80.0),
-                  shape: BoxShape.circle,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(100),
-                  ),
-                  child: Image.file(
-                    profileScreenController.file!,
-                    height: 120,
-                    width: 120,
-                    fit: BoxFit.cover,
-                    errorBuilder: (ctx, ibj, st) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                        child: Image.asset(
-                          Images.noImage,
-                          height: 120,
-                          width: 120,
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              )
-            : Container(
                 height: 120,
                 width: 120,
                 decoration: BoxDecoration(
@@ -116,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 120,
                     width: 120,
                     fit: BoxFit.cover,
-                    errorBuilder: (ctx, ibj, st) {
+                    errorBuilder: (ctx, obj, st) {
                       return ClipRRect(
                         borderRadius: BorderRadius.all(
                           Radius.circular(100),
@@ -130,6 +98,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                   ),
+
+                  // Image.file(
+                  //   profileScreenController.file!,
+                  //   height: 120,
+                  //   width: 120,
+                  //   fit: BoxFit.cover,
+                  //   errorBuilder: (ctx, obj, st) {
+                  //     return ClipRRect(
+                  //       borderRadius: BorderRadius.all(
+                  //         Radius.circular(100),
+                  //       ),
+                  //       child: Image.asset(
+                  //         Images.noImage,
+                  //         height: 120,
+                  //         width: 120,
+                  //         fit: BoxFit.cover,
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
+                ),
+              )
+            : Container(
+                height: 120,
+                width: 120,
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(80.0),
+                  shape: BoxShape.circle,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(100),
+                  ),
+                  child: Image.asset(
+                    Images.noImage,
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
         /*GestureDetector(
@@ -137,8 +144,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _showPicker(context);
           },
           child: Container(
-            height: 25,
-            width: 25,
+            height: 20,
+            width: 20,
             margin: EdgeInsets.only(right: 5,bottom: 5),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
@@ -179,7 +186,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         // mainTabsModule(),
         Divider(
-          color: Colors.grey,
+          color: Colors.grey.shade300,
           height: 1,
           thickness: 0.5,
         ),
@@ -392,15 +399,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 17,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 12),
                   Text(
                     '${profileScreenController.userData.email}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -419,11 +427,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
-                fontSize: 18,
+                fontSize: 17,
               ),
             ),
             SizedBox(height: 10),
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'No Address is given.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
 
             Container(
               width: double.infinity,
@@ -436,21 +457,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 17,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    '${profileScreenController.userAddress}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                  ),
+                  SizedBox(height: 10),
+                  profileScreenController.userAddress.isEmpty
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'No Shipping Address is given.',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          '${profileScreenController.userAddress}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
 
             Container(
               width: double.infinity,
@@ -463,22 +498,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
-                      fontSize: 15,
+                      fontSize: 17,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    '${profileScreenController.userAddressMobileNo}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                  ),
+                  SizedBox(height: 10),
+                  profileScreenController.userAddressMobileNo.isEmpty
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Contact information is not given.',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          '${profileScreenController.userAddressMobileNo}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
                 ],
               ),
             ),
-
-
 
             /*Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -580,7 +627,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           // color: Colors.black,
-                                          fontSize: 18),
+                                          fontSize: 17),
                                     ),
                                     SizedBox(height: 2),
                                     Text(
@@ -603,7 +650,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         SizedBox(width: 5),
                                         Text(
-                                          '\$250',
+                                          '\$200',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               // color: Colors.black,
@@ -677,5 +724,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     } else {}
   }
-
 }

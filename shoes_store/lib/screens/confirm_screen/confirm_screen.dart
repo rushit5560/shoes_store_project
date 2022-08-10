@@ -12,11 +12,12 @@ class ConfirmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
-
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 100,),
+          SizedBox(
+            height: 100,
+          ),
           Expanded(
             child: Stack(
               alignment: Alignment.topRight,
@@ -26,38 +27,53 @@ class ConfirmScreen extends StatelessWidget {
                   width: Get.width,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: Colors.white
-                  ),
+                      color: Colors.white),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(Images.ic_right),
-                      SizedBox(height: 20,),
-                      Text("Congratulation",
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),),
-                      SizedBox(height: 10,),
-                      Text("Your payment is completed",
-                        style: TextStyle(color: Colors.black, fontSize: 18),),
-
-                      SizedBox(height: 10,),
-                      Text("Please check your delivery status",
-                        style: TextStyle(color: Colors.black, fontSize: 18),),
-
-                      SizedBox(height: 20,),
-
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Congratulations",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22),
+                      ),
+                      SizedBox(height: 15),
+                      Text(
+                        "Your payment is completed ",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Please check your delivery status",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                      SizedBox(height: 30),
                       GestureDetector(
                         onTap: () {
-                          Get.offAll(()=> IndexScreen(), transition: Transition.zoom,);
+                          Get.offAll(
+                            () => IndexScreen(),
+                            transition: Transition.zoom,
+                          );
                         },
                         child: Container(
-                          height: 45, width: Get.width/2,
+                          height: 45,
+                          width: Get.width / 2,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              color: Colors.black
-                          ),
+                              color: Colors.black),
                           child: Center(
-                            child: Text("Continue Shopping",
-                              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                            child: Text(
+                              "Continue Shopping",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       )
@@ -82,8 +98,9 @@ class ConfirmScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 100,),
-          
+          SizedBox(
+            height: 100,
+          ),
         ],
       ),
     );

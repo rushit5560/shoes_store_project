@@ -316,6 +316,7 @@ class CustomDrawer extends StatelessWidget {
         customDrawerController.isLoading(false);
         Get.back();
         Get.snackbar("User logout successfully!", "");
+        Get.to(() => SignInScreen());
       },
       minLeadingWidth: 30,
       // leading: Image.asset(Images.ic_home, color: Colors.black, scale: 0.75),

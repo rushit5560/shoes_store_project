@@ -9,38 +9,44 @@ import 'change_password_sceen_widgets.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({Key? key}) : super(key: key);
-  final changePasswordScreenController = Get.put(ChangePasswordScreenController());
+  final changePasswordScreenController =
+      Get.put(ChangePasswordScreenController());
+  final size = Get.size;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorDarkPink,
+      resizeToAvoidBottomInset: true,
       appBar: commonAppBarModule(image: "Change Password"),
-
       body: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(30),topLeft: Radius.circular(30)),
-            color: Colors.white
-        ),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            color: Colors.white),
         child: Obx(
           () => changePasswordScreenController.isLoading.value
               ? CustomCircularProgressIndicator()
-              : Container(
-                  margin: EdgeInsets.only(left: 15, right: 15),
-                  child: Form(
-                    key: changePasswordScreenController.formKey,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 30),
-                        OldPasswordTextFieldModule(),
-                        const SizedBox(height: 20),
-                        NewPasswordTextFieldModule(),
-                        const SizedBox(height: 20),
-                        CNewPasswordTextFieldModule(),
-                        const SizedBox(height: 30),
-                        SubmitButtonModule(),
-                        const SizedBox(height: 20),
-                      ],
+              : SingleChildScrollView(
+                  child: Container(
+                    height: size.height * 0.9,
+                    margin: EdgeInsets.only(left: 15, right: 15),
+                    child: Form(
+                      key: changePasswordScreenController.formKey,
+                      child: Column(
+                        children: [
+                          Spacer(),
+                          OldPasswordTextFieldModule(),
+                          const SizedBox(height: 20),
+                          NewPasswordTextFieldModule(),
+                          const SizedBox(height: 20),
+                          CNewPasswordTextFieldModule(),
+                          const SizedBox(height: 30),
+                          SubmitButtonModule(),
+                          const SizedBox(height: 20),
+                          Spacer(),
+                        ],
+                      ),
                     ),
                   ),
                 ),

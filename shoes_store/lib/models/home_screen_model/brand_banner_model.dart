@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-GetBrandBannerModel getBrandBannerModelFromJson(String str) => GetBrandBannerModel.fromJson(json.decode(str));
+GetBrandBannerModel getBrandBannerModelFromJson(String str) =>
+    GetBrandBannerModel.fromJson(json.decode(str));
 
-String getBrandBannerModelToJson(GetBrandBannerModel data) => json.encode(data.toJson());
+String getBrandBannerModelToJson(GetBrandBannerModel data) =>
+    json.encode(data.toJson());
 
 class GetBrandBannerModel {
   GetBrandBannerModel({
@@ -19,17 +21,19 @@ class GetBrandBannerModel {
   List<BrandBanner> data;
   String message;
 
-  factory GetBrandBannerModel.fromJson(Map<String, dynamic> json) => GetBrandBannerModel(
-    success: json["success"] ?? false,
-    data: List<BrandBanner>.from(json["data"].map((x) => BrandBanner.fromJson(x)) ?? {}),
-    message: json["message"] ?? "",
-  );
+  factory GetBrandBannerModel.fromJson(Map<String, dynamic> json) =>
+      GetBrandBannerModel(
+        success: json["success"] ?? false,
+        data: List<BrandBanner>.from(
+            json["data"].map((x) => BrandBanner.fromJson(x)) ?? {}),
+        message: json["message"] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    "message": message,
-  };
+        "success": success,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "message": message,
+      };
 }
 
 class BrandBanner {
@@ -56,26 +60,26 @@ class BrandBanner {
   int modifiedBy;
 
   factory BrandBanner.fromJson(Map<String, dynamic> json) => BrandBanner(
-    brandId: json["brandID"] ?? 0,
-    brandName: json["brandName"] ?? "",
-    brandImage: json["brandImage"] ?? "",
-    sortOrder: json["sort_order"] ?? "",
-    isActive: json["is_active"] ?? 0,
-    createdDate: json["created_date"] ?? "",
-    updatedDate: json["updated_date"] ?? "",
-    createdBy: json["created_by"] ?? 0,
-    modifiedBy: json["modified_by"] ?? 0,
-  );
+        brandId: json["brandID"] ?? 0,
+        brandName: json["brandName"] ?? "",
+        brandImage: json["brandImage"] ?? "",
+        sortOrder: json["sort_order"] ?? "",
+        isActive: json["is_active"] ?? 0,
+        createdDate: json["created_date"] ?? "",
+        updatedDate: json["updated_date"] ?? "",
+        createdBy: json["created_by"] ?? 0,
+        modifiedBy: json["modified_by"] ?? 0,
+      );
 
   Map<String, dynamic> toJson() => {
-    "brandID": brandId,
-    "brandName": brandName,
-    "brandImage": brandImage,
-    "sort_order": sortOrder,
-    "is_active": isActive,
-    "created_date": createdDate,
-    "updated_date": updatedDate,
-    "created_by": createdBy,
-    "modified_by": modifiedBy,
-  };
+        "brandID": brandId,
+        "brandName": brandName,
+        "brandImage": brandImage,
+        "sort_order": sortOrder,
+        "is_active": isActive,
+        "created_date": createdDate,
+        "updated_date": updatedDate,
+        "created_by": createdBy,
+        "modified_by": modifiedBy,
+      };
 }
