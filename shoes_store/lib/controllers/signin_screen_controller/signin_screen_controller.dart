@@ -57,7 +57,11 @@ class SignInScreenController extends GetxController {
         print('id : $id \nToken : $token');
         CommonFunctions().setUserDetailsInPrefs(id, token, userName, userEmail);
         Get.offAll(() => IndexScreen());
-        Get.snackbar('User Login In Successfully.', '');
+        Get.snackbar(
+          'User Login Successfully.',
+          '',
+          colorText: Colors.white,
+        );
       } else {
         print('SignIn False');
       }

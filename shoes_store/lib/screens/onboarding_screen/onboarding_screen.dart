@@ -94,41 +94,42 @@ class OnBoardingScreen extends StatelessWidget {
       backgroundColor: AppColors.colorLightGrey,
       body: GestureDetector(
         onTap: () {
-          if(onBoardingController.isLastPage){
+          if (onBoardingController.isLastPage) {
             onBoardingController.setOnBoardingValue();
             onBoardingController.goToLoginScreen();
           }
         },
-        onHorizontalDragStart: (DragStartDetails start){
+        onHorizontalDragStart: (DragStartDetails start) {
           onBoardingController.goToLoginScreen();
         },
         child: Center(
           child: Container(
             margin: EdgeInsets.only(left: 20, right: 20),
             padding: EdgeInsets.only(bottom: 10),
-            height: Get.height/1.5,
+            height: Get.height / 1.5,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: AppColors.colorDarkPink
-            ),
+                borderRadius: BorderRadius.circular(20),
+                color: AppColors.colorDarkPink),
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-
                 PageView.builder(
                   controller: onBoardingController.pageController,
                   onPageChanged: onBoardingController.selectedPageIndex,
                   itemCount: onBoardingController.onBoardingPages.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: EdgeInsets.only(left: 10, right: 10, top: Get.height/7),
+                      padding: EdgeInsets.only(
+                          left: 15, right: 15, top: Get.height / 7),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.asset(onBoardingController
-                              .onBoardingPages[index].imageAsset,
-                            height: Get.height * 0.20,),
+                          Image.asset(
+                            onBoardingController
+                                .onBoardingPages[index].imageAsset,
+                            height: Get.height * 0.20,
+                          ),
                           SizedBox(height: 20),
                           Text(
                             onBoardingController.onBoardingPages[index].title,
@@ -140,49 +141,59 @@ class OnBoardingScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           Text(
-                            onBoardingController.onBoardingPages[index].description,
+                            onBoardingController
+                                .onBoardingPages[index].description,
                             //textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 17, color: Colors.white
-                            ),
+                            style: TextStyle(fontSize: 17, color: Colors.white),
                           ),
                         ],
                       ),
                     );
                   },
                 ),
-
                 Container(
-                  margin: EdgeInsets.only(left: 20, right: 20),
+                  margin: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    bottom: 10,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
                           prefs.setBool('onboarding', true);
                           Get.off(() => IndexScreen());
                           //Get.off(page);
                         },
                         child: Container(
                           child: Obx(
-                            ()=> Text(onBoardingController.isLastPage ? "Done" : "Skip",
-                              style: TextStyle(color: Colors.white),),
+                            () => Text(
+                              onBoardingController.isLastPage ? "Done" : "Skip",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
                           ),
                         ),
                       ),
-
                       Row(
-                        children: List.generate(onBoardingController.onBoardingPages.length,
-                              (index) => Obx(() => Container(
-                            margin: EdgeInsets.all(4),
-                            width: 12,
-                            height: 12,
-                            decoration: BoxDecoration(
-                                color: onBoardingController.selectedPageIndex.value == index ? Colors.white : Colors.grey,
-                                shape: BoxShape.circle
+                        children: List.generate(
+                          onBoardingController.onBoardingPages.length,
+                          (index) => Obx(
+                            () => Container(
+                              margin: EdgeInsets.all(4),
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(
+                                  color: onBoardingController
+                                              .selectedPageIndex.value ==
+                                          index
+                                      ? Colors.white
+                                      : Colors.grey,
+                                  shape: BoxShape.circle),
                             ),
-                          ),
                           ),
                         ),
                       ),

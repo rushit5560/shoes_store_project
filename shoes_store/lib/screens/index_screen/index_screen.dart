@@ -69,10 +69,10 @@ class _IndexScreenState extends State<IndexScreen> {
       // alignment: Alignment.center,
       decoration: BoxDecoration(
         color: AppColors.colorWhite,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
+        // borderRadius: const BorderRadius.only(
+        //   topLeft: Radius.circular(25),
+        //   topRight: Radius.circular(25),
+        // ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
