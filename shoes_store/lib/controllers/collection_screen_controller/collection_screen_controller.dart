@@ -22,7 +22,7 @@ class CollectionScreenController extends GetxController {
     print('Url : $url');
     try{
       http.Response response = await http.get(Uri.parse(url));
-
+      log('getCollectionData response : ${response.body}');
       ProductData productData = ProductData.fromJson(json.decode(response.body));
       isStatus = productData.success.obs;
 

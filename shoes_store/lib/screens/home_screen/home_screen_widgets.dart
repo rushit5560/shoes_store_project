@@ -147,7 +147,7 @@ class ImageBannerModule extends StatelessWidget {
   }
 }
 
-class BrandBannerModule extends StatelessWidget {
+/*class BrandBannerModule extends StatelessWidget {
   BrandBannerModule({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
 
@@ -202,7 +202,7 @@ class BrandBannerModule extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
 class ImageBannerIndicator extends StatelessWidget {
   ImageBannerIndicator({Key? key}) : super(key: key);

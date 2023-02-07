@@ -23,7 +23,7 @@ class ProductDetailsData {
 
   Map<String, dynamic> toJson() => {
     "success": success,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    // "data": List<dynamic>.from(data.map((x) => x.toJson())),
     "message": message,
   };
 }
@@ -80,7 +80,7 @@ class Datum {
   String outofStockStatus;
   String dateavailable;
   String sortorder;
-  String brandId;
+  int brandId;
   String variantsValues;
   String metaTagKeyword;
   String metaTagDescription;
@@ -119,7 +119,7 @@ class Datum {
     outofStockStatus: json["OutofStockStatus"] ?? "",
     dateavailable: json["dateavailable"] ?? "",
     sortorder: json["sortorder"] ?? "",
-    brandId: json["brand_id"] ?? "",
+    brandId: json["brand_id"] ?? 0,
     variantsValues: json["variants_values"] ?? "",
     metaTagKeyword: json["meta_tag_Keyword"] ?? "",
     metaTagDescription: json["meta_tag_description"] ?? "",
@@ -147,7 +147,7 @@ class Datum {
     modifiedDate: json["modified_date"] ?? "",
   );
 
-  Map<String, dynamic> toJson() => {
+  /*Map<String, dynamic> toJson() => {
     "id": id,
     "productname": productname.isEmpty ? "" : productname,
     "sku": sku.isEmpty ? "" : sku,
@@ -185,5 +185,5 @@ class Datum {
     "modified_by": modifiedBy.isEmpty ? "" : modifiedBy,
     "created_date": createdDate,
     "modified_date": modifiedDate.isEmpty ? "" : modifiedDate,
-  };
+  };*/
 }

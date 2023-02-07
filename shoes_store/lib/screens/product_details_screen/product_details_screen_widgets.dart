@@ -35,9 +35,7 @@ class ProductImageSliderModule extends StatelessWidget {
         itemCount:
             productDetailsScreenController.productDetailLists[0].images.length,
         itemBuilder: (context, index, realIndex) {
-          final imgUrl = ApiUrl.ApiMainPath +
-              productDetailsScreenController
-                  .productDetailLists[0].images[index];
+          final imgUrl = ApiUrl.ApiMainPath + productDetailsScreenController.productDetailLists[0].images[index];
           return Padding(
             padding: const EdgeInsets.only(top: 0, bottom: 20),
             child: Container(
@@ -178,12 +176,14 @@ class ProductDetailsModule extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RatingBar.builder(
-                initialRating: 3,
+                initialRating: 4.5,
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
                 itemSize: 25,
+                glow: false,
+                ignoreGestures: true,
                 itemBuilder: (context, _) => Icon(
                   Icons.star,
                   color: Colors.amber,
@@ -305,7 +305,7 @@ class ProductDetailsModule extends StatelessWidget {
           const SizedBox(height: 10),
           Html(
             data: productDetailsScreenController
-                .productDetailLists[0].fullText.paramCase,
+                .productDetailLists[0].fullText,
           ),
           const SizedBox(height: 10),
           productReview(),
@@ -385,8 +385,9 @@ class ProductDetailsModule extends StatelessWidget {
           ),
           SizedBox(height: 10),
           RatingBar.builder(
-            initialRating: 3,
+            initialRating: 1,
             minRating: 1,
+            glow: false,
             direction: Axis.horizontal,
             allowHalfRating: true,
             itemCount: 5,

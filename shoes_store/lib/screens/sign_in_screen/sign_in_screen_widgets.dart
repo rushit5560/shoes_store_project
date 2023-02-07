@@ -64,9 +64,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         keyboardType: TextInputType.visiblePassword,
         obscureText: isVisible,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(8),
-        ],
+        // inputFormatters: [
+        //   LengthLimitingTextInputFormatter(8),
+        // ],
         decoration: formInputDecoration(
           hintText: 'Password',
           radius: 30,

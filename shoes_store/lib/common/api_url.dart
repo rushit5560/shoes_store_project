@@ -37,7 +37,7 @@ class ApiUrl {
   static const UserTotalOrderApi = ApiMainPath + 'api/usertotalorder';
   static const OrderDetailsApi = ApiMainPath + 'api/orderdetails';
   static const GetProfileApi = ApiMainPath + "api/profile/";
-  static const GetBrandBannerApi = ApiMainPath + "api/brandbanner/";
+  static const GetBrandBannerApi = ApiMainPath + "api/brandbanner";
 
   static const GetRelatedProductsApi = ApiMainPath + "api/related/";
   static const ForgotPasswordApi = ApiMainPath + "api/forgetpassword";

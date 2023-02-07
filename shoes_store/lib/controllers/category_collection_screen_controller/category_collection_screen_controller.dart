@@ -25,7 +25,7 @@ class CategoryCollectionScreenController extends GetxController {
       Map data = {"id": "$categoryId"};
 
       http.Response response = await http.post(Uri.parse(url), body: data);
-
+      log("response :${response.body}");
       CategoryCollectionModel categoryCollectionModel =
           CategoryCollectionModel.fromJson(json.decode(response.body));
       isStatus = categoryCollectionModel.success.obs;

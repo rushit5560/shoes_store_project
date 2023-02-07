@@ -46,7 +46,7 @@ class ProductDetailsScreenController extends GetxController {
       log("data : $data");
 
       http.Response response = await http.post(Uri.parse(url), body: data);
-      log("response : ${response.body}");
+      // log("response : ${response.body}");
 
       ProductDetailsData productDetailsData =
           ProductDetailsData.fromJson(json.decode(response.body));
@@ -61,8 +61,8 @@ class ProductDetailsScreenController extends GetxController {
     } catch (e) {
       print('Product Details Error : $e');
     } finally {
-      // isLoading(false);
-      await getRelatedProductFunction();
+      isLoading(false);
+      // await getRelatedProductFunction();
       // getProductReview();
     }
   }
@@ -202,35 +202,34 @@ class ProductDetailsScreenController extends GetxController {
     isLoading(false);
   }
 
-  Future<void> getRelatedProductFunction() async {
-    isLoading(true);
-    String url = ApiUrl.GetRelatedProductsApi + "$productId";
-    log('Related product list url : $url');
-    try {
-      http.Response response = await http.get(Uri.parse(url));
-      log('Related product response: ${response.body}');
-
-      RelatedProductsModel relatedProductsModel =
-          RelatedProductsModel.fromJson(json.decode(response.body));
-      isStatus = relatedProductsModel.success.obs;
-
-      if (isStatus.value) {
-        //relatedProductLists.clear();
-        relatedProductLists = relatedProductsModel.data;
-        log("relatedProductLists : ${relatedProductLists.length}");
-      } else {
-        log("getRelatedProductFunction Else Else");
-      }
-    } catch (e) {
-      log("getRelatedProductFunction Error ::: $e");
-    } finally {
-      isLoading(false);
-    }
-  }
+  // Future<void> getRelatedProductFunction() async {
+  //   isLoading(true);
+  //   String url = ApiUrl.GetRelatedProductsApi + "$productId";
+  //   log('Related product list url : $url');
+  //   try {
+  //     http.Response response = await http.get(Uri.parse(url));
+  //     log('Related product response: ${response.body}');
+  //
+  //     RelatedProductsModel relatedProductsModel =
+  //         RelatedProductsModel.fromJson(json.decode(response.body));
+  //     isStatus = relatedProductsModel.success.obs;
+  //
+  //     if (isStatus.value) {
+  //       //relatedProductLists.clear();
+  //       relatedProductLists = relatedProductsModel.data;
+  //       log("relatedProductLists : ${relatedProductLists.length}");
+  //     } else {
+  //       log("getRelatedProductFunction Else Else");
+  //     }
+  //   } catch (e) {
+  //     log("getRelatedProductFunction Error ::: $e");
+  //   } finally {
+  //     isLoading(false);
+  //   }
+  // }
 
   @override
   void onInit() {
-    getProductDetailData();
     getUserDetailFromPrefs();
     super.onInit();
   }
@@ -239,5 +238,6 @@ class ProductDetailsScreenController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     userId = prefs.getInt('id').toString();
     print('UserId : $userId');
+    await getProductDetailData();
   }
 }

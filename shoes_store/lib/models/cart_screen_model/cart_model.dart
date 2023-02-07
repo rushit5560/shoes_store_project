@@ -173,7 +173,7 @@ class Cartditeil {
   String outofStockStatus;
   String dateavailable;
   String sortorder;
-  String brandId;
+  int brandId;
   String variantsValues;
   String metaTagKeyword;
   String metaTagDescription;
@@ -224,7 +224,7 @@ class Cartditeil {
     outofStockStatus: json["OutofStockStatus"] ?? "",
     dateavailable: json["dateavailable"] ?? "",
     sortorder: json["sortorder"] ?? "",
-    brandId: json["brand_id"] ?? "",
+    brandId: json["brand_id"] ?? 0,
     variantsValues: json["variants_values"] ?? "",
     metaTagKeyword: json["meta_tag_Keyword"] ?? "",
     metaTagDescription: json["meta_tag_description"] ?? "",

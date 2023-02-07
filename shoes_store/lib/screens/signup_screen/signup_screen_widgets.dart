@@ -195,7 +195,7 @@ class LoginWithFacebookModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        signUpScreenController.signInWithFacebookFunction();
+        // signUpScreenController.signInWithFacebookFunction();
       },
       child: Container(
         height: 50,

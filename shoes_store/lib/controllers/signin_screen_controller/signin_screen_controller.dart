@@ -24,26 +24,26 @@ class SignInScreenController extends GetxController {
 
       http.Response response = await http.post(Uri.parse(url), body: data);
 
-      if (response.body.contains('"success": false')) {
-      } else {}
+      // if (response.body.contains('"success": false')) {
+      // } else {}
 
       // When User SignIn Failed
-      if (response.body.contains('Email don')) {
-        print('Email Don\'t Match');
-        Get.snackbar(
-          'Login Failed !',
-          'Email Don\'t Match',
-          colorText: Colors.white,
-        );
-      }
-      if (response.body.contains('password don')) {
-        print('Password Don\'t Match');
-        Get.snackbar(
-          'Login Failed !',
-          'Password Don\'t Match',
-          colorText: Colors.white,
-        );
-      } //
+      // if (response.body.contains('Email don')) {
+      //   print('Email Don\'t Match');
+      //   Get.snackbar(
+      //     'Login Failed !',
+      //     'Email Don\'t Match',
+      //     colorText: Colors.white,
+      //   );
+      // }
+      // if (response.body.contains('password don')) {
+      //   print('Password Don\'t Match');
+      //   Get.snackbar(
+      //     'Login Failed !',
+      //     'Password Don\'t Match',
+      //     colorText: Colors.white,
+      //   );
+      // }
 
       SignInData signInData = signInDataFromJson(response.body);
       isStatus = signInData.success.obs;

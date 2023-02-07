@@ -54,6 +54,7 @@ class HomeScreenController extends GetxController {
     try {
       http.Response response = await http.get(Uri.parse(url));
 
+      log('response : ${response.body}');
       GetBrandBannerModel getBrandBannerModel =
           GetBrandBannerModel.fromJson(json.decode(response.body));
       isStatus = getBrandBannerModel.success.obs;
@@ -78,7 +79,7 @@ class HomeScreenController extends GetxController {
 
     try {
       http.Response response = await http.get(Uri.parse(url));
-
+      log('getFeaturedProductData response : ${response.body}');
       FeaturedProductData featuredProductData =
           FeaturedProductData.fromJson(json.decode(response.body));
       isStatus = featuredProductData.success.obs;
